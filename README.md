@@ -87,7 +87,7 @@ graph TD
 
 ## What a Running Demo Run Looks Like
 
-Here's an animated GIF that shows how the GRAIL client works. Once given a goal state (`emailUpdated`) the GRAIL clients immeidately attempts the related affordance. If the result is `BLOCKED`, the client scans for unmet conditions (new affordances) and executes the next availble affordance. This process of attemtping and responding to blocked attempts evenutally results in a completed task.
+Here's an animated GIF that shows how the GRAIL client works. Once given a goal state (`emailUpdated`) the GRAIL client immediately attempts the related affordance. If the result is `BLOCKED`, the client scans for unmet conditions (new affordances) and executes the next availble affordance. This process of attemtping and responding to blocked attempts evenutally results in a completed task.
 
 ![GRAIL Demo](grail-demo.gif)
 
