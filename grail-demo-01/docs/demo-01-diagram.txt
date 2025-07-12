@@ -1,0 +1,10 @@
+graph TD
+  login[login]
+  readRecord[readRecord]
+  updateEmail[updateEmail]
+
+  login -->|produces| authenticated
+  authenticated -->|needed by| readRecord
+  readRecord -->|produces| recordLoaded
+  recordLoaded -->|needed by| updateEmail
+

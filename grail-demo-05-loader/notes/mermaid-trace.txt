@@ -1,0 +1,12 @@
+graph TD
+  Start([Start Pursuit: submitApplication]) --> SubmitApp1[submitApplication]
+  SubmitApp1 -->|Blocked: emailVerified| VerifyEmail1[verifyEmail]
+  VerifyEmail1 -->|Blocked: formCompleted| FillForm[fillOutForm]
+  FillForm -->|Success| VerifyEmail2[verifyEmail retry]
+  VerifyEmail2 -->|Success| SubmitApp2[submitApplication retry]
+  SubmitApp2 -->|Blocked: portfolioUploaded| UploadPortfolio
+  UploadPortfolio -->|Success| SubmitApp3[submitApplication retry]
+  SubmitApp3 -->|Blocked: referencesSubmitted| SubmitReferences
+  SubmitReferences -->|Success| SubmitApp4[submitApplication final]
+  SubmitApp4 -->|Success| End([Application Submitted])
+

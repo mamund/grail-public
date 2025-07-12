@@ -1,0 +1,7 @@
+{
+  "fullName": "Jordan Smith",
+  "email": "jordan@example.com",
+  "resume": "resume.pdf",
+  "portfolioLink": "https://portfolio.example.com",
+  "references": ["alice@example.com", "bob@example.com"]
+}

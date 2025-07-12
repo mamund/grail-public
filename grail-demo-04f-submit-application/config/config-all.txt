@@ -1,0 +1,67 @@
+--- goal.json ---
+{
+  "goal": "submitApplication"
+}
+
+--- registry.json ---
+[
+  {
+    "id": "fillOutForm",
+    "action": "fillOutForm",
+    "type": "task",
+    "preconditions": [],
+    "inputs": ["fullName", "email", "resume"],
+    "effects": ["formCompleted"]
+  },
+  {
+    "id": "verifyEmail",
+    "action": "verifyEmail",
+    "type": "task",
+    "preconditions": ["formCompleted"],
+    "inputs": ["email"],
+    "effects": ["emailVerified"]
+  },
+  {
+    "id": "uploadPortfolio",
+    "action": "uploadPortfolio",
+    "type": "task",
+    "preconditions": ["formCompleted"],
+    "inputs": ["portfolioLink"],
+    "effects": ["portfolioUploaded"]
+  },
+  {
+    "id": "submitReferences",
+    "action": "submitReferences",
+    "type": "task",
+    "preconditions": ["emailVerified"],
+    "inputs": ["references"],
+    "effects": ["referencesSubmitted"]
+  },
+  {
+    "id": "submitApplication",
+    "action": "submitApplication",
+    "type": "task",
+    "preconditions": ["emailVerified", "portfolioUploaded", "referencesSubmitted"],
+    "inputs": [],
+    "effects": ["applicationSubmitted"]
+  }
+]
+
+--- inputs.json ---
+{
+  "fullName": "Jordan Smith",
+  "email": "jordan@example.com",
+  "resume": "resume.pdf",
+  "portfolioLink": "https://portfolio.example.com",
+  "references": ["alice@example.com", "bob@example.com"]
+}
+
+--- worldstate.json ---
+{
+  "formCompleted": false,
+  "emailVerified": false,
+  "portfolioUploaded": false,
+  "referencesSubmitted": false,
+  "applicationSubmitted": false
+}
+

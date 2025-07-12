@@ -1,0 +1,31 @@
+graph TD
+
+%% Nodes (Affordance Actions)
+A1[fillOutForm]
+A2[verifyEmail]
+A3[uploadPortfolio]
+A4[submitReferences]
+A5[submitApplication]
+
+%% Effects / Preconditions (Facts)
+F1(formCompleted)
+F2(emailVerified)
+F3(portfolioUploaded)
+F4(referencesSubmitted)
+F5(applicationSubmitted)
+
+%% Edges: Action -> Effects
+A1 --> F1
+A2 --> F2
+A3 --> F3
+A4 --> F4
+A5 --> F5
+
+%% Edges: Preconditions -> Action
+F1 --> A2
+F1 --> A3
+F2 --> A4
+F2 --> A5
+F3 --> A5
+F4 --> A5
+

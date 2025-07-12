@@ -1,0 +1,43 @@
+{
+  "fillOutForm": {
+    "id": "aff-1",
+    "action": "fillOutForm",
+    "type": "task",
+    "preconditions": [],
+    "inputs": ["fullName", "email", "resume"],
+    "effects": ["formCompleted"]
+  },
+  "verifyEmail": {
+    "id": "aff-2",
+    "action": "verifyEmail",
+    "type": "task",
+    "preconditions": ["formCompleted"],
+    "inputs": ["email"],
+    "effects": ["emailVerified"]
+  },
+  "uploadPortfolio": {
+    "id": "aff-3",
+    "action": "uploadPortfolio",
+    "type": "task",
+    "preconditions": ["formCompleted"],
+    "inputs": ["portfolioLink"],
+    "effects": ["portfolioUploaded"]
+  },
+  "submitReferences": {
+    "id": "aff-4",
+    "action": "submitReferences",
+    "type": "task",
+    "preconditions": ["emailVerified"],
+    "inputs": ["references"],
+    "effects": ["referencesSubmitted"]
+  },
+  "submitApplication": {
+    "id": "aff-5",
+    "action": "submitApplication",
+    "type": "task",
+    "preconditions": ["emailVerified", "portfolioUploaded", "referencesSubmitted"],
+    "inputs": [],
+    "effects": ["applicationSubmitted"]
+  }
+}
+

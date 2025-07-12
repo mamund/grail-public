@@ -1,0 +1,42 @@
+{
+  "approveDocument": {
+    "id": "aff-1",
+    "action": "approveDocument",
+    "type": "approve",
+    "preconditions": ["documentValidated"],
+    "inputs": ["documentId"],
+    "effects": ["documentApproved"]
+  },
+  "validateDocument": {
+    "id": "aff-2",
+    "action": "validateDocument",
+    "type": "validate",
+    "preconditions": ["documentUploaded", "complianceChecked"],
+    "inputs": ["documentId"],
+    "effects": ["documentValidated"]
+  },
+  "uploadDocument": {
+    "id": "aff-3",
+    "action": "uploadDocument",
+    "type": "create",
+    "preconditions": [],
+    "inputs": ["documentId", "documentFile"],
+    "effects": ["documentUploaded"]
+  },
+  "checkCompliance": {
+    "id": "aff-4",
+    "action": "checkCompliance",
+    "type": "verify",
+    "preconditions": ["riskProfileEvaluated"],
+    "inputs": ["documentId"],
+    "effects": ["complianceChecked"]
+  },
+  "evaluateRiskProfile": {
+    "id": "aff-5",
+    "action": "evaluateRiskProfile",
+    "type": "analyze",
+    "preconditions": [],
+    "inputs": ["documentId"],
+    "effects": ["riskProfileEvaluated"]
+  }
+}

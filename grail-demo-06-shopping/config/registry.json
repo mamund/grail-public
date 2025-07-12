@@ -1,0 +1,83 @@
+{
+  "selectItem": {
+    "id": "aff-p1",
+    "action": "selectItem",
+    "type": "task",
+    "preconditions": [],
+    "inputs": ["itemId"],
+    "effects": ["itemSelected"]
+  },
+  "readCartDetails": {
+    "id": "aff-p2",
+    "action": "readCartDetails",
+    "type": "task",
+    "preconditions": ["itemSelected"],
+    "inputs": ["itemId"],
+    "effects": ["cartDetails"]
+  },
+  "computeCartCost" : {
+    "id": "aff-p3a",
+    "action": "computeCartCost",
+    "type": "task",
+    "preconditions": ["cartDetails"],
+    "inputs": [],
+    "effects": ["cartCostComputed"]
+  },
+  "applyDiscount": {
+    "id": "aff-p3",
+    "action": "applyDiscount",
+    "type": "task",
+    "preconditions": ["cartCostComputed"],
+    "inputs": ["discountCode"],
+    "effects": ["discountApplied"]
+  },
+  "computeTaxes": {
+    "id": "aff-p4",
+    "action": "computeTaxes",
+    "type": "task",
+    "preconditions": ["discountApplied"],
+    "inputs": ["taxLocation"],
+    "effects": ["taxesComputed"]
+  },
+  "setShippingAddress": {
+    "id": "aff-p5",
+    "action": "setShippingAddress",
+    "type": "task",
+    "preconditions": ["cartCostComputed"],
+    "inputs": ["shippingAddress"],
+    "effects": ["shippingAddressSet"]
+  },
+  "loginUser": {
+    "id": "aff-p6",
+    "action": "loginUser",
+    "type": "task",
+    "preconditions": [],
+    "inputs": ["username", "password"],
+    "effects": ["userLoggedIn"]
+  },
+  "SetPaymentMethod": {
+    "id": "aff-p7",
+    "action": "SetPaymentMethod",
+    "type": "task",
+    "preconditions": ["userLoggedIn"],
+    "inputs": ["cardId","cardCode"],
+    "effects": ["paymentMethodSet"]
+  },
+  "submitFinalOrder": {
+    "id": "aff-p8",
+    "action": "submitFinalOrder",
+    "type": "task",
+    "preconditions": [
+      "cartDetails",
+      "cartCostComputed",
+      "discountApplied",
+      "taxesComputed",
+      "shippingAddressSet",
+      "paymentMethodSet",
+      "userLoggedIn"
+    ],
+    "inputs": [],
+    "effects": ["finalOrderSubmitted"]
+  }
+}
+

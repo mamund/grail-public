@@ -1,0 +1,22 @@
+
+[CLIENT] Starting pursuit: updateEmail
+
+[SERVER] Attempting affordance: updateEmail
+[SERVER] Blocked: unmet precondition: recordLoaded
+[CLIENT] Pushing next affordance: readRecord
+
+[SERVER] Attempting affordance: readRecord
+[SERVER] Blocked: unmet precondition: authenticated
+[CLIENT] Pushing next affordance: login
+
+[SERVER] Attempting affordance: login
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: login
+
+[SERVER] Attempting affordance: readRecord
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: readRecord
+
+[SERVER] Attempting affordance: updateEmail
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: updateEmail

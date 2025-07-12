@@ -1,0 +1,10 @@
+graph TD
+  A5[evaluateRiskProfile] --> E5[riskProfileEvaluated]
+  E5 --> A4[checkCompliance]
+  A4 --> E4[complianceChecked]
+  A3[uploadDocument] --> E3[documentUploaded]
+  E3 --> A2[validateDocument]
+  E4 --> A2
+  A2 --> E2[documentValidated]
+  E2 --> A1[approveDocument]
+  A1 --> E1[documentApproved]

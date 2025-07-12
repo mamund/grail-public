@@ -1,0 +1,42 @@
+[
+  {
+    "id": "fillOutForm",
+    "action": "fillOutForm",
+    "type": "task",
+    "preconditions": [],
+    "inputs": ["fullName", "email", "resume"],
+    "effects": ["formCompleted"]
+  },
+  {
+    "id": "verifyEmail",
+    "action": "verifyEmail",
+    "type": "task",
+    "preconditions": ["formCompleted"],
+    "inputs": ["email"],
+    "effects": ["emailVerified"]
+  },
+  {
+    "id": "uploadPortfolio",
+    "action": "uploadPortfolio",
+    "type": "task",
+    "preconditions": ["formCompleted"],
+    "inputs": ["portfolioLink"],
+    "effects": ["portfolioUploaded"]
+  },
+  {
+    "id": "submitReferences",
+    "action": "submitReferences",
+    "type": "task",
+    "preconditions": ["emailVerified"],
+    "inputs": ["references"],
+    "effects": ["referencesSubmitted"]
+  },
+  {
+    "id": "submitApplication",
+    "action": "submitApplication",
+    "type": "task",
+    "preconditions": ["emailVerified", "portfolioUploaded", "referencesSubmitted"],
+    "inputs": [],
+    "effects": ["applicationSubmitted"]
+  }
+]

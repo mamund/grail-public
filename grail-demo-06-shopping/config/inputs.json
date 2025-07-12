@@ -1,0 +1,11 @@
+{
+  "itemId": "sku-12345",
+  "discountCode": "SUMMER25",
+  "taxLocation" : "Periax",
+  "username": "jordan@example.com",
+  "password": "hunter2",
+  "shippingAddress" : "123 Main St. Periax, SX 12345",
+  "cardId" : "1234-5678-9012-3456",
+  "cardCode" : "806"
+}
+

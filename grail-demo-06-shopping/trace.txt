@@ -1,0 +1,76 @@
+
+[CLIENT] Starting pursuit: submitApplication
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Blocked: unmet precondition: emailVerified
+[CLIENT] Pushing next affordance: verifyEmail
+
+[SERVER] Attempting affordance: verifyEmail
+[SERVER] Blocked: unmet precondition: formCompleted
+[CLIENT] Pushing next affordance: fillOutForm
+
+[SERVER] Attempting affordance: fillOutForm
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: fillOutForm
+
+[SERVER] Attempting affordance: verifyEmail
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: verifyEmail
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Blocked: unmet precondition: portfolioUploaded
+[CLIENT] Pushing next affordance: uploadPortfolio
+
+[SERVER] Attempting affordance: uploadPortfolio
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: uploadPortfolio
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Blocked: unmet precondition: referencesSubmitted
+[CLIENT] Pushing next affordance: submitReferences
+
+[SERVER] Attempting affordance: submitReferences
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: submitReferences
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: submitApplication
+
+[CLIENT] Starting pursuit: submitApplication
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Blocked: unmet precondition: emailVerified
+[CLIENT] Pushing next affordance: verifyEmail
+
+[SERVER] Attempting affordance: verifyEmail
+[SERVER] Blocked: unmet precondition: formCompleted
+[CLIENT] Pushing next affordance: fillOutForm
+
+[SERVER] Attempting affordance: fillOutForm
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: fillOutForm
+
+[SERVER] Attempting affordance: verifyEmail
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: verifyEmail
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Blocked: unmet precondition: portfolioUploaded
+[CLIENT] Pushing next affordance: uploadPortfolio
+
+[SERVER] Attempting affordance: uploadPortfolio
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: uploadPortfolio
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Blocked: unmet precondition: referencesSubmitted
+[CLIENT] Pushing next affordance: submitReferences
+
+[SERVER] Attempting affordance: submitReferences
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: submitReferences
+
+[SERVER] Attempting affordance: submitApplication
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: submitApplication

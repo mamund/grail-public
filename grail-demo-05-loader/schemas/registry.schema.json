@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Affordance Registry",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": ["id", "action", "type", "preconditions", "inputs", "effects"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "action": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["task"]
+      },
+      "preconditions": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "inputs": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "effects": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "execute": {
+        "type": "object",
+        "required": ["type", "name"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["function"]
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}
+

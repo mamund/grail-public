@@ -1,0 +1,8 @@
+{
+  "authenticated": true,
+  "documentUploaded": false,
+  "documentValidated": false,
+  "documentApproved": false,
+  "complianceChecked": false,
+  "riskProfileEvaluated": false
+}

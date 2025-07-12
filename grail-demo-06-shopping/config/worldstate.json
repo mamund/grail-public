@@ -1,0 +1,12 @@
+{
+  "itemSelected": false,
+  "cartDetails": false,
+  "cartCostComputed": false,
+  "discountApplied": false,
+  "taxesComputed": false,
+  "shippingAddressSet": false,
+  "userLoggedIn": false,
+  "paymentMethodSet": false,
+  "finalOrderSubmitted": false
+}
+

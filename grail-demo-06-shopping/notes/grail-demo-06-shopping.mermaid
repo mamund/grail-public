@@ -1,0 +1,63 @@
+graph TD
+
+%% Affordances
+A1[selectItem]
+A2[readCartDetails]
+A3[computeCartCost]
+A4[applyDiscount]
+A5[computeTaxes]
+A6[setShippingAddress]
+A7[loginUser]
+A8[SetPaymentMethod]
+A9[submitFinalOrder]
+
+%% Effects / Preconditions (Facts)
+F1[itemSelected]
+F2[cartDetails]
+F3[cartCostComputed]
+F4[discountApplied]
+F5[taxesComputed]
+F6[shippingAddressSet]
+F7[userLoggedIn]
+F8[paymentMethodSet]
+F9[finalOrderSubmitted]
+
+%% selectItem
+A1 --> F1
+F1 --> A2
+
+%% readCartDetails
+A2 --> F2
+F2 --> A3
+
+%% computeCartCost
+A3 --> F3
+F3 --> A4
+F3 --> A6
+
+%% applyDiscount
+A4 --> F4
+F4 --> A5
+
+%% computeTaxes
+A5 --> F5
+
+%% setShippingAddress
+A6 --> F6
+
+%% loginUser
+A7 --> F7
+F7 --> A8
+
+%% SetPaymentMethod
+A8 --> F8
+
+%% submitFinalOrder
+F2 --> A9
+F3 --> A9
+F4 --> A9
+F5 --> A9
+F6 --> A9
+F7 --> A9
+F8 --> A9
+A9 --> F9
