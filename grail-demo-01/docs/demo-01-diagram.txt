@@ -1,10 +1,7 @@
 graph TD
-  login[login]
-  readRecord[readRecord]
-  updateEmail[updateEmail]
-
-  login -->|produces| authenticated
-  authenticated -->|needed by| readRecord
-  readRecord -->|produces| recordLoaded
-  recordLoaded -->|needed by| updateEmail
+  A3[login] --> E3[authenticated]
+  E3 --> A2[readRecord]
+  A2 --> E2[recordLoaded]
+  E2 --> A1[updateEmail]
+  A1 --> E1[emailUpdated]
 
