@@ -1,7 +1,7 @@
-# GRAIL Demo: Goal-Seeking Agents with Recursive Affordance Logic
+# GRAIL Demo: Goal-Resolution through Affordance-Informed Logic
 
 This demo illustrates the GRAIL model:  
-**Goal-seeking via Recursive Affordance-based Interaction Logic.**
+**Goal-Resolution through Affordance-Informed Logic.**
 
 It shows how an autonomous client agent can start with a high-level goal (like updating a user’s email), and dynamically discover the necessary steps through interaction — without knowing the plan in advance.
 
