@@ -8,7 +8,7 @@ Let’s place it in context first.
 
 ---
 
-### 🧠 GRAIL Has Historical Precedents
+###  GRAIL Has Historical Precedents
 
 Many established models work backward from the goal:
 
@@ -23,7 +23,7 @@ These systems **plan**, **simulate**, or **reason** toward the goal, often requi
 
 ---
 
-### 🧬 What GRAIL Does Differently
+###  What GRAIL Does Differently
 
 GRAIL borrows the *goal-first posture*, but applies it to the **wild world of APIs** using real-time affordances.
 
@@ -31,7 +31,7 @@ Here’s what makes GRAIL unique:
 
 ---
 
-#### ✅ 1. Affordance-Aware, Not Plan-Aware
+####  1. Affordance-Aware, Not Plan-Aware
 
 GRAIL doesn't build a full plan in advance.
 
@@ -41,7 +41,7 @@ This is **failure-driven discovery**, not prediction.
 
 ---
 
-#### 🌐 2. Runs on Web-Native Infrastructure
+####  2. Runs on Web-Native Infrastructure
 
 Unlike older planning systems, GRAIL is designed to run on top of:
 
@@ -54,7 +54,7 @@ No semantic reasoners. No ontology engines. Just **affordances encoded in web-na
 
 ---
 
-#### 🔁 3. Uses a Pursuit Stack, Not a Script
+####  3. Uses a Pursuit Stack, Not a Script
 
 When an affordance fails, it's **pushed onto a pursuit stack**.
 
@@ -64,7 +64,7 @@ This produces a dynamic, reversible interaction path—**learned through executi
 
 ---
 
-#### 🧰 4. Built for Real-World API Conditions
+####  4. Built for Real-World API Conditions
 
 APIs in the wild are often messy:
 
@@ -76,7 +76,7 @@ APIs in the wild are often messy:
 
 ---
 
-#### 🤝 5. Works with Human-Centered APIs
+####  5. Works with Human-Centered APIs
 
 Many agent systems assume machine-optimized interfaces.
 
@@ -86,7 +86,7 @@ It’s not a replacement—it’s a survivor.
 
 ---
 
-#### 🧭 6. Composable, Observable, and Reversible
+####  6. Composable, Observable, and Reversible
 
 GRAIL fits naturally into modern composable systems:
 
@@ -98,7 +98,7 @@ This makes it friendly for **auditing, debugging, and retry logic**—things mos
 
 ---
 
-### ✨ In Summary
+###  In Summary
 
 **GRAIL doesn’t try to outsmart the system. It collaborates with it.**
 
