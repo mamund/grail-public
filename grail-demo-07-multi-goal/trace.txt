@@ -1,0 +1,22 @@
+
+[CLIENT] Starting pursuit: changeCustomerEmail
+
+[SERVER] Attempting affordance: changeCustomerEmail
+[SERVER] Blocked: unmet precondition: customerEmailChangePrepared
+[CLIENT] Pushing next affordance: prepareCustomerEmailChange
+
+[SERVER] Attempting affordance: prepareCustomerEmailChange
+[SERVER] Blocked: unmet precondition: customerLoaded
+[CLIENT] Pushing next affordance: loadCustomer
+
+[SERVER] Attempting affordance: loadCustomer
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: loadCustomer
+
+[SERVER] Attempting affordance: prepareCustomerEmailChange
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: prepareCustomerEmailChange
+
+[SERVER] Attempting affordance: changeCustomerEmail
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: changeCustomerEmail

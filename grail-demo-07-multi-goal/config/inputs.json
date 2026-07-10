@@ -1,0 +1,28 @@
+{
+  "customerId": "customer-123",
+
+  "givenName": "Jordan",
+  "familyName": "Example",
+
+  "email": "jordan@example.com",
+  "newEmail": "jordan.new@example.com",
+  "emailVerificationCode": "123456",
+
+  "phoneNumber": "+1-555-555-0100",
+  "newPhoneNumber": "+1-555-555-0199",
+  "phoneVerificationCode": "654321",
+
+  "streetAddress": "123 Main St.",
+  "locality": "Periax",
+  "region": "SX",
+  "postalCode": "12345",
+  "country": "US",
+
+  "newStreetAddress": "456 Market St.",
+  "newLocality": "Periax",
+  "newRegion": "SX",
+  "newPostalCode": "12346",
+  "newCountry": "US",
+
+  "termsVersion": "2026-07"
+}
