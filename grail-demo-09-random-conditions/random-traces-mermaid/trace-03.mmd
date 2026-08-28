@@ -1,12 +1,32 @@
 flowchart TD
-    A[startCustomerOnboarding]
-    B[collectCustomerProfile]
-    C[acceptCustomerTerms]
-    D[setCustomerPhoneNumber]
-    E[verifyCustomerPhoneNumber]
-    F[setCustomerEmail]
-    G[verifyCustomerEmail]
-    H[setCustomerAddress]
-    I[onboardCustomer]
 
-    A --> B --> C --> D --> E --> F --> G --> H --> I
+    OC[onboardCustomer]
+    SO[startCustomerOnboarding]
+    AT[acceptCustomerTerms]
+    CP[collectCustomerProfile]
+    VP[verifyCustomerPhoneNumber]
+    SP[setCustomerPhoneNumber]
+    VE[verifyCustomerEmail]
+    SE[setCustomerEmail]
+    SA[setCustomerAddress]
+
+    OC -->|1| SO
+    SO -->|2| OC
+
+    OC -->|3| AT
+    AT -->|4| CP
+    CP -->|5| AT
+    AT -->|6| OC
+
+    OC -->|7| VP
+    VP -->|8| SP
+    SP -->|9| VP
+    VP -->|10| OC
+
+    OC -->|11| VE
+    VE -->|12| SE
+    SE -->|13| VE
+    VE -->|14| OC
+
+    OC -->|15| SA
+    SA -->|16| OC
