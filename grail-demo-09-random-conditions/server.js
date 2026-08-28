@@ -28,19 +28,6 @@ export class Server {
         return { success: false, offeredAffordances: [] };
       }
     }
-    /*
-    for (let pre of affordance.preconditions) {
-      if (!this.worldState.isPreconditionMet(pre)) {
-        console.log(`[SERVER] Blocked: unmet precondition: ${pre}`);
-        const nextAffordance = this.findAffordanceForPrecondition(pre);
-        if (nextAffordance) {
-          return { success: false, offeredAffordances: [nextAffordance] };
-        } else {
-          return { success: false, offeredAffordances: [] };
-        }
-      }
-    }
-    */
     
     for (let requiredInput of affordance.inputs) {
       if (!(requiredInput in inputs)) {
