@@ -1,0 +1,209 @@
+{
+  "startCustomerOnboarding": {
+    "id": "aff-c1",
+    "action": "startCustomerOnboarding",
+    "type": "task",
+    "preconditions": [],
+    "inputs": [],
+    "effects": [
+      "onboardingStarted"
+    ]
+  },
+  "collectCustomerProfile": {
+    "id": "aff-c2",
+    "action": "collectCustomerProfile",
+    "type": "task",
+    "preconditions": [
+      "onboardingStarted"
+    ],
+    "inputs": [
+      "givenName",
+      "familyName"
+    ],
+    "effects": [
+      "customerProfileCollected"
+    ]
+  },
+  "setCustomerEmail": {
+    "id": "aff-c3",
+    "action": "setCustomerEmail",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": [
+      "email"
+    ],
+    "effects": [
+      "customerEmailSet"
+    ]
+  },
+  "verifyCustomerEmail": {
+    "id": "aff-c4",
+    "action": "verifyCustomerEmail",
+    "type": "task",
+    "preconditions": [
+      "customerEmailSet"
+    ],
+    "inputs": [
+      "emailVerificationCode"
+    ],
+    "effects": [
+      "customerEmailVerified"
+    ]
+  },
+  "setCustomerPhoneNumber": {
+    "id": "aff-c5",
+    "action": "setCustomerPhoneNumber",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": [
+      "phoneNumber"
+    ],
+    "effects": [
+      "customerPhoneNumberSet"
+    ]
+  },
+  "verifyCustomerPhoneNumber": {
+    "id": "aff-c6",
+    "action": "verifyCustomerPhoneNumber",
+    "type": "task",
+    "preconditions": [
+      "customerPhoneNumberSet"
+    ],
+    "inputs": [
+      "phoneVerificationCode"
+    ],
+    "effects": [
+      "customerPhoneNumberVerified"
+    ]
+  },
+  "setCustomerAddress": {
+    "id": "aff-c7",
+    "action": "setCustomerAddress",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": [
+      "streetAddress",
+      "locality",
+      "region",
+      "postalCode",
+      "country"
+    ],
+    "effects": [
+      "customerAddressSet"
+    ]
+  },
+  "acceptCustomerTerms": {
+    "id": "aff-c8",
+    "action": "acceptCustomerTerms",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": [
+      "termsVersion"
+    ],
+    "effects": [
+      "customerTermsAccepted"
+    ]
+  },
+  "onboardCustomer": {
+    "id": "aff-c9",
+    "action": "onboardCustomer",
+    "type": "task",
+    "preconditions": [
+      "onboardingStarted",
+      "customerProfileCollected",
+      "customerEmailSet",
+      "customerEmailVerified",
+      "customerPhoneNumberSet",
+      "customerPhoneNumberVerified",
+      "customerAddressSet",
+      "customerTermsAccepted"
+    ],
+    "inputs": [],
+    "effects": [
+      "customerOnboarded"
+    ]
+  },
+  "loadCustomer": {
+    "id": "aff-c10",
+    "action": "loadCustomer",
+    "type": "task",
+    "preconditions": [],
+    "inputs": [
+      "customerId"
+    ],
+    "effects": [
+      "customerLoaded"
+    ]
+  },
+  "writeCustomerAddressChange": {
+    "id": "aff-c11",
+    "action": "writeCustomerAddressChange",
+    "type": "task",
+    "preconditions": [
+      "customerLoaded"
+    ],
+    "inputs": [
+      "newStreetAddress",
+      "newLocality",
+      "newRegion",
+      "newPostalCode",
+      "newCountry"
+    ],
+    "effects": [
+      "customerAddressChangePrepared"
+    ]
+  },
+  "changeCustomerAddress": {
+    "id": "aff-c12",
+    "action": "changeCustomerAddress",
+    "type": "task",
+    "preconditions": [
+      "customerLoaded",
+      "customerAddressChangePrepared"
+    ],
+    "inputs": [],
+    "effects": [
+      "customerAddressChanged"
+    ]
+  },
+  "prepareCustomerEmailChange": {
+    "id": "aff-c13",
+    "action": "prepareCustomerEmailChange",
+    "type": "task",
+    "preconditions": ["customerLoaded"],
+    "inputs": ["newEmail"],
+    "effects": ["customerEmailChangePrepared"]
+  },
+  "changeCustomerEmail": {
+    "id": "aff-c14",
+    "action": "changeCustomerEmail",
+    "type": "task",
+    "preconditions": ["customerEmailChangePrepared"],
+    "inputs": ["emailVerificationCode"],
+    "effects": ["customerEmailChanged"]
+  },
+  "prepareCustomerPhoneNumberChange": {
+    "id": "aff-c15",
+    "action": "prepareCustomerPhoneNumberChange",
+    "type": "task",
+    "preconditions": ["customerLoaded"],
+    "inputs": ["newPhoneNumber"],
+    "effects": ["customerPhoneChangePrepared"]
+  },
+  "changeCustomerPhoneNumber": {
+    "id": "aff-c16",
+    "action": "changeCustomerPhoneNumber",
+    "type": "task",
+    "preconditions": ["customerPhoneChangePrepared"],
+    "inputs": ["phoneVerificationCode"],
+    "effects": ["customerPhoneNumberChanged"]
+  }
+}

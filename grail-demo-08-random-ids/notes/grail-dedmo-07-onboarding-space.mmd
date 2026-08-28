@@ -1,0 +1,59 @@
+flowchart TD
+
+    startCustomerOnboarding --> onboardingStarted
+    onboardingStarted --> collectCustomerProfile
+    collectCustomerProfile --> customerProfileCollected
+
+    customerProfileCollected --> setCustomerEmail
+    setCustomerEmail --> customerEmailSet
+    customerEmailSet --> verifyCustomerEmail
+    verifyCustomerEmail --> customerEmailVerified
+
+    customerProfileCollected --> setCustomerPhoneNumber
+    setCustomerPhoneNumber --> customerPhoneNumberSet
+    customerPhoneNumberSet --> verifyCustomerPhoneNumber
+    verifyCustomerPhoneNumber --> customerPhoneNumberVerified
+
+    customerProfileCollected --> setCustomerAddress
+    setCustomerAddress --> customerAddressSet
+
+    customerProfileCollected --> acceptCustomerTerms
+    acceptCustomerTerms --> customerTermsAccepted
+
+    onboardingStarted --> onboardCustomer
+    customerProfileCollected --> onboardCustomer
+    customerEmailSet --> onboardCustomer
+    customerEmailVerified --> onboardCustomer
+    customerPhoneNumberSet --> onboardCustomer
+    customerPhoneNumberVerified --> onboardCustomer
+    customerAddressSet --> onboardCustomer
+    customerTermsAccepted --> onboardCustomer
+
+    onboardCustomer --> customerOnboarded
+
+
+    loadCustomer --> customerLoaded
+
+    customerLoaded --> writeCustomerAddressChange
+    writeCustomerAddressChange --> customerAddressChangePrepared
+    customerLoaded --> changeCustomerAddress
+    customerAddressChangePrepared --> changeCustomerAddress
+    changeCustomerAddress --> customerAddressChanged
+
+    customerLoaded --> prepareCustomerEmailChange
+    prepareCustomerEmailChange --> customerEmailChangePrepared
+    customerEmailChangePrepared --> verifyCustomerEmail
+    verifyCustomerEmail --> customerEmailVerified
+    customerLoaded --> changeCustomerEmail
+    customerEmailChangePrepared --> changeCustomerEmail
+    customerEmailVerified --> changeCustomerEmail
+    changeCustomerEmail --> customerEmailChanged
+
+    customerLoaded --> prepareCustomerPhoneNumberChange
+    prepareCustomerPhoneNumberChange --> customerPhoneChangePrepared
+    customerPhoneChangePrepared --> verifyCustomerPhoneNumber
+    verifyCustomerPhoneNumber --> customerPhoneNumberVerified
+    customerLoaded --> changeCustomerPhoneNumber
+    customerPhoneChangePrepared --> changeCustomerPhoneNumber
+    customerPhoneNumberVerified --> changeCustomerPhoneNumber
+    changeCustomerPhoneNumber --> customerPhoneNumberChanged

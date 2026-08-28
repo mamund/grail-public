@@ -1,0 +1,70 @@
+
+[CLIENT] Starting pursuit: x5cUjY7L
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xxf72R4R
+[CLIENT] Pushing next affordance: xHWsmaZB
+
+[SERVER] Attempting affordance: xHWsmaZB
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xHWsmaZB
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xjQPirqH
+[CLIENT] Pushing next affordance: xQUIDHWF
+
+[SERVER] Attempting affordance: xQUIDHWF
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xQUIDHWF
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xcAaAlIF
+[CLIENT] Pushing next affordance: xS4x1C8R
+
+[SERVER] Attempting affordance: xS4x1C8R
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xS4x1C8R
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xri27qNO
+[CLIENT] Pushing next affordance: xTxLiCQk
+
+[SERVER] Attempting affordance: xTxLiCQk
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xTxLiCQk
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xKKSLQcJ
+[CLIENT] Pushing next affordance: xxZAUbys
+
+[SERVER] Attempting affordance: xxZAUbys
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xxZAUbys
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xYKruk6L
+[CLIENT] Pushing next affordance: xYGkOzVM
+
+[SERVER] Attempting affordance: xYGkOzVM
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xYGkOzVM
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xtgQiAF4
+[CLIENT] Pushing next affordance: xkZGncHF
+
+[SERVER] Attempting affordance: xkZGncHF
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xkZGncHF
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Blocked: unmet precondition: xI5fQaQf
+[CLIENT] Pushing next affordance: xYjaUpuM
+
+[SERVER] Attempting affordance: xYjaUpuM
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: xYjaUpuM
+
+[SERVER] Attempting affordance: x5cUjY7L
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: x5cUjY7L

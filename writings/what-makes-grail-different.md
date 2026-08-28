@@ -25,7 +25,7 @@ These systems **plan**, **simulate**, or **reason** toward the goal, often requi
 
 ###  What GRAIL Does Differently
 
-GRAIL borrows the *goal-first posture*, but applies it to the **wild world of APIs** using real-time affordances.
+GRAIL borrows the *goal-first posture*, but applies it to the **world of APIs** using real-time affordances.
 
 Here’s what makes GRAIL unique:
 

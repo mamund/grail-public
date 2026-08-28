@@ -1,0 +1,70 @@
+
+[CLIENT] Starting pursuit: onboardCustomer
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: onboardingStarted
+[CLIENT] Pushing next affordance: startCustomerOnboarding
+
+[SERVER] Attempting affordance: startCustomerOnboarding
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: startCustomerOnboarding
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerTermsAccepted
+[CLIENT] Pushing next affordance: acceptCustomerTerms
+
+[SERVER] Attempting affordance: acceptCustomerTerms
+[SERVER] Blocked: selected unmet precondition: customerProfileCollected
+[CLIENT] Pushing next affordance: collectCustomerProfile
+
+[SERVER] Attempting affordance: collectCustomerProfile
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: collectCustomerProfile
+
+[SERVER] Attempting affordance: acceptCustomerTerms
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: acceptCustomerTerms
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberVerified
+[CLIENT] Pushing next affordance: verifyCustomerPhoneNumber
+
+[SERVER] Attempting affordance: verifyCustomerPhoneNumber
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberSet
+[CLIENT] Pushing next affordance: setCustomerPhoneNumber
+
+[SERVER] Attempting affordance: setCustomerPhoneNumber
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: setCustomerPhoneNumber
+
+[SERVER] Attempting affordance: verifyCustomerPhoneNumber
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: verifyCustomerPhoneNumber
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerEmailVerified
+[CLIENT] Pushing next affordance: verifyCustomerEmail
+
+[SERVER] Attempting affordance: verifyCustomerEmail
+[SERVER] Blocked: selected unmet precondition: customerEmailSet
+[CLIENT] Pushing next affordance: setCustomerEmail
+
+[SERVER] Attempting affordance: setCustomerEmail
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: setCustomerEmail
+
+[SERVER] Attempting affordance: verifyCustomerEmail
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: verifyCustomerEmail
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerAddressSet
+[CLIENT] Pushing next affordance: setCustomerAddress
+
+[SERVER] Attempting affordance: setCustomerAddress
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: setCustomerAddress
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Success: applying effects
+[CLIENT] Affordance succeeded: onboardCustomer

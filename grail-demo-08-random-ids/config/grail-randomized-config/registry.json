@@ -1,0 +1,233 @@
+{
+  "xHWsmaZB": {
+    "id": "aff-c1",
+    "action": "xHWsmaZB",
+    "type": "task",
+    "preconditions": [],
+    "inputs": [],
+    "effects": [
+      "xxf72R4R"
+    ]
+  },
+  "xQUIDHWF": {
+    "id": "aff-c2",
+    "action": "xQUIDHWF",
+    "type": "task",
+    "preconditions": [
+      "xxf72R4R"
+    ],
+    "inputs": [
+      "xQZBvDrk",
+      "xP10jjja"
+    ],
+    "effects": [
+      "xjQPirqH"
+    ]
+  },
+  "xS4x1C8R": {
+    "id": "aff-c3",
+    "action": "xS4x1C8R",
+    "type": "task",
+    "preconditions": [
+      "xjQPirqH"
+    ],
+    "inputs": [
+      "xt7tYyyl"
+    ],
+    "effects": [
+      "xcAaAlIF"
+    ]
+  },
+  "xTxLiCQk": {
+    "id": "aff-c4",
+    "action": "xTxLiCQk",
+    "type": "task",
+    "preconditions": [
+      "xcAaAlIF"
+    ],
+    "inputs": [
+      "xLx9mkqO"
+    ],
+    "effects": [
+      "xri27qNO"
+    ]
+  },
+  "xxZAUbys": {
+    "id": "aff-c5",
+    "action": "xxZAUbys",
+    "type": "task",
+    "preconditions": [
+      "xjQPirqH"
+    ],
+    "inputs": [
+      "xgleXYHM"
+    ],
+    "effects": [
+      "xKKSLQcJ"
+    ]
+  },
+  "xYGkOzVM": {
+    "id": "aff-c6",
+    "action": "xYGkOzVM",
+    "type": "task",
+    "preconditions": [
+      "xKKSLQcJ"
+    ],
+    "inputs": [
+      "xAsxgeGc"
+    ],
+    "effects": [
+      "xYKruk6L"
+    ]
+  },
+  "xkZGncHF": {
+    "id": "aff-c7",
+    "action": "xkZGncHF",
+    "type": "task",
+    "preconditions": [
+      "xjQPirqH"
+    ],
+    "inputs": [
+      "xuTpuvru",
+      "xrSPxR0v",
+      "xc8ZTLQ4",
+      "xTDst4fT",
+      "xBjAAWwW"
+    ],
+    "effects": [
+      "xtgQiAF4"
+    ]
+  },
+  "xYjaUpuM": {
+    "id": "aff-c8",
+    "action": "xYjaUpuM",
+    "type": "task",
+    "preconditions": [
+      "xjQPirqH"
+    ],
+    "inputs": [
+      "xFZsZ9CH"
+    ],
+    "effects": [
+      "xI5fQaQf"
+    ]
+  },
+  "x5cUjY7L": {
+    "id": "aff-c9",
+    "action": "x5cUjY7L",
+    "type": "task",
+    "preconditions": [
+      "xxf72R4R",
+      "xjQPirqH",
+      "xcAaAlIF",
+      "xri27qNO",
+      "xKKSLQcJ",
+      "xYKruk6L",
+      "xtgQiAF4",
+      "xI5fQaQf"
+    ],
+    "inputs": [],
+    "effects": [
+      "xs4vKhv5"
+    ]
+  },
+  "xucIVMCk": {
+    "id": "aff-c10",
+    "action": "xucIVMCk",
+    "type": "task",
+    "preconditions": [],
+    "inputs": [
+      "xBqHpFhL"
+    ],
+    "effects": [
+      "xy5N7Jsu"
+    ]
+  },
+  "xbm3AKpb": {
+    "id": "aff-c11",
+    "action": "xbm3AKpb",
+    "type": "task",
+    "preconditions": [
+      "xy5N7Jsu"
+    ],
+    "inputs": [
+      "xBYewhh7",
+      "xNhH2xsG",
+      "xEEoDIEA",
+      "xiTyO38t",
+      "xq8SSN7U"
+    ],
+    "effects": [
+      "xY7adeKT"
+    ]
+  },
+  "xQRjaY0g": {
+    "id": "aff-c12",
+    "action": "xQRjaY0g",
+    "type": "task",
+    "preconditions": [
+      "xy5N7Jsu",
+      "xY7adeKT"
+    ],
+    "inputs": [],
+    "effects": [
+      "xW6etoQF"
+    ]
+  },
+  "xDIbHN6z": {
+    "id": "aff-c13",
+    "action": "xDIbHN6z",
+    "type": "task",
+    "preconditions": [
+      "xy5N7Jsu"
+    ],
+    "inputs": [
+      "x8uifkVF"
+    ],
+    "effects": [
+      "xpL1jedy"
+    ]
+  },
+  "xNX9Nbrj": {
+    "id": "aff-c14",
+    "action": "xNX9Nbrj",
+    "type": "task",
+    "preconditions": [
+      "xpL1jedy"
+    ],
+    "inputs": [
+      "xLx9mkqO"
+    ],
+    "effects": [
+      "xIP7ZVbU"
+    ]
+  },
+  "xAn2TpEs": {
+    "id": "aff-c15",
+    "action": "xAn2TpEs",
+    "type": "task",
+    "preconditions": [
+      "xy5N7Jsu"
+    ],
+    "inputs": [
+      "xXOls9Un"
+    ],
+    "effects": [
+      "xKPeofqm"
+    ]
+  },
+  "xoY21ooP": {
+    "id": "aff-c16",
+    "action": "xoY21ooP",
+    "type": "task",
+    "preconditions": [
+      "xKPeofqm"
+    ],
+    "inputs": [
+      "xAsxgeGc"
+    ],
+    "effects": [
+      "x9XjxWmt"
+    ]
+  }
+}
