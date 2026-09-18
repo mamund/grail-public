@@ -1,0 +1,72 @@
+// server.js (unchanged, fully generic broker)
+export class Server {
+  constructor(worldState, affordanceRegistry) {
+    this.worldState = worldState;
+    this.affordanceRegistry = affordanceRegistry;
+  }
+
+  attempt(affordance, inputs) {
+    console.log(`\n[SERVER] Attempting affordance: ${affordance.action}`);
+
+    const unmetPreconditions = affordance.preconditions.filter(
+      pre => !this.worldState.isPreconditionMet(pre)
+    );
+
+    if (unmetPreconditions.length > 0) {
+      const pre =
+        unmetPreconditions[
+          Math.floor(Math.random() * unmetPreconditions.length)
+        ];
+
+      console.log(`[SERVER] Blocked: selected unmet precondition: ${pre}`);
+
+      const nextAffordance = this.findAffordanceForPrecondition(pre);
+
+      if (nextAffordance) {
+        return { success: false, offeredAffordances: [nextAffordance] };
+      } else {
+        return { success: false, offeredAffordances: [] };
+      }
+    }
+    
+    for (let requiredInput of affordance.inputs) {
+      if (!(requiredInput in inputs)) {
+        console.log(`[SERVER] Blocked: missing input: ${requiredInput}`);
+        return { success: false, offeredAffordances: [] };
+      }
+    }
+
+    console.log(`[SERVER] Success: applying effects - `+affordance.effects);
+    this.worldState.applyEffects(affordance.effects);
+    return { success: true, offeredAffordances: [] };
+  }
+  /*
+  findAffordanceForPrecondition(precondition) {
+    for (let key in this.affordanceRegistry) {
+      const candidate = this.affordanceRegistry[key];
+      if (candidate.effects.includes(precondition)) {
+        return candidate;
+      }
+    }
+    return null;
+  }*/
+
+  findAffordanceForPrecondition(precondition) {
+    const candidates = [];
+
+    for (let key in this.affordanceRegistry) {
+      const candidate = this.affordanceRegistry[key];
+
+      if (candidate.effects.includes(precondition)) {
+        candidates.push(candidate);
+      }
+    }
+
+    if (candidates.length === 0) {
+      return null;
+    }
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+}
+

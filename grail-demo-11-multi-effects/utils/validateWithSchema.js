@@ -1,0 +1,50 @@
+// utils/validateWithSchema.js
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import Ajv2020 from 'ajv/dist/2020.js';
+import addFormats from 'ajv-formats';
+
+// Resolve __dirname for use in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Initialize AJV with allErrors for better debugging
+const ajv = new Ajv2020({ allErrors: true });
+addFormats(ajv);
+
+
+/**
+ * Loads a JSON Schema from the /schemas directory.
+ *
+ * @param {string} schemaName - Filename like 'goal.schema.json'
+ * @returns {object} Parsed schema JSON
+ */
+function loadSchema(schemaName) {
+  const schemaPath = path.join(__dirname, '../schemas', schemaName);
+  const raw = fs.readFileSync(schemaPath, 'utf8');
+  return JSON.parse(raw);
+}
+
+/**
+ * Validates a JSON document against a named schema.
+ * Throws with detailed error output if validation fails.
+ *
+ * @param {object} data - The JSON object to validate
+ * @param {string} schemaName - File name of schema to use (e.g. "goal.schema.json")
+ * @param {string} label - Optional label for better error messages
+ */
+export function validateConfig(data, schemaName, label = 'config') {
+  const schema = loadSchema(schemaName);
+  const validate = ajv.compile(schema);
+  const valid = validate(data);
+
+  if (!valid) {
+    console.error(`❌ Validation failed for ${label}:`);
+    console.error(validate.errors);
+    throw new Error(`Invalid ${label} file`);
+  }
+
+  return true;
+}
+

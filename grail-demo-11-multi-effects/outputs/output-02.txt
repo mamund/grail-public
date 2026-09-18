@@ -1,0 +1,54 @@
+
+[CLIENT] Starting pursuit: onboardCustomer
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerAddressSet
+[CLIENT] Pushing next affordance: setCustomerContactDetails
+
+[SERVER] Attempting affordance: setCustomerContactDetails
+[SERVER] Blocked: selected unmet precondition: customerProfileCollected
+[CLIENT] Pushing next affordance: collectCustomerProfile
+
+[SERVER] Attempting affordance: collectCustomerProfile
+[SERVER] Blocked: selected unmet precondition: onboardingStarted
+[CLIENT] Pushing next affordance: startCustomerOnboarding
+
+[SERVER] Attempting affordance: startCustomerOnboarding
+[SERVER] Success: applying effects - onboardingStarted
+[CLIENT] Affordance succeeded: startCustomerOnboarding
+
+[SERVER] Attempting affordance: collectCustomerProfile
+[SERVER] Success: applying effects - customerProfileCollected
+[CLIENT] Affordance succeeded: collectCustomerProfile
+
+[SERVER] Attempting affordance: setCustomerContactDetails
+[SERVER] Success: applying effects - customerEmailSet,customerPhoneNumberSet,customerAddressSet
+[CLIENT] Affordance succeeded: setCustomerContactDetails
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerEmailVerified
+[CLIENT] Pushing next affordance: verifyCustomerEmail
+
+[SERVER] Attempting affordance: verifyCustomerEmail
+[SERVER] Success: applying effects - customerEmailVerified
+[CLIENT] Affordance succeeded: verifyCustomerEmail
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerTermsAccepted
+[CLIENT] Pushing next affordance: acceptCustomerTerms
+
+[SERVER] Attempting affordance: acceptCustomerTerms
+[SERVER] Success: applying effects - customerTermsAccepted
+[CLIENT] Affordance succeeded: acceptCustomerTerms
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberVerified
+[CLIENT] Pushing next affordance: verifyCustomerPhoneNumber
+
+[SERVER] Attempting affordance: verifyCustomerPhoneNumber
+[SERVER] Success: applying effects - customerPhoneNumberVerified
+[CLIENT] Affordance succeeded: verifyCustomerPhoneNumber
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Success: applying effects - customerOnboarded
+[CLIENT] Affordance succeeded: onboardCustomer
