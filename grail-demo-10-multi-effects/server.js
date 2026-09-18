@@ -40,16 +40,6 @@ export class Server {
     this.worldState.applyEffects(affordance.effects);
     return { success: true, offeredAffordances: [] };
   }
-  /*
-  findAffordanceForPrecondition(precondition) {
-    for (let key in this.affordanceRegistry) {
-      const candidate = this.affordanceRegistry[key];
-      if (candidate.effects.includes(precondition)) {
-        return candidate;
-      }
-    }
-    return null;
-  }*/
 
   findAffordanceForPrecondition(precondition) {
     const candidates = [];
