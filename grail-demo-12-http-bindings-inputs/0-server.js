@@ -8,20 +8,19 @@ export class Server {
   async attempt(affordance, inputs) {
     console.log(`\n[SERVER] Attempting affordance: ${affordance.action}`);
 
-    // are there any unmet preconditions?
     const unmetPreconditions = affordance.preconditions.filter(
       pre => !this.worldState.isPreconditionMet(pre)
     );
 
-    // if yes, select one and then find & select an affordance 
-    // that will satisfy the precondition
     if (unmetPreconditions.length > 0) {
-      const pre = this.selectUnmetCondition(unmetPreconditions);
-      
+      const pre =
+        unmetPreconditions[
+          Math.floor(Math.random() * unmetPreconditions.length)
+        ];
+
       console.log(`[SERVER] Blocked: selected unmet precondition: ${pre}`);
-      
-      const candidates = this.findAffordancesForCondition(pre);
-      const nextAffordance = this.selectAffordance(candidates);
+
+      const nextAffordance = this.findAffordanceForPrecondition(pre);
 
       if (nextAffordance) {
         return { success: false, offeredAffordances: [nextAffordance] };
@@ -29,8 +28,7 @@ export class Server {
         return { success: false, offeredAffordances: [] };
       }
     }
-
-    // if there are missing inputs, stop
+    
     for (let requiredInput of affordance.inputs) {
       if (!(requiredInput in inputs)) {
         console.log(`[SERVER] Blocked: missing input: ${requiredInput}`);
@@ -66,7 +64,7 @@ export class Server {
         },
         body: requestBody
       });
-
+      
       if (!response.ok) {
         console.log(
           `[SERVER] Binding failed: HTTP ${response.status}`
@@ -88,43 +86,34 @@ export class Server {
     return { success: true, offeredAffordances: [] };
   }
 
-  // Selection policy #1:
-  // Choose which unmet condition to pursue.
   selectUnmetCondition(conditions) {
-    if (conditions.length === 0) {
-      return null;
-    }
-
     return conditions[
       Math.floor(Math.random() * conditions.length)
     ];
   }
-
-  // Selection policy #2:
-  // Choose which affordance to use for the selected condition.
+  
   selectAffordance(affordances) {
-    if (affordances.length === 0) {
-      return null;
-    }
-
     return affordances[
       Math.floor(Math.random() * affordances.length)
     ];
   }
-
-  // Discovery:
-  // Find all affordances capable of establishing the condition.
-  findAffordancesForCondition(condition) {
+    
+  findAffordanceForPrecondition(precondition) {
     const candidates = [];
 
     for (let key in this.affordanceRegistry) {
       const candidate = this.affordanceRegistry[key];
 
-      if (candidate.effects.includes(condition)) {
+      if (candidate.effects.includes(precondition)) {
         candidates.push(candidate);
       }
     }
 
-    return candidates;
+    if (candidates.length === 0) {
+      return null;
+    }
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 }
+
