@@ -59,6 +59,7 @@ export class Server {
         requestBody = JSON.stringify(body);
       }
 
+      // make the call to an external endpoint
       const response = await fetch(affordance.binding.url, {
         method: affordance.binding.method,
         headers: {
