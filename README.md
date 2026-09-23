@@ -197,7 +197,44 @@ bindings such as:
       "url": "http://localhost:3001/execute"
     }
 
-Capability inputs can be sent in the request body using:
+Capability inputs may be mapped to four HTTP request locations:
+
+    path
+    query
+    header
+    body
+
+Bindings declare these mappings using `parameters`:
+
+    {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/customers/{customerId}",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "region": {
+          "in": "query",
+          "name": "lang"
+        },
+        "termsVersion": {
+          "in": "header",
+          "name": "X-Terms-Version"
+        },
+        "email": {
+          "in": "body",
+          "name": "emailAddress"
+        }
+      }
+    }
+
+The parameter key identifies the GRAIL input. The optional `name`
+identifies its HTTP representation. This allows the vocabulary used by the
+GRAIL environment to remain independent of the vocabulary used by an
+external service.
+
+Body values may be represented using:
 
     application/json
 
@@ -207,20 +244,8 @@ or:
 
 JSON is the default when no content type is specified.
 
-These experiments also distinguish two aspects of HTTP input binding:
-
-    Placement
-      path
-      query
-      header
-      body
-
-    Representation
-      application/json
-      application/x-www-form-urlencoded
-
-Body placement is implemented today. Additional placement options are
-planned for later experiments.
+Bindings without an explicit `parameters` declaration retain the original
+behavior and send declared capability inputs in the request body.
 
 ## The demos
 
@@ -262,6 +287,15 @@ retaining GRAIL's declared preconditions and effects.
 
 Adds transmission of capability inputs to external HTTP services using
 JSON and FORM representations.
+
+### HTTP binding locations
+
+`grail-demo-13-http-binding-locations`
+
+Extends HTTP bindings by allowing capability inputs to be mapped to path,
+query, header, or body locations. Bindings may also assign HTTP-side names
+to inputs, allowing the GRAIL environment and external service to use
+different vocabularies.
 
 Each experiment builds on the same small GRAIL goal-resolution model.
 
@@ -305,7 +339,6 @@ HTTP responses as FAIL.
 
 Future experiments may explore:
 
-- input placement in paths, query arguments, and headers;
 - response bodies and response headers;
 - values returned by capability execution;
 - richer SUCCESS, FAIL, and BLOCKED semantics;
@@ -329,6 +362,7 @@ For the most recent binding experiments, see:
     grail-demo-10-multi-effects
     grail-demo-11-initial-http-bindings
     grail-demo-12-http-bindings-inputs
+    grail-demo-13-http-binding-locations
 
 ## Key principles
 
