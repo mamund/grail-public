@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Affordance Registry",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": [
+      "id",
+      "action",
+      "type",
+      "preconditions",
+      "inputs",
+      "effects"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "action": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "task"
+        ]
+      },
+      "preconditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "inputs": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "effects": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "execute": {
+        "type": "object",
+        "required": [
+          "type",
+          "name"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "function"
+            ]
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "binding": {
+        "type": "object",
+        "required": [
+          "protocol",
+          "method",
+          "url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "http"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string",
+            "enum": [
+              "application/json",
+              "application/x-www-form-urlencoded"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "in"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "in": {
+                  "type": "string",
+                  "enum": [
+                    "path",
+                    "query",
+                    "header",
+                    "body"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "outputs": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "required": [
+                    "from",
+                    "path"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "from": {
+                      "const": "body"
+                    },
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "from",
+                    "name"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "from": {
+                      "const": "header"
+                    },
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "from"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "from": {
+                      "const": "status"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
