@@ -4,9 +4,9 @@ import { fileURLToPath } from 'url';
 import { loadAndValidateJSON } from './utils/loadJSON.js';
 import { loadAffordanceRegistry } from './affordanceRegistry.js';
 import { WorldState } from './worldState.js';
+import { ObservationStore } from './observationStore.js';
 import { Server } from './server.js';
 import { Client } from './client.js';
-//import { loadJSON } from './utils/loadJSON.js';
 
 // Setup __dirname for ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -24,9 +24,12 @@ const goalObj = loadAndValidateJSON(path.join(configDir, 'goal.json'), 'goal.sch
 // Load external registry
 const affordanceRegistry = loadAffordanceRegistry(registry);
 
-// Load external world state
+// Load external world state and initialize this run's observation trace
 const worldState = new WorldState(affordanceRegistry, state);
-const server = new Server(worldState, affordanceRegistry);
+const observationStore = new ObservationStore(
+  path.join(configDir, 'observations.json')
+);
+const server = new Server(worldState, affordanceRegistry, observationStore);
 const client = new Client(server, inputs);
 
 // Load external goal
@@ -38,4 +41,3 @@ if (!goalAffordance) {
 
 // Start pursuit
 await client.pursue(goalAffordance);
-

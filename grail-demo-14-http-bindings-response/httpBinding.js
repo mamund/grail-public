@@ -1,21 +1,16 @@
 // httpBinding.js
 // Generic HTTP binding executor.
 // Maps resolved GRAIL inputs to HTTP path, query, header, and body locations.
+// Returns captured request/response facts to the GRAIL runtime.
 
-export async function executeHttpBinding(binding, affordanceInputs, inputs) {
+export async function executeHttpBinding(binding, inputs) {
   const parameters = binding.parameters;
 
-  // Backward compatibility: when no explicit parameter mapping is supplied,
-  // preserve the existing behavior and place all affordance inputs in the body.
   if (!parameters) {
-    const body = Object.fromEntries(
-      affordanceInputs.map(name => [name, inputs[name]])
-    );
-
     return executeRequest(binding, {
       url: binding.url,
       headers: {},
-      body
+      body: { ...inputs }
     });
   }
 
@@ -113,5 +108,41 @@ async function executeRequest(binding, request) {
     options.body = requestBody;
   }
 
-  return fetch(request.url, options);
+  const response = await fetch(request.url, options);
+  const responseHeaders = Object.fromEntries(response.headers.entries());
+  const responseBody = await readResponseBody(response);
+
+  return {
+    request: {
+      method: binding.method,
+      url: request.url,
+      headers,
+      body: hasBody ? request.body : null
+    },
+    response: {
+      ok: response.ok,
+      status: response.status,
+      headers: responseHeaders,
+      body: responseBody
+    }
+  };
+}
+
+async function readResponseBody(response) {
+  const contentType = response.headers.get("content-type") || "";
+  const text = await response.text();
+
+  if (text === "") {
+    return null;
+  }
+
+  if (contentType.includes("application/json")) {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  }
+
+  return text;
 }

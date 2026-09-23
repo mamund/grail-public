@@ -1,27 +1,25 @@
 import { executeHttpBinding } from "./httpBinding.js";
 
-// server.js (unchanged, fully generic broker)
+// server.js (generic broker)
 export class Server {
-  constructor(worldState, affordanceRegistry) {
+  constructor(worldState, affordanceRegistry, observationStore) {
     this.worldState = worldState;
     this.affordanceRegistry = affordanceRegistry;
+    this.observationStore = observationStore;
   }
 
   async attempt(affordance, inputs) {
     console.log(`\n[SERVER] Attempting affordance: ${affordance.action}`);
 
-    // are there any unmet preconditions?
     const unmetPreconditions = affordance.preconditions.filter(
       pre => !this.worldState.isPreconditionMet(pre)
     );
 
-    // if yes, select one and then find & select an affordance 
-    // that will satisfy the precondition
     if (unmetPreconditions.length > 0) {
       const pre = this.selectUnmetCondition(unmetPreconditions);
-      
+
       console.log(`[SERVER] Blocked: selected unmet precondition: ${pre}`);
-      
+
       const candidates = this.findAffordancesForCondition(pre);
       const nextAffordance = this.selectAffordance(candidates);
 
@@ -32,37 +30,62 @@ export class Server {
       }
     }
 
-    // if there are missing inputs, stop
-    for (let requiredInput of affordance.inputs) {
-      if (!(requiredInput in inputs)) {
-        console.log(`[SERVER] Blocked: missing input: ${requiredInput}`);
+    const resolvedInputs = {};
+
+    for (const [inputName, source] of Object.entries(affordance.inputs)) {
+      const resolution = this.resolveInput(source, inputs);
+
+      if (!resolution.resolved) {
+        console.log(`[SERVER] Blocked: missing input: ${inputName}`);
         return { success: false, offeredAffordances: [] };
       }
+
+      resolvedInputs[inputName] = resolution.value;
     }
 
-    // Execute external binding when present
     if (affordance.binding) {
       console.log(
         `[SERVER] Executing binding: ${affordance.binding.method} ${affordance.binding.url}`
       );
 
-      // HTTP-specific request construction and execution live in the binding module.
-      const response = await executeHttpBinding(
+      const interaction = await executeHttpBinding(
         affordance.binding,
-        affordance.inputs,
-        inputs
+        resolvedInputs
       );
 
-      if (!response.ok) {
+      const outputs = this.extractOutputs(
+        affordance.binding.outputs,
+        interaction.response.body
+      );
+
+      const result = interaction.response.ok ? "SUCCESS" : "FAIL";
+
+      this.observationStore.append({
+        invocation: {
+          id: this.observationStore.nextInvocationId(),
+          affordance: affordance.action,
+          timestamp: new Date().toISOString(),
+          request: interaction.request
+        },
+        response: {
+          status: interaction.response.status,
+          headers: interaction.response.headers,
+          body: interaction.response.body
+        },
+        outputs,
+        result
+      });
+
+      if (!interaction.response.ok) {
         console.log(
-          `[SERVER] Binding failed: HTTP ${response.status}`
+          `[SERVER] Binding failed: HTTP ${interaction.response.status}`
         );
 
         return { success: false, offeredAffordances: [] };
       }
 
       console.log(
-        `[SERVER] Binding succeeded: HTTP ${response.status}`
+        `[SERVER] Binding succeeded: HTTP ${interaction.response.status}`
       );
     }
 
@@ -74,8 +97,71 @@ export class Server {
     return { success: true, offeredAffordances: [] };
   }
 
-  // Selection policy #1:
-  // Choose which unmet condition to pursue.
+  resolveInput(source, inputs) {
+    const inputPrefix = "$inputs.";
+
+    if (source.startsWith(inputPrefix)) {
+      const inputName = source.slice(inputPrefix.length);
+
+      if (!inputName || !(inputName in inputs)) {
+        return { resolved: false };
+      }
+
+      return {
+        resolved: true,
+        value: inputs[inputName]
+      };
+    }
+
+    if (source.startsWith("$outputs.")) {
+      return this.observationStore.resolve(source);
+    }
+
+    return { resolved: false };
+  }
+
+  extractOutputs(outputDefinitions, body) {
+    const outputs = {};
+
+    if (!outputDefinitions) {
+      return outputs;
+    }
+
+    for (const [outputName, definition] of Object.entries(outputDefinitions)) {
+      if (definition.from !== "body") {
+        continue;
+      }
+
+      const extracted = this.readPath(body, definition.path);
+
+      if (extracted.found) {
+        outputs[outputName] = extracted.value;
+      }
+    }
+
+    return outputs;
+  }
+
+  readPath(value, path) {
+    const segments = path.split(".");
+    let current = value;
+
+    for (const segment of segments) {
+      if (
+        current === null ||
+        current === undefined ||
+        (typeof current !== "object" && !Array.isArray(current)) ||
+        !(segment in current)
+      ) {
+        return { found: false };
+      }
+
+      current = current[segment];
+    }
+
+    return { found: true, value: current };
+  }
+
   selectUnmetCondition(conditions) {
     if (conditions.length === 0) {
       return null;
@@ -86,8 +172,6 @@ export class Server {
     ];
   }
 
-  // Selection policy #2:
-  // Choose which affordance to use for the selected condition.
   selectAffordance(affordances) {
     if (affordances.length === 0) {
       return null;
@@ -98,8 +182,6 @@ export class Server {
     ];
   }
 
-  // Discovery:
-  // Find all affordances capable of establishing the condition.
   findAffordancesForCondition(condition) {
     const candidates = [];
 

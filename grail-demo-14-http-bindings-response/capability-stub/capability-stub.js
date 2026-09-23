@@ -148,6 +148,97 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Demo 14: return customer data containing an account identifier.
+  //
+  // GET /customers/{customerId}
+
+  if (req.method === "GET" && req.url.startsWith("/customers/")) {
+    console.log(`[CAPABILITY-STUB] Received: ${req.method} ${req.url}`);
+
+    const url = new URL(
+      req.url,
+      `http://${req.headers.host || `localhost:${PORT}`}`
+    );
+
+    const match = url.pathname.match(/^\/customers\/([^/]+)$/);
+
+    if (!match) {
+      res.writeHead(404, {
+        "Content-Type": "application/json"
+      });
+
+      res.end(JSON.stringify({
+        status: "NOT_FOUND"
+      }));
+
+      return;
+    }
+
+    const customerId = decodeURIComponent(match[1]);
+
+    res.writeHead(200, {
+      "Content-Type": "application/json"
+    });
+
+    res.end(JSON.stringify({
+      id: customerId,
+      name: "Jordan",
+      account: {
+        id: "A97"
+      }
+    }));
+
+    console.log(
+      `[CAPABILITY-STUB] Responded: 200 OK customerId=${customerId} accountId=A97`
+    );
+
+    return;
+  }
+
+  // Demo 14: consume the account identifier returned by lookupCustomer.
+  //
+  // GET /accounts/{accountId}
+
+  if (req.method === "GET" && req.url.startsWith("/accounts/")) {
+    console.log(`[CAPABILITY-STUB] Received: ${req.method} ${req.url}`);
+
+    const url = new URL(
+      req.url,
+      `http://${req.headers.host || `localhost:${PORT}`}`
+    );
+
+    const match = url.pathname.match(/^\/accounts\/([^/]+)$/);
+
+    if (!match) {
+      res.writeHead(404, {
+        "Content-Type": "application/json"
+      });
+
+      res.end(JSON.stringify({
+        status: "NOT_FOUND"
+      }));
+
+      return;
+    }
+
+    const accountId = decodeURIComponent(match[1]);
+
+    res.writeHead(200, {
+      "Content-Type": "application/json"
+    });
+
+    res.end(JSON.stringify({
+      id: accountId,
+      status: "active"
+    }));
+
+    console.log(
+      `[CAPABILITY-STUB] Responded: 200 OK accountId=${accountId}`
+    );
+
+    return;
+  }
+
   console.log(
     `[CAPABILITY-STUB] Unknown request: ${req.method} ${req.url}`
   );

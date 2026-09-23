@@ -33,9 +33,10 @@
         }
       },
       "inputs": {
-        "type": "array",
-        "items": {
-          "type": "string"
+        "type": "object",
+        "additionalProperties": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "effects": {
@@ -117,6 +118,29 @@
                   ]
                 },
                 "name": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "outputs": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "from",
+                "path"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "enum": [
+                    "body"
+                  ]
+                },
+                "path": {
                   "type": "string",
                   "minLength": 1
                 }
