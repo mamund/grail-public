@@ -1,0 +1,107 @@
+[
+  {
+    "invocation": {
+      "id": "inv-001",
+      "affordance": "setCustomerContactDetails",
+      "timestamp": "2026-09-23T18:08:42.394Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/execute",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "body": {
+          "email": "jordan@example.com",
+          "phoneNumber": "+1-555-555-0100",
+          "streetAddress": "123 Main St.",
+          "locality": "Periax",
+          "region": "en",
+          "postalCode": "12345",
+          "country": "US"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Wed, 23 Sep 2026 18:08:42 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-002",
+      "affordance": "testHttpBinding",
+      "timestamp": "2026-09-23T18:08:42.400Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/binding-test/customer-123?lang=en",
+        "headers": {
+          "X-Test-Token": "2026-07",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "emailAddress": "jordan@example.com"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Wed, 23 Sep 2026 18:08:42 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS",
+        "received": {
+          "customerId": "customer-123",
+          "language": "en",
+          "token": "2026-07",
+          "emailAddress": "jordan@example.com"
+        }
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-003",
+      "affordance": "onboardCustomer",
+      "timestamp": "2026-09-23T18:08:42.637Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/execute",
+        "headers": {},
+        "body": null
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Wed, 23 Sep 2026 18:08:42 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  }
+]

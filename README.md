@@ -247,6 +247,134 @@ JSON is the default when no content type is specified.
 Bindings without an explicit `parameters` declaration retain the original
 behavior and send declared capability inputs in the request body.
 
+## Source-aware inputs
+
+Demo 14 introduces a breaking change to capability input declarations.
+
+Earlier demos declare inputs as an array:
+
+    "inputs": [
+      "customerId"
+    ]
+
+The current model maps each local input name to a source expression:
+
+    "inputs": {
+      "customerId": "$inputs.customerId"
+    }
+
+This separates the name used by the capability from the source of the value.
+
+`$inputs` refers to values supplied at the beginning of a run.
+
+Values learned during execution may be resolved from observations using
+`$outputs`:
+
+    "inputs": {
+      "accountId": "$outputs.lookupCustomer.latest.accountId"
+    }
+
+The currently supported form is:
+
+    $outputs.<affordance>.latest.<output>
+
+This is an intentional breaking change. The current runtime does not support
+both the older input-array form and the newer source-aware form.
+
+## Observations and learned values
+
+The current runtime can record completed capability interactions as
+observations.
+
+An observation records:
+
+    invocation
+    response
+    outputs
+    result
+
+Conceptually:
+
+    invocation   what GRAIL attempted
+    response     what the binding returned
+    outputs      what GRAIL extracted
+    result       what GRAIL concluded
+
+HTTP bindings may declare values to extract from a response:
+
+    "outputs": {
+      "accountId": {
+        "from": "body",
+        "path": "account.id"
+      }
+    }
+
+Extracted values remain part of the observation that produced them. `$outputs`
+is a resolver over observations, not a separate mutable output store.
+
+This gives the current model four distinct kinds of information:
+
+    $inputs        what was known when the run began
+    worldstate     what is currently true
+    observations   what actually happened
+    $outputs       what can be learned from what happened
+
+For the current demos, observations are persisted in `observations.json`.
+That file is a runtime artifact rather than part of the environment
+configuration.
+
+## Result semantics
+
+The current runtime distinguishes three results:
+
+    BLOCKED
+    SUCCESS
+    FAIL
+
+BLOCKED is determined before capability execution. It means the capability
+could not currently be executed because an environmental requirement was not
+satisfied.
+
+SUCCESS and FAIL are determined after capability execution.
+
+For an unbound capability, SUCCESS remains the default once its environmental
+requirements have been satisfied.
+
+For the current HTTP binding, HTTP 2xx responses result in SUCCESS and other
+HTTP responses result in FAIL.
+
+A failed interaction may still produce an observation and extracted
+information.
+
+## Environment validation
+
+The repository includes a standalone environment validator:
+
+    grail-validate.js
+
+Use it before running an environment:
+
+    node grail-validate.js config
+
+It validates:
+
+    registry.json
+    inputs.json
+    worldstate.json
+    goal.json
+
+against the schemas in the repository's `schemas` directory.
+
+`observations.json` is intentionally not required because it is generated
+during execution.
+
+A successful validation exits with status `0`. Missing files, invalid JSON,
+or schema failures result in status `1`.
+
+The normal GRAIL runtime continues to perform its own configuration
+validation. The standalone validator provides an independent static check
+before execution.
+
 ## The demos
 
 The repository records the evolution of GRAIL through a series of
@@ -297,6 +425,28 @@ query, header, or body locations. Bindings may also assign HTTP-side names
 to inputs, allowing the GRAIL environment and external service to use
 different vocabularies.
 
+### HTTP response observations and outputs
+
+`grail-demo-14-http-response-observations`
+
+Introduces source-aware capability inputs, records HTTP interactions as
+observations, extracts declared values from responses, and allows later
+capabilities to consume learned values through `$outputs`.
+
+This demo introduces a breaking change from input arrays to mappings between
+local input names and source expressions.
+
+### HTTP binding migration
+
+`grail-demo-15-http-bindings-location-bc`
+
+Ports the Demo 13 HTTP binding-location environment to the Demo 14 declaration
+model and runs it using the Demo 14 runtime.
+
+This verifies that path, query, header, body, and HTTP-side naming behavior
+survive the migration without adding a backward-compatibility layer to the
+runtime.
+
 Each experiment builds on the same small GRAIL goal-resolution model.
 
 ## Current architecture
@@ -337,12 +487,20 @@ GRAIL is still experimental.
 The current HTTP binding treats HTTP 2xx responses as SUCCESS and other
 HTTP responses as FAIL.
 
-Future experiments may explore:
+Response output extraction currently supports `from: "body"` with simple
+dot-separated paths. `$outputs` currently supports only the `latest`
+observation selector.
 
-- response bodies and response headers;
-- values returned by capability execution;
-- richer SUCCESS, FAIL, and BLOCKED semantics;
-- alternate capability selection after an execution failure;
+The current `$outputs.<affordance>.latest.<output>` form explicitly couples
+a consumer to a particular producer. Future experiments may explore
+producer selection as a separate decision point.
+
+Other areas for future experiments include:
+
+- richer observation selection and extraction;
+- richer FAIL semantics and the use of information learned from failed calls;
+- alternate capability selection after BLOCKED or FAIL;
+- observation timing, retention, and redaction policies;
 - additional binding protocols.
 
 These are intentionally being introduced through small experiments
@@ -363,6 +521,8 @@ For the most recent binding experiments, see:
     grail-demo-11-initial-http-bindings
     grail-demo-12-http-bindings-inputs
     grail-demo-13-http-binding-locations
+    grail-demo-14-http-response-observations
+    grail-demo-15-http-bindings-location-bc
 
 ## Key principles
 
@@ -376,6 +536,8 @@ the direction of GRAIL:
 **A capability's effects define its success boundary.**
 
 **Capabilities define behavior. Bindings define execution.**
+
+**Keep the physics fixed. Make judgment configurable.**
 
 GRAIL remains intentionally small. The complexity belongs primarily in
 the environment: the capabilities available, the conditions they
