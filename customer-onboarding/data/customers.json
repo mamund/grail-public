@@ -1,0 +1,19 @@
+[
+  {
+    "id": "CUS-001",
+    "onboardingId": "ONB-001",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  }
+]

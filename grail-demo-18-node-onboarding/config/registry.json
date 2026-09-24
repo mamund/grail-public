@@ -1,0 +1,44 @@
+{
+  "lookupCustomer": {
+    "id": "aff-r1",
+    "action": "lookupCustomer",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {
+      "customerId": "$inputs.customerId"
+    },
+    "effects": [
+      "customerLoaded"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "./capabilities/customer.js",
+      "function": "lookupCustomer",
+      "outputs": {
+        "accountId": {
+          "from": "result",
+          "path": "account.id"
+        }
+      }
+    }
+  },
+  "lookupAccount": {
+    "id": "aff-r2",
+    "action": "lookupAccount",
+    "type": "task",
+    "preconditions": [
+      "customerLoaded"
+    ],
+    "inputs": {
+      "accountId": "$outputs.lookupCustomer.latest.accountId"
+    },
+    "effects": [
+      "accountLoaded"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "./capabilities/account.js",
+      "function": "lookupAccount"
+    }
+  }
+}

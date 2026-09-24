@@ -1,0 +1,47 @@
+[
+  {
+    "invocation": {
+      "id": "inv-001",
+      "affordance": "lookupCustomer",
+      "timestamp": "2026-09-24T00:44:16.314Z",
+      "module": "./capabilities/customer.js",
+      "function": "lookupCustomer",
+      "inputs": {
+        "customerId": "customer-123"
+      }
+    },
+    "response": {
+      "result": {
+        "id": "customer-123",
+        "name": "Jordan",
+        "account": {
+          "id": "A97"
+        }
+      }
+    },
+    "outputs": {
+      "accountId": "A97"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-002",
+      "affordance": "lookupAccount",
+      "timestamp": "2026-09-24T00:44:16.471Z",
+      "module": "./capabilities/account.js",
+      "function": "lookupAccount",
+      "inputs": {
+        "accountId": "A97"
+      }
+    },
+    "response": {
+      "result": {
+        "id": "A97",
+        "status": "active"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  }
+]

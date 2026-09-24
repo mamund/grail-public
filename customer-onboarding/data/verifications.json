@@ -1,0 +1,16 @@
+[
+  {
+    "id": "VER-001",
+    "customerId": "CUS-001",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-002",
+    "customerId": "CUS-001",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  }
+]
