@@ -1,44 +1,225 @@
 {
-  "lookupCustomer": {
-    "id": "aff-r1",
-    "action": "lookupCustomer",
+  "onboardCustomer": {
+    "id": "aff-onboard-customer",
+    "action": "onboardCustomer",
     "type": "task",
-    "preconditions": [],
+    "preconditions": [
+      "customerProfileCollected",
+      "customerEmailVerified",
+      "customerPhoneNumberVerified",
+      "customerAddressSet",
+      "customerTermsAccepted"
+    ],
     "inputs": {
-      "customerId": "$inputs.customerId"
+      "customerId": "$outputs.createCustomerProfile.latest.customerId"
     },
     "effects": [
-      "customerLoaded"
+      "customerOnboarded"
     ],
     "binding": {
       "protocol": "node",
-      "module": "./capabilities/customer.js",
-      "function": "lookupCustomer",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "onboardCustomer",
       "outputs": {
         "accountId": {
           "from": "result",
-          "path": "account.id"
+          "path": "accountId"
         }
       }
     }
   },
-  "lookupAccount": {
-    "id": "aff-r2",
-    "action": "lookupAccount",
+  "verifyCustomerEmail": {
+    "id": "aff-verify-customer-email",
+    "action": "verifyCustomerEmail",
     "type": "task",
     "preconditions": [
-      "customerLoaded"
+      "customerEmailSet"
     ],
     "inputs": {
-      "accountId": "$outputs.lookupCustomer.latest.accountId"
+      "customerId": "$outputs.createCustomerProfile.latest.customerId",
+      "emailVerificationId": "$outputs.setCustomerEmail.latest.emailVerificationId"
     },
     "effects": [
-      "accountLoaded"
+      "customerEmailVerified"
     ],
     "binding": {
       "protocol": "node",
-      "module": "./capabilities/account.js",
-      "function": "lookupAccount"
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "verifyCustomerEmail",
+      "outputs": {
+        "verifiedEmail": {
+          "from": "result",
+          "path": "verifiedEmail"
+        }
+      }
     }
-  }
+  },
+  "setCustomerEmail": {
+    "id": "aff-set-customer-email",
+    "action": "setCustomerEmail",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.createCustomerProfile.latest.customerId",
+      "email": "$inputs.email"
+    },
+    "effects": [
+      "customerEmailSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "setCustomerEmail",
+      "outputs": {
+        "emailVerificationId": {
+          "from": "result",
+          "path": "emailVerificationId"
+        }
+      }
+    }
+  },
+  "createCustomerProfile": {
+    "id": "aff-create-customer-profile",
+    "action": "createCustomerProfile",
+    "type": "task",
+    "preconditions": [
+      "onboardingStarted"
+    ],
+    "inputs": {
+      "onboardingId": "$outputs.startOnboarding.latest.onboardingId",
+      "name": "$inputs.name"
+    },
+    "effects": [
+      "customerProfileCollected"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "createCustomerProfile",
+      "outputs": {
+        "customerId": {
+          "from": "result",
+          "path": "customerId"
+        }
+      }
+    }
+  },
+  "startOnboarding": {
+    "id": "aff-start-onboarding",
+    "action": "startOnboarding",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {},
+    "effects": [
+      "onboardingStarted"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "startOnboarding",
+      "outputs": {
+        "onboardingId": {
+          "from": "result",
+          "path": "onboardingId"
+        }
+      }
+    }
+  },
+  "acceptTerms": {
+    "id": "aff-accept-terms",
+    "action": "acceptTerms",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.createCustomerProfile.latest.customerId",
+      "termsVersion": "$inputs.termsVersion"
+    },
+    "effects": [
+      "customerTermsAccepted"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/terms.js",
+      "function": "acceptTerms"
+    }
+  },
+  "setCustomerAddress": {
+    "id": "aff-set-customer-address",
+    "action": "setCustomerAddress",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.createCustomerProfile.latest.customerId",
+      "street": "$inputs.street",
+      "city": "$inputs.city",
+      "state": "$inputs.state",
+      "postalCode": "$inputs.postalCode"
+    },
+    "effects": [
+      "customerAddressSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/address.js",
+      "function": "setCustomerAddress"
+    }
+  },
+  "verifyCustomerPhone": {
+    "id": "aff-verify-customer-phone",
+    "action": "verifyCustomerPhone",
+    "type": "task",
+    "preconditions": [
+      "customerPhoneNumberSet"
+    ],
+    "inputs": {
+      "customerId": "$outputs.createCustomerProfile.latest.customerId",
+      "phoneVerificationId": "$outputs.setCustomerPhone.latest.phoneVerificationId"
+    },
+    "effects": [
+      "customerPhoneNumberVerified"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/phone.js",
+      "function": "verifyCustomerPhone",
+      "outputs": {
+        "verifiedPhone": {
+          "from": "result",
+          "path": "verifiedPhone"
+        }
+      }
+    }
+  },
+  "setCustomerPhone": {
+    "id": "aff-set-customer-phone",
+    "action": "setCustomerPhone",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.createCustomerProfile.latest.customerId",
+      "phone": "$inputs.phone"
+    },
+    "effects": [
+      "customerPhoneNumberSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/phone.js",
+      "function": "setCustomerPhone",
+      "outputs": {
+        "phoneVerificationId": {
+          "from": "result",
+          "path": "phoneVerificationId"
+        }
+      }
+    }
+  }          
 }

@@ -15,5 +15,142 @@
     },
     "termsVersion": "2026-09",
     "termsAccepted": true
+  },
+  {
+    "id": "CUS-002",
+    "onboardingId": "ONB-002",
+    "name": "Jordan",
+    "email": null,
+    "emailVerified": false,
+    "phone": null,
+    "phoneVerified": false,
+    "address": null,
+    "termsVersion": null,
+    "termsAccepted": false
+  },
+  {
+    "id": "CUS-003",
+    "onboardingId": "ONB-003",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": null,
+    "phoneVerified": false,
+    "address": null,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-004",
+    "onboardingId": "ONB-004",
+    "name": "Jordan",
+    "email": null,
+    "emailVerified": false,
+    "phone": null,
+    "phoneVerified": false,
+    "address": null,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-005",
+    "onboardingId": "ONB-005",
+    "name": "Jordan",
+    "email": null,
+    "emailVerified": false,
+    "phone": null,
+    "phoneVerified": false,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-006",
+    "onboardingId": "ONB-006",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": null,
+    "phoneVerified": false,
+    "address": null,
+    "termsVersion": null,
+    "termsAccepted": false
+  },
+  {
+    "id": "CUS-007",
+    "onboardingId": "ONB-007",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-008",
+    "onboardingId": "ONB-008",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-009",
+    "onboardingId": "ONB-009",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-010",
+    "onboardingId": "ONB-010",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-011",
+    "onboardingId": "ONB-011",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-012",
+    "onboardingId": "ONB-012",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
   }
 ]

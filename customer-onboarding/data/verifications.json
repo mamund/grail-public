@@ -12,5 +12,103 @@
     "type": "phone",
     "value": "555-0100",
     "verified": true
+  },
+  {
+    "id": "VER-003",
+    "customerId": "CUS-003",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-004",
+    "customerId": "CUS-006",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-005",
+    "customerId": "CUS-007",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-006",
+    "customerId": "CUS-007",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-007",
+    "customerId": "CUS-008",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-008",
+    "customerId": "CUS-008",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-009",
+    "customerId": "CUS-009",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-010",
+    "customerId": "CUS-009",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-011",
+    "customerId": "CUS-010",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-012",
+    "customerId": "CUS-010",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-013",
+    "customerId": "CUS-011",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-014",
+    "customerId": "CUS-011",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-015",
+    "customerId": "CUS-012",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-016",
+    "customerId": "CUS-012",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
   }
 ]

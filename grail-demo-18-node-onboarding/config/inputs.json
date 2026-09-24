@@ -1,3 +1,10 @@
 {
-  "customerId": "customer-123"
+  "name": "Jordan",
+  "email": "jordan@example.com",
+  "phone": "555-0100",
+  "street": "100 Main Street",
+  "city": "Cincinnati",
+  "state": "OH",
+  "postalCode": "45202",
+  "termsVersion": "2026-09"
 }

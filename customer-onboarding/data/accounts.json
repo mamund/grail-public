@@ -3,5 +3,15 @@
     "id": "ACC-001",
     "customerId": "CUS-001",
     "status": "active"
+  },
+  {
+    "id": "ACC-002",
+    "customerId": "CUS-011",
+    "status": "active"
+  },
+  {
+    "id": "ACC-003",
+    "customerId": "CUS-012",
+    "status": "active"
   }
 ]
