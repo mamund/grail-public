@@ -176,14 +176,15 @@ A capability may include a binding:
         v
     external service
 
-The first implemented external binding uses HTTP.
+The first implemented external binding uses HTTP. More recent experiments
+also support dynamically loaded Node.js modules.
 
-This allows GRAIL to retain the behavioral model while capability work
-is performed by an independent service.
+This allows GRAIL to retain the behavioral model while capability work is
+performed either by an independent service or by a local module.
 
 **Capabilities define behavior. Bindings define execution.**
 
-The external service does not need to understand the GRAIL traversal
+The capability implementation does not need to understand the GRAIL traversal
 algorithm.
 
 ## HTTP bindings
@@ -247,6 +248,43 @@ JSON is the default when no content type is specified.
 Bindings without an explicit `parameters` declaration retain the original
 behavior and send declared capability inputs in the request body.
 
+
+## Node bindings
+
+Node bindings allow GRAIL to execute ordinary JavaScript modules directly.
+
+A binding identifies the module and exported function:
+
+    {
+      "protocol": "node",
+      "module": "./capabilities/customer.js",
+      "function": "lookupCustomer",
+      "outputs": {
+        "accountId": {
+          "from": "result",
+          "path": "account.id"
+        }
+      }
+    }
+
+The capability receives the resolved GRAIL inputs as an object and returns a
+result. The capability itself does not need to know anything about GRAIL.
+
+Node outputs may be extracted from the returned `result` using simple
+dot-separated paths.
+
+HTTP and Node execution are routed through a common binding layer:
+
+    GRAIL mechanics
+          |
+          v
+       binding
+       /     \
+     HTTP    Node
+
+This keeps protocol-specific execution outside the generic GRAIL mechanics.
+
+
 ## Source-aware inputs
 
 Demo 14 introduces a breaking change to capability input declarations.
@@ -300,7 +338,9 @@ Conceptually:
     outputs      what GRAIL extracted
     result       what GRAIL concluded
 
-HTTP bindings may declare values to extract from a response:
+Bindings may declare values to extract from their execution results.
+
+For HTTP:
 
     "outputs": {
       "accountId": {
@@ -309,8 +349,15 @@ HTTP bindings may declare values to extract from a response:
       }
     }
 
+Node bindings use `from: "result"` to extract values from the value returned
+by a module.
+
 Extracted values remain part of the observation that produced them. `$outputs`
 is a resolver over observations, not a separate mutable output store.
+
+The current observation vocabulary still uses `response`, which is natural for
+HTTP but less natural for Node execution. Demo 17 records this as an observed
+design pressure rather than introducing a new generic observation model.
 
 This gives the current model four distinct kinds of information:
 
@@ -447,6 +494,40 @@ This verifies that path, query, header, body, and HTTP-side naming behavior
 survive the migration without adding a backward-compatibility layer to the
 runtime.
 
+### HTTP output sources
+
+`grail-demo-16-http-output-sources`
+
+Extends HTTP output extraction beyond response bodies. Declared outputs may be
+captured from the response body, a response header, or the HTTP status code.
+
+Body outputs use `from: "body"` and a dot-separated `path`. Header outputs use
+`from: "header"` and a case-insensitive header `name`. Status outputs use
+`from: "status"`.
+
+This demo also reinforces the separation between capture and consumption:
+GRAIL may observe and preserve information even when no later capability
+currently consumes it.
+
+### Node module bindings
+
+`grail-demo-17-node-module-bindings`
+
+Adds dynamically loaded Node.js modules as a second capability realization
+mechanism alongside HTTP.
+
+A Node binding declares a module and exported function. Resolved GRAIL inputs
+are passed to that function, and declared outputs may be extracted from the
+returned result using `from: "result"`.
+
+Demo 17 introduces a common binding layer so the generic GRAIL mechanics do not
+need to know whether a capability is realized through HTTP or a local Node
+module.
+
+The experiment demonstrates that the same precondition, input-resolution,
+observation, output, effect, and goal-pursuit mechanics work across both
+binding types.
+
 Each experiment builds on the same small GRAIL goal-resolution model.
 
 ## Current architecture
@@ -472,7 +553,9 @@ The current experiments can be viewed as three cooperating elements:
 The environment describes what capabilities mean and how they relate to
 world state.
 
-Bindings describe how capability implementations are reached.
+Bindings describe how capability implementations are reached. The current
+runtime supports HTTP services and dynamically loaded Node.js modules behind a
+common binding layer.
 
 Implementations perform the work.
 
@@ -485,11 +568,18 @@ architecture.
 GRAIL is still experimental.
 
 The current HTTP binding treats HTTP 2xx responses as SUCCESS and other
-HTTP responses as FAIL.
+HTTP responses as FAIL. Node module execution succeeds when the selected
+function completes normally and fails when module loading or execution fails.
 
-Response output extraction currently supports `from: "body"` with simple
+HTTP output extraction currently supports response body, header, and status
+sources. Node output extraction supports returned results using simple
 dot-separated paths. `$outputs` currently supports only the `latest`
 observation selector.
+
+The current observation structure was originally shaped around HTTP
+request/response interactions. Node bindings expose the need for more
+binding-neutral observation vocabulary, but that model has not yet been
+redesigned.
 
 The current `$outputs.<affordance>.latest.<output>` form explicitly couples
 a consumer to a particular producer. Future experiments may explore
@@ -499,9 +589,9 @@ Other areas for future experiments include:
 
 - richer observation selection and extraction;
 - richer FAIL semantics and the use of information learned from failed calls;
-- alternate capability selection after BLOCKED or FAIL;
+- generalized selection among capabilities that can satisfy a missing requirement;
 - observation timing, retention, and redaction policies;
-- additional binding protocols.
+- additional binding protocols as concrete needs emerge.
 
 These are intentionally being introduced through small experiments
 rather than designed into GRAIL in advance.
@@ -523,6 +613,8 @@ For the most recent binding experiments, see:
     grail-demo-13-http-binding-locations
     grail-demo-14-http-response-observations
     grail-demo-15-http-bindings-location-bc
+    grail-demo-16-http-output-sources
+    grail-demo-17-node-module-bindings
 
 ## Key principles
 
@@ -536,6 +628,9 @@ the direction of GRAIL:
 **A capability's effects define its success boundary.**
 
 **Capabilities define behavior. Bindings define execution.**
+
+**An affordance describes what the environment makes possible. A binding
+describes how that possibility is realized.**
 
 **Keep the physics fixed. Make judgment configurable.**
 
