@@ -3,7 +3,7 @@
     "invocation": {
       "id": "inv-001",
       "affordance": "lookupCustomer",
-      "timestamp": "2026-09-23T18:54:34.203Z",
+      "timestamp": "2026-09-24T16:28:47.044Z",
       "request": {
         "method": "GET",
         "url": "http://localhost:3001/customers/customer-123",
@@ -12,57 +12,13 @@
       }
     },
     "response": {
-      "status": 200,
-      "headers": {
-        "connection": "keep-alive",
-        "content-type": "application/json",
-        "date": "Wed, 23 Sep 2026 18:54:34 GMT",
-        "etag": "\"customer-123-v1\"",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked"
-      },
-      "body": {
-        "id": "customer-123",
-        "name": "Jordan",
-        "account": {
-          "id": "A97"
-        }
-      }
+      "status": null,
+      "headers": {},
+      "body": null
     },
     "outputs": {
-      "accountId": "A97",
-      "etag": "\"customer-123-v1\"",
-      "httpStatus": 200
+      "httpStatus": null
     },
-    "result": "SUCCESS"
-  },
-  {
-    "invocation": {
-      "id": "inv-002",
-      "affordance": "lookupAccount",
-      "timestamp": "2026-09-23T18:54:34.210Z",
-      "request": {
-        "method": "GET",
-        "url": "http://localhost:3001/accounts/A97",
-        "headers": {},
-        "body": null
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "connection": "keep-alive",
-        "content-type": "application/json",
-        "date": "Wed, 23 Sep 2026 18:54:34 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked"
-      },
-      "body": {
-        "id": "A97",
-        "status": "active"
-      }
-    },
-    "outputs": {},
-    "result": "SUCCESS"
+    "result": "FAIL"
   }
 ]

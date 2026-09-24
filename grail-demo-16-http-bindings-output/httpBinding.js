@@ -108,7 +108,32 @@ async function executeRequest(binding, request) {
     options.body = requestBody;
   }
 
-  const response = await fetch(request.url, options);
+  //const response = await fetch(request.url, options);
+  let response;
+
+  try {
+    response = await fetch(request.url, options);
+  } catch (error) {
+    return {
+      request: {
+        method: binding.method,
+        url: request.url,
+        headers,
+        body: hasBody ? request.body : null
+      },
+      response: {
+        ok: false,
+        status: null,
+        headers: {},
+        body: null,
+        error: {
+          type: "network",
+          message: error.message
+        }
+      }
+    };
+  }
+  
   const responseHeaders = Object.fromEntries(response.headers.entries());
   const responseBody = await readResponseBody(response);
 

@@ -110,5 +110,33 @@
     "type": "email",
     "value": "jordan@example.com",
     "verified": true
+  },
+  {
+    "id": "VER-017",
+    "customerId": "CUS-013",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-018",
+    "customerId": "CUS-013",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-019",
+    "customerId": "CUS-014",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-020",
+    "customerId": "CUS-014",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
   }
 ]

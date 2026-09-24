@@ -76,6 +76,7 @@ export class Server {
         result
       });
 
+      /*
       if (!interaction.response.ok) {
         console.log(
           `[SERVER] Binding failed: HTTP ${interaction.response.status}`
@@ -83,6 +84,21 @@ export class Server {
 
         return { success: false, offeredAffordances: [] };
       }
+      */
+      
+      if (!interaction.response.ok) {
+        if (interaction.response.error?.type === "network") {
+          console.log(
+            `[SERVER] Binding failed: network error (${interaction.response.error.message})`
+          );
+        } else {
+          console.log(
+            `[SERVER] Binding failed: HTTP ${interaction.response.status}`
+          );
+        }
+
+        return { success: false, offeredAffordances: [] };
+      }      
 
       console.log(
         `[SERVER] Binding succeeded: HTTP ${interaction.response.status}`

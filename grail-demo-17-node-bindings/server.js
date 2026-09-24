@@ -67,7 +67,7 @@ export class Server {
         console.log(`[SERVER] Binding failed: ${interaction.summary}`);
         return { success: false, offeredAffordances: [] };
       }
-
+      
       console.log(`[SERVER] Binding succeeded: ${interaction.summary}`);
     }
 

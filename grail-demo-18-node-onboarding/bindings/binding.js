@@ -21,7 +21,9 @@ async function executeHttp(binding, inputs) {
   return {
     ok: interaction.response.ok,
     description: `${binding.method} ${binding.url}`,
-    summary: `HTTP ${interaction.response.status}`,
+    summary: interaction.response.error?.type === "network"
+      ? `network error (${interaction.response.error.message})`
+      : `HTTP ${interaction.response.status}`,
     invocation: {
       request: interaction.request
     },

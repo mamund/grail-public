@@ -152,5 +152,39 @@
     },
     "termsVersion": "2026-09",
     "termsAccepted": true
+  },
+  {
+    "id": "CUS-013",
+    "onboardingId": "ONB-013",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-014",
+    "onboardingId": "ONB-014",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
   }
 ]
