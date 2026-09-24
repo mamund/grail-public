@@ -528,6 +528,34 @@ The experiment demonstrates that the same precondition, input-resolution,
 observation, output, effect, and goal-pursuit mechanics work across both
 binding types.
 
+### Customer onboarding with Node bindings
+
+`grail-demo-18-node-customer-onboarding`
+
+Extends the Node binding model to a complete customer-onboarding application
+composed of multiple independent capabilities sharing application state.
+
+The demo begins with the single goal `onboardCustomer`. GRAIL discovers the
+capabilities needed to satisfy its unmet conditions at runtime rather than
+following a predefined onboarding workflow.
+
+Initial values such as customer name, email, phone, address, and terms version
+are supplied through `$inputs`. Values learned during execution, including
+`onboardingId`, `customerId`, and verification identifiers, are captured from
+Node capability results and consumed by later capabilities through `$outputs`.
+
+The experiment demonstrates multi-step information flow across Node bindings,
+capabilities that establish effects without producing output values, and
+repeated goal re-evaluation as the environment changes.
+
+The customer-onboarding application maintains its own application state
+independently of GRAIL's world state. The experiment also exposed an important
+contract boundary: a capability that reports SUCCESS must actually establish
+the effects associated with that success in the GRAIL environment.
+
+Demo 18 demonstrates that the richer customer-onboarding scenario requires no
+changes to the generic GRAIL traversal mechanics.
+
 Each experiment builds on the same small GRAIL goal-resolution model.
 
 ## Current architecture
@@ -615,6 +643,7 @@ For the most recent binding experiments, see:
     grail-demo-15-http-bindings-location-bc
     grail-demo-16-http-output-sources
     grail-demo-17-node-module-bindings
+    grail-demo-18-node-customer-onboarding
 
 ## Key principles
 
