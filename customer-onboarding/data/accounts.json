@@ -23,5 +23,35 @@
     "id": "ACC-005",
     "customerId": "CUS-014",
     "status": "active"
+  },
+  {
+    "id": "ACC-006",
+    "customerId": "CUS-015",
+    "status": "active"
+  },
+  {
+    "id": "ACC-007",
+    "customerId": "CUS-016",
+    "status": "active"
+  },
+  {
+    "id": "ACC-008",
+    "customerId": "CUS-017",
+    "status": "active"
+  },
+  {
+    "id": "ACC-009",
+    "customerId": "CUS-018",
+    "status": "active"
+  },
+  {
+    "id": "ACC-010",
+    "customerId": "CUS-021",
+    "status": "active"
+  },
+  {
+    "id": "ACC-011",
+    "customerId": "CUS-022",
+    "status": "active"
   }
 ]

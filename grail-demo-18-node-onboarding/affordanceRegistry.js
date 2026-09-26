@@ -1,4 +1,5 @@
 // affordanceRegistry.js (loads from file at runtime)
+
 import { Affordance } from './affordanceModel.js';
 
 export function loadAffordanceRegistry(registryData) {

@@ -127,12 +127,17 @@ export class Server {
 
     for (let key in this.affordanceRegistry) {
       const candidate = this.affordanceRegistry[key];
-
-      if (candidate.effects.includes(condition)) {
+         
+      if (
+        candidate.enabled !== false &&
+        candidate.effects.includes(condition)
+      ) {
         candidates.push(candidate);
       }
     }
 
     return candidates;
   }
+  
+  
 }

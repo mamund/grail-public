@@ -5,6 +5,7 @@ export class Affordance {
     id,
     action,
     type,
+    enabled,
     preconditions = [],
     inputs = [],
     effects = [],
@@ -13,6 +14,7 @@ export class Affordance {
     this.id = id;
     this.action = action;
     this.type = type;
+    this.enabled = enabled;
     this.preconditions = preconditions;
     this.inputs = inputs;
     this.effects = effects;
