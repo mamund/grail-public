@@ -14,6 +14,9 @@
     ],
     "additionalProperties": false,
     "properties": {
+      "enabled": {
+        "type": "boolean"
+      },
       "id": {
         "type": "string"
       },
@@ -75,6 +78,9 @@
             ],
             "additionalProperties": false,
             "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
               "protocol": {
                 "type": "string",
                 "enum": [
@@ -190,6 +196,9 @@
             ],
             "additionalProperties": false,
             "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
               "protocol": {
                 "const": "node"
               },
