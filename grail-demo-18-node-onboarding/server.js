@@ -43,7 +43,10 @@ export class Server {
       resolvedInputs[inputName] = resolution.value;
     }
 
-    if (affordance.binding) {
+    if (
+      affordance.binding &&
+      affordance.binding.enabled !== false
+    ) {
       const interaction = await executeBinding(
         affordance.binding,
         resolvedInputs

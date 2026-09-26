@@ -236,5 +236,61 @@
     "type": "phone",
     "value": "555-0100",
     "verified": true
+  },
+  {
+    "id": "VER-035",
+    "customerId": "CUS-023",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-036",
+    "customerId": "CUS-023",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-037",
+    "customerId": "CUS-024",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-038",
+    "customerId": "CUS-024",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-039",
+    "customerId": "CUS-025",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-040",
+    "customerId": "CUS-025",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
+  },
+  {
+    "id": "VER-041",
+    "customerId": "CUS-026",
+    "type": "phone",
+    "value": "555-0100",
+    "verified": true
+  },
+  {
+    "id": "VER-042",
+    "customerId": "CUS-026",
+    "type": "email",
+    "value": "jordan@example.com",
+    "verified": true
   }
 ]

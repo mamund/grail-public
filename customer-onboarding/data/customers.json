@@ -312,5 +312,73 @@
     },
     "termsVersion": "2026-09",
     "termsAccepted": true
+  },
+  {
+    "id": "CUS-023",
+    "onboardingId": "ONB-023",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-024",
+    "onboardingId": "ONB-024",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": null,
+    "termsAccepted": false
+  },
+  {
+    "id": "CUS-025",
+    "onboardingId": "ONB-025",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
+  },
+  {
+    "id": "CUS-026",
+    "onboardingId": "ONB-026",
+    "name": "Jordan",
+    "email": "jordan@example.com",
+    "emailVerified": true,
+    "phone": "555-0100",
+    "phoneVerified": true,
+    "address": {
+      "street": "100 Main Street",
+      "city": "Cincinnati",
+      "state": "OH",
+      "postalCode": "45202"
+    },
+    "termsVersion": "2026-09",
+    "termsAccepted": true
   }
 ]
