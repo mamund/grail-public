@@ -187,6 +187,14 @@ performed either by an independent service or by a local module.
 The capability implementation does not need to understand the GRAIL traversal
 algorithm.
 
+## Enabled affordances and bindings
+
+Affordances and bindings may optionally declare an `enabled` property.
+
+An affordance with `enabled: false` is unavailable to discovery. A binding with `enabled: false` is not executed; the affordance follows the normal unbound behavior and succeeds once its preconditions are satisfied, applying its declared effects.
+
+When `enabled` is omitted, both affordances and bindings are enabled. This preserves compatibility with existing registry documents.
+
 ## HTTP bindings
 
 The current HTTP experiments support external capability execution using
@@ -555,6 +563,8 @@ the effects associated with that success in the GRAIL environment.
 
 Demo 18 demonstrates that the richer customer-onboarding scenario requires no
 changes to the generic GRAIL traversal mechanics.
+
+During development of Demo 18, optional `enabled` properties were added for affordances and bindings. These allow an affordance to be removed from discovery or a binding to be bypassed without changing existing registry behavior when the property is omitted.
 
 Each experiment builds on the same small GRAIL goal-resolution model.
 

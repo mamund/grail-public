@@ -163,6 +163,20 @@ The affordance determines what the capability means within the GRAIL environment
 
 The application module itself does not need to know that GRAIL invoked it.
 
+## Enabling affordances and bindings
+
+During development of this demo, the registry was extended with optional
+`enabled` properties for affordances and bindings.
+
+An affordance with `enabled: false` is unavailable to discovery. A binding
+with `enabled: false` is not executed; the affordance follows the existing
+unbound behavior and succeeds once its preconditions are satisfied, applying
+its declared effects.
+
+When `enabled` is omitted, both affordances and bindings remain enabled.
+This preserves compatibility with existing registry documents, including
+the Demo 18 configuration.
+
 ## Emergent traversal
 
 A possible traversal might look like:
