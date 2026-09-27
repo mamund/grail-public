@@ -28,6 +28,35 @@ export class ObservationStore {
     const reference = source.slice(prefix.length);
     const parts = reference.split(".");
 
+    // Scenario-level:
+    // $outputs.latest.<outputName>
+    if (parts.length === 2) {
+      const [selector, outputName] = parts;
+
+      if (selector !== "latest" || !outputName) {
+        return { resolved: false };
+      }
+
+      for (let i = this.observations.length - 1; i >= 0; i--) {
+        const observation = this.observations[i];
+
+        if (
+          observation.outputs &&
+          Object.prototype.hasOwnProperty.call(
+            observation.outputs,
+            outputName
+          )
+        ) {
+          return {
+            resolved: true,
+            value: observation.outputs[outputName]
+          };
+        }
+      }
+
+      return { resolved: false };
+    }
+
     if (parts.length !== 3) {
       return { resolved: false };
     }

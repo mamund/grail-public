@@ -1,0 +1,88 @@
+
+[CLIENT] Starting pursuit: onboardCustomer
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerEmailVerified
+[CLIENT] Pushing next affordance: verifyCustomerEmail
+
+[SERVER] Attempting affordance: verifyCustomerEmail
+[SERVER] Blocked: selected unmet precondition: customerEmailSet
+[CLIENT] Pushing next affordance: setCustomerEmail
+
+[SERVER] Attempting affordance: setCustomerEmail
+[SERVER] Blocked: selected unmet precondition: customerProfileCollected
+[CLIENT] Pushing next affordance: createCustomerProfile
+
+[SERVER] Attempting affordance: createCustomerProfile
+[SERVER] Blocked: selected unmet precondition: onboardingStarted
+[CLIENT] Pushing next affordance: startOnboarding
+
+[SERVER] Attempting affordance: startOnboarding
+[SERVER] Executing binding: ../customer-onboarding/capabilities/onboarding.js :: startOnboarding
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/onboarding.js :: startOnboarding
+[SERVER] Success: applying effects - onboardingStarted
+[CLIENT] Affordance succeeded: startOnboarding
+
+[SERVER] Attempting affordance: createCustomerProfile
+[SERVER] Executing binding: ../customer-onboarding/capabilities/customer.js :: createCustomerProfile
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/customer.js :: createCustomerProfile
+[SERVER] Success: applying effects - customerProfileCollected
+[CLIENT] Affordance succeeded: createCustomerProfile
+
+[SERVER] Attempting affordance: setCustomerEmail
+[SERVER] Executing binding: ../customer-onboarding/capabilities/email.js :: setCustomerEmail
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/email.js :: setCustomerEmail
+[SERVER] Success: applying effects - customerEmailSet
+[CLIENT] Affordance succeeded: setCustomerEmail
+
+[SERVER] Attempting affordance: verifyCustomerEmail
+[SERVER] Executing binding: ../customer-onboarding/capabilities/email.js :: verifyCustomerEmail
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/email.js :: verifyCustomerEmail
+[SERVER] Success: applying effects - customerEmailVerified
+[CLIENT] Affordance succeeded: verifyCustomerEmail
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerTermsAccepted
+[CLIENT] Pushing next affordance: acceptTerms
+
+[SERVER] Attempting affordance: acceptTerms
+[SERVER] Executing binding: ../customer-onboarding/capabilities/terms.js :: acceptTerms
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/terms.js :: acceptTerms
+[SERVER] Success: applying effects - customerTermsAccepted
+[CLIENT] Affordance succeeded: acceptTerms
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerAddressSet
+[CLIENT] Pushing next affordance: setCustomerAddress
+
+[SERVER] Attempting affordance: setCustomerAddress
+[SERVER] Executing binding: ../customer-onboarding/capabilities/address.js :: setCustomerAddress
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/address.js :: setCustomerAddress
+[SERVER] Success: applying effects - customerAddressSet
+[CLIENT] Affordance succeeded: setCustomerAddress
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberVerified
+[CLIENT] Pushing next affordance: verifyCustomerPhone
+
+[SERVER] Attempting affordance: verifyCustomerPhone
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberSet
+[CLIENT] Pushing next affordance: setCustomerPhone
+
+[SERVER] Attempting affordance: setCustomerPhone
+[SERVER] Executing binding: ../customer-onboarding/capabilities/phone.js :: setCustomerPhone
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/phone.js :: setCustomerPhone
+[SERVER] Success: applying effects - customerPhoneNumberSet
+[CLIENT] Affordance succeeded: setCustomerPhone
+
+[SERVER] Attempting affordance: verifyCustomerPhone
+[SERVER] Executing binding: ../customer-onboarding/capabilities/phone.js :: verifyCustomerPhone
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/phone.js :: verifyCustomerPhone
+[SERVER] Success: applying effects - customerPhoneNumberVerified
+[CLIENT] Affordance succeeded: verifyCustomerPhone
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Executing binding: ../customer-onboarding/capabilities/onboarding.js :: onboardCustomer
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/onboarding.js :: onboardCustomer
+[SERVER] Success: applying effects - customerOnboarded
+[CLIENT] Affordance succeeded: onboardCustomer

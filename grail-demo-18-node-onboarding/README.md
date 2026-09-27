@@ -19,6 +19,9 @@ Demo 18 demonstrates that GRAIL can:
 * pass initial values through `$inputs`
 * capture values returned by capabilities
 * consume learned values through `$outputs`
+* resolve learned values by affordance or across the scenario
+* allow multiple affordances to produce equivalent learned values
+* apply multiple effects from a single successful affordance
 * apply capability effects to world state
 * support capabilities that produce effects without producing output values
 * repeatedly re-evaluate the goal until its conditions are satisfied
@@ -137,6 +140,37 @@ verifyCustomerEmail
 
 A capability can therefore consume information produced by an earlier capability without the client managing that information flow.
 
+Outputs can be resolved either from a specific affordance:
+
+```text
+$outputs.setCustomerEmail.latest.emailVerificationId
+```
+
+or from the scenario as a whole:
+
+```text
+$outputs.latest.emailVerificationId
+```
+
+Scenario-wide resolution searches observations for the latest matching output
+without requiring the consumer to know which affordance produced it.
+
+This is useful when multiple affordances can establish the same condition and
+produce equivalent information. For example, both `setCustomerEmail` and
+`setCustomerDetails` can produce `emailVerificationId`. The downstream
+`verifyCustomerEmail` affordance can therefore use:
+
+```text
+$outputs.latest.emailVerificationId
+```
+
+without being coupled to either producer.
+
+Bindings provide an anti-corruption layer between application capabilities and
+the GRAIL environment. A capability may use its own result structure and
+vocabulary while the binding maps that result to the output names used within
+the GRAIL scenario.
+
 ## Node bindings
 
 Each application capability is invoked using a Node binding.
@@ -211,6 +245,32 @@ There is no required path through the environment.
 
 The selection mechanism chooses among currently relevant possibilities while the underlying mechanics remain deterministic.
 
+## Multiple effects
+
+An affordance may establish more than one condition when it succeeds.
+
+For example, `setCustomerDetails` establishes:
+
+```text
+customerEmailSet
+customerPhoneNumberSet
+customerAddressSet
+```
+
+in a single invocation.
+
+The registry can therefore contain both fine-grained affordances such as
+`setCustomerEmail`, `setCustomerPhone`, and `setCustomerAddress`, and a
+coarser-grained affordance that establishes all three conditions.
+
+GRAIL does not require a predefined choice between them. The available
+affordances describe alternative possibilities within the environment.
+
+When `setCustomerDetails` is selected, its binding also captures
+`emailVerificationId` and `phoneVerificationId`. Scenario-wide output
+resolution allows the later verification affordances to consume those values
+without depending on which affordance produced them.
+
 ## Effects without outputs
 
 Not every successful capability needs to produce a value.
@@ -279,6 +339,5 @@ This establishes the richer all-Node baseline for the next binding experiments:
 ```text
 Demo 19   Same customer-onboarding environment, all HTTP
 Demo 20   Same customer-onboarding environment, mixed Node + HTTP
-Demo 21   Multiple affordances and multiple effects
 ```
 

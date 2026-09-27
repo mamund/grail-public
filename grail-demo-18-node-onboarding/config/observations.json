@@ -3,18 +3,18 @@
     "invocation": {
       "id": "inv-001",
       "affordance": "startOnboarding",
-      "timestamp": "2026-09-26T23:34:59.937Z",
+      "timestamp": "2026-09-27T18:57:49.770Z",
       "module": "../customer-onboarding/capabilities/onboarding.js",
       "function": "startOnboarding",
       "inputs": {}
     },
     "response": {
       "result": {
-        "onboardingId": "ONB-026"
+        "onboardingId": "ONB-126"
       }
     },
     "outputs": {
-      "onboardingId": "ONB-026"
+      "onboardingId": "ONB-126"
     },
     "result": "SUCCESS"
   },
@@ -22,139 +22,56 @@
     "invocation": {
       "id": "inv-002",
       "affordance": "createCustomerProfile",
-      "timestamp": "2026-09-26T23:34:59.944Z",
+      "timestamp": "2026-09-27T18:57:49.821Z",
       "module": "../customer-onboarding/capabilities/customer.js",
       "function": "createCustomerProfile",
       "inputs": {
-        "onboardingId": "ONB-026",
+        "onboardingId": "ONB-126",
         "name": "Jordan"
       }
     },
     "response": {
       "result": {
-        "customerId": "CUS-026"
+        "customerId": "CUS-126"
       }
     },
     "outputs": {
-      "customerId": "CUS-026"
+      "customerId": "CUS-126"
     },
     "result": "SUCCESS"
   },
   {
     "invocation": {
       "id": "inv-003",
-      "affordance": "setCustomerPhone",
-      "timestamp": "2026-09-26T23:34:59.950Z",
-      "module": "../customer-onboarding/capabilities/phone.js",
-      "function": "setCustomerPhone",
+      "affordance": "setCustomerEmail",
+      "timestamp": "2026-09-27T18:57:49.832Z",
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "setCustomerEmail",
       "inputs": {
-        "customerId": "CUS-026",
-        "phone": "555-0100"
+        "customerId": "CUS-126",
+        "email": "jordan@example.com"
       }
     },
     "response": {
       "result": {
-        "phoneVerificationId": "VER-041"
+        "emailVerificationId": "VER-242"
       }
     },
     "outputs": {
-      "phoneVerificationId": "VER-041"
+      "emailVerificationId": "VER-242"
     },
     "result": "SUCCESS"
   },
   {
     "invocation": {
       "id": "inv-004",
-      "affordance": "verifyCustomerPhone",
-      "timestamp": "2026-09-26T23:34:59.955Z",
-      "module": "../customer-onboarding/capabilities/phone.js",
-      "function": "verifyCustomerPhone",
-      "inputs": {
-        "customerId": "CUS-026",
-        "phoneVerificationId": "VER-041"
-      }
-    },
-    "response": {
-      "result": {
-        "verifiedPhone": "555-0100"
-      }
-    },
-    "outputs": {
-      "verifiedPhone": "555-0100"
-    },
-    "result": "SUCCESS"
-  },
-  {
-    "invocation": {
-      "id": "inv-005",
-      "affordance": "setCustomerAddress",
-      "timestamp": "2026-09-26T23:34:59.962Z",
-      "module": "../customer-onboarding/capabilities/address.js",
-      "function": "setCustomerAddress",
-      "inputs": {
-        "customerId": "CUS-026",
-        "street": "100 Main Street",
-        "city": "Cincinnati",
-        "state": "OH",
-        "postalCode": "45202"
-      }
-    },
-    "response": {
-      "result": {}
-    },
-    "outputs": {},
-    "result": "SUCCESS"
-  },
-  {
-    "invocation": {
-      "id": "inv-006",
-      "affordance": "acceptTerms",
-      "timestamp": "2026-09-26T23:34:59.969Z",
-      "module": "../customer-onboarding/capabilities/terms.js",
-      "function": "acceptTerms",
-      "inputs": {
-        "customerId": "CUS-026",
-        "termsVersion": "2026-09"
-      }
-    },
-    "response": {
-      "result": {}
-    },
-    "outputs": {},
-    "result": "SUCCESS"
-  },
-  {
-    "invocation": {
-      "id": "inv-007",
-      "affordance": "setCustomerEmail",
-      "timestamp": "2026-09-26T23:34:59.975Z",
-      "module": "../customer-onboarding/capabilities/email.js",
-      "function": "setCustomerEmail",
-      "inputs": {
-        "customerId": "CUS-026",
-        "email": "jordan@example.com"
-      }
-    },
-    "response": {
-      "result": {
-        "emailVerificationId": "VER-042"
-      }
-    },
-    "outputs": {
-      "emailVerificationId": "VER-042"
-    },
-    "result": "SUCCESS"
-  },
-  {
-    "invocation": {
-      "id": "inv-008",
       "affordance": "verifyCustomerEmail",
-      "timestamp": "2026-09-26T23:34:59.978Z",
+      "timestamp": "2026-09-27T18:57:49.851Z",
       "module": "../customer-onboarding/capabilities/email.js",
       "function": "verifyCustomerEmail",
       "inputs": {
-        "customerId": "CUS-026",
-        "emailVerificationId": "VER-042"
+        "customerId": "CUS-126",
+        "emailVerificationId": "VER-242"
       }
     },
     "response": {
@@ -169,22 +86,91 @@
   },
   {
     "invocation": {
-      "id": "inv-009",
-      "affordance": "onboardCustomer",
-      "timestamp": "2026-09-26T23:34:59.982Z",
-      "module": "../customer-onboarding/capabilities/onboarding.js",
-      "function": "onboardCustomer",
+      "id": "inv-005",
+      "affordance": "acceptTerms",
+      "timestamp": "2026-09-27T18:57:49.860Z",
+      "module": "../customer-onboarding/capabilities/terms.js",
+      "function": "acceptTerms",
       "inputs": {
-        "customerId": "CUS-026"
+        "customerId": "CUS-126",
+        "termsVersion": "2026-09"
+      }
+    },
+    "response": {
+      "result": {}
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-006",
+      "affordance": "setCustomerDetails",
+      "timestamp": "2026-09-27T18:57:49.865Z",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "setCustomerDetails",
+      "inputs": {
+        "customerId": "CUS-126",
+        "email": "jordan@example.com",
+        "phone": "555-0100",
+        "street": "100 Main Street",
+        "city": "Cincinnati",
+        "state": "OH",
+        "postalCode": "45202"
       }
     },
     "response": {
       "result": {
-        "accountId": "ACC-014"
+        "emailVerificationId": "VER-242",
+        "phoneVerificationId": "VER-243"
       }
     },
     "outputs": {
-      "accountId": "ACC-014"
+      "emailVerificationId": "VER-242",
+      "phoneVerificationId": "VER-243"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-007",
+      "affordance": "verifyCustomerPhone",
+      "timestamp": "2026-09-27T18:57:49.869Z",
+      "module": "../customer-onboarding/capabilities/phone.js",
+      "function": "verifyCustomerPhone",
+      "inputs": {
+        "customerId": "CUS-126",
+        "phoneVerificationId": "VER-243"
+      }
+    },
+    "response": {
+      "result": {
+        "verifiedPhone": "555-0100"
+      }
+    },
+    "outputs": {
+      "verifiedPhone": "555-0100"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-008",
+      "affordance": "onboardCustomer",
+      "timestamp": "2026-09-27T18:57:49.873Z",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "onboardCustomer",
+      "inputs": {
+        "customerId": "CUS-126"
+      }
+    },
+    "response": {
+      "result": {
+        "accountId": "ACC-111"
+      }
+    },
+    "outputs": {
+      "accountId": "ACC-111"
     },
     "result": "SUCCESS"
   }

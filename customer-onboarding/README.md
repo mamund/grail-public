@@ -40,6 +40,7 @@ The application exposes the following capabilities:
 ```text
 startOnboarding
 createCustomerProfile
+setCustomerDetails
 setCustomerEmail
 verifyCustomerEmail
 setCustomerPhone
@@ -118,6 +119,11 @@ createCustomerProfile
 Other capabilities, such as setting an address or accepting terms, primarily
 change application state and do not need to return additional application
 identifiers.
+
+The application also provides `setCustomerDetails`, which can set the customer's
+email, phone, and address in a single capability invocation and returns both
+verification identifiers. This allows experiments to compare fine-grained and
+coarse-grained capabilities over the same application state.
 
 ## Application success boundary
 
