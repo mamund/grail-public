@@ -281,11 +281,6 @@ result. The capability itself does not need to know anything about GRAIL.
 Node outputs may be extracted from the returned `result` using simple
 dot-separated paths.
 
-Output mappings also provide an anti-corruption layer between capability
-implementations and the GRAIL environment. A capability may use its own result
-structure and vocabulary while the binding maps those values to stable output
-names used by the GRAIL scenario.
-
 HTTP and Node execution are routed through a common binding layer:
 
     GRAIL mechanics
@@ -325,21 +320,9 @@ Values learned during execution may be resolved from observations using
       "accountId": "$outputs.lookupCustomer.latest.accountId"
     }
 
-Two forms are currently supported:
+The currently supported form is:
 
     $outputs.<affordance>.latest.<output>
-    $outputs.latest.<output>
-
-The affordance-scoped form resolves the latest matching output produced by a
-specific affordance. The scenario-scoped form searches observations from newest
-to oldest and resolves the latest matching output regardless of which affordance
-produced it.
-
-Scenario-scoped resolution is useful when multiple affordances can produce
-equivalent information. It allows a consumer to depend on the GRAIL output
-vocabulary without being coupled to a particular producer. Use the
-affordance-scoped form when the identity of the producer is semantically
-important.
 
 This is an intentional breaking change. The current runtime does not support
 both the older input-array form and the newer source-aware form.
@@ -570,15 +553,8 @@ are supplied through `$inputs`. Values learned during execution, including
 Node capability results and consumed by later capabilities through `$outputs`.
 
 The experiment demonstrates multi-step information flow across Node bindings,
-capabilities that establish effects without producing output values, multiple
-effects from a single affordance, scenario-scoped output resolution, and
+capabilities that establish effects without producing output values, and
 repeated goal re-evaluation as the environment changes.
-
-The scenario includes both fine-grained setters and a coarse-grained
-`setCustomerDetails` affordance. Either can produce the verification identifiers
-needed by later verification affordances. Those consumers use
-`$outputs.latest.<output>` so they depend on the learned value rather than on a
-specific producer.
 
 The customer-onboarding application maintains its own application state
 independently of GRAIL's world state. The experiment also exposed an important
@@ -643,12 +619,9 @@ request/response interactions. Node bindings expose the need for more
 binding-neutral observation vocabulary, but that model has not yet been
 redesigned.
 
-The current resolver supports both producer-specific
-`$outputs.<affordance>.latest.<output>` references and scenario-scoped
-`$outputs.latest.<output>` references. Both use the `latest` selector over
-observations. Scenario-scoped resolution assumes that output names have stable
-semantics within the GRAIL environment; producer-specific resolution remains
-available when provenance matters or output names would otherwise be ambiguous.
+The current `$outputs.<affordance>.latest.<output>` form explicitly couples
+a consumer to a particular producer. Future experiments may explore
+producer selection as a separate decision point.
 
 Other areas for future experiments include:
 
