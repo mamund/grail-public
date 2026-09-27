@@ -4,8 +4,18 @@ function nextVerificationId(records) {
   return `VER-${String(records.length + 1).padStart(3, "0")}`;
 }
 
+function requireAuthToken(inputs) {
+  const expectedToken = process.env.CAPABILITY_AUTH_TOKEN;
+
+  if (!expectedToken || inputs.authToken !== expectedToken) {
+    throw new Error("Unauthorized: missing or invalid authToken");
+  }
+}
+
 export async function setCustomerPhone(inputs) {
   const { customerId, phone } = inputs;
+
+  requireAuthToken(inputs);
 
   const customer = await find("customers", customerId);
 
