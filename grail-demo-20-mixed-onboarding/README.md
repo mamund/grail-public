@@ -1,8 +1,8 @@
-# Demo 19: Customer onboarding with HTTP bindings
+# Demo 20: Customer onboarding with mixed Node and HTTP bindings
 
-This demo exercises the same customer-onboarding environment as Demo 18 using HTTP capability bindings instead of local Node.js bindings.
+This demo exercises the same customer-onboarding environment using a deliberate mixture of local Node.js and HTTP capability bindings within a single GRAIL scenario.
 
-Demo 18 established the richer all-Node baseline. Demo 19 keeps the same goal, conditions, affordances, preconditions, effects, inputs, and output relationships while changing how the capabilities are invoked.
+Demo 18 established the all-Node baseline and Demo 19 established the all-HTTP counterpart. Demo 20 keeps the same goal, conditions, affordances, preconditions, effects, inputs, and output relationships while composing capabilities reached through both binding protocols.
 
 The important point is that GRAIL does not contain a predefined onboarding workflow.
 
@@ -10,50 +10,49 @@ It knows the goal, the current world state, the available capabilities, and the 
 
 ## What this demo proves
 
-Demo 19 demonstrates that GRAIL can:
+Demo 20 Test 1 demonstrates that GRAIL can:
 
-* pursue a goal across a larger capability environment
-* invoke application capabilities through HTTP bindings
-* map affordance inputs to HTTP path and body parameters
-* capture learned values from HTTP response bodies
-* discover capabilities from unmet preconditions
-* execute capabilities in an emergent order
-* pass initial values through `$inputs`
-* capture values returned by capabilities
-* consume learned values through `$outputs`
-* resolve learned values by affordance or across the scenario
-* allow multiple affordances to produce equivalent learned values
-* apply multiple effects from a single successful affordance
-* apply capability effects to world state
-* support capabilities that produce effects without producing output values
-* repeatedly re-evaluate the goal until its conditions are satisfied
-* complete the scenario without encoding a workflow in the client or server
+* compose Node-bound and HTTP-bound capabilities within the same scenario
+* cross binding boundaries repeatedly during a single pursuit
+* consume outputs produced through one binding protocol from capabilities invoked through another
+* apply effects from Node and HTTP capabilities to the same GRAIL world state
+* resolve learned values through `$outputs` without regard to the binding that produced them
+* use the same application capabilities and application state through different invocation mechanisms
+* execute varying emergent traversals without encoding binding transitions in the client or server
 
-No changes to the core GRAIL traversal mechanics or world model are required for this scenario.
+No changes to the core GRAIL traversal mechanics or world model are required for mixed-binding composition.
 
 ## Application
 
-The demo uses a stateful HTTP capability service that exposes the customer-onboarding capabilities on port `3001`.
+The demo uses the shared customer-onboarding application introduced in Demo 18.
 
-The service exists independently of GRAIL and can be exercised directly.
+The application capabilities are implemented once as Node.js modules and use a shared local file store for application state.
 
-Its capabilities include:
+Those same capability functions can be reached in two ways:
 
 ```text
-startOnboarding
-createCustomerProfile
-setCustomerEmail
-verifyCustomerEmail
-setCustomerPhone
-verifyCustomerPhone
-setCustomerAddress
-acceptTerms
-onboardCustomer
+Node binding
+    ↓
+capability module
+    ↓
+shared file store
 ```
 
-The HTTP capabilities share in-memory application state.
+or:
 
-GRAIL does not own or manage that application state. It interacts with the application through bindings.
+```text
+HTTP binding
+    ↓
+HTTP adapter
+    ↓
+capability module
+    ↓
+shared file store
+```
+
+The HTTP server is therefore an adapter over the existing application capabilities rather than a second implementation of the customer-onboarding domain.
+
+GRAIL does not own or manage the shared application state. The application does.
 
 ## Goal
 
@@ -169,48 +168,36 @@ the GRAIL environment. A capability may use its own result structure and
 vocabulary while the binding maps that result to the output names used within
 the GRAIL scenario.
 
-## HTTP bindings
+## Mixed bindings
 
-Each application capability is invoked using an HTTP binding.
+Each affordance retains a single binding, but the registry deliberately mixes Node and HTTP bindings across the scenario.
 
-For example:
-
-```json
-{
-  "protocol": "http",
-  "method": "POST",
-  "url": "http://localhost:3001/customers",
-  "parameters": {
-    "onboardingId": {
-      "in": "body"
-    },
-    "name": {
-      "in": "body"
-    }
-  },
-  "outputs": {
-    "customerId": {
-      "from": "body",
-      "path": "customerId"
-    }
-  }
-}
-```
-
-Other affordances combine path parameters and body values. For example, customer-specific operations use URLs such as:
+Test 1 uses:
 
 ```text
-/customers/{customerId}/email
-/customers/{customerId}/phone
-/customers/{customerId}/address
-/customers/{customerId}/onboarding
+onboardCustomer          Node
+verifyCustomerEmail      Node
+setCustomerEmail         HTTP
+createCustomerProfile    HTTP
+setCustomerDetails       Node
+startOnboarding          Node
+acceptTerms              HTTP
+setCustomerAddress       Node
+verifyCustomerPhone      HTTP
+setCustomerPhone         Node
 ```
 
-The binding determines how the capability is executed.
+The mix is intentionally designed to create cross-binding data dependencies.
 
-The affordance determines what the capability means within the GRAIL environment.
+For example, `startOnboarding` is Node-bound and produces `onboardingId`. The HTTP-bound `createCustomerProfile` consumes that value.
 
-Changing the binding protocol does not change the goal, preconditions, effects, or data relationships expressed by the scenario.
+Likewise, the HTTP-bound `setCustomerEmail` can produce `emailVerificationId`, which the Node-bound `verifyCustomerEmail` consumes.
+
+The reverse direction is also exercised: the Node-bound `setCustomerPhone` can produce `phoneVerificationId`, which the HTTP-bound `verifyCustomerPhone` consumes.
+
+The binding determines how an affordance reaches the capability.
+
+It does not change the affordance's preconditions, effects, inputs, or role in the GRAIL environment.
 
 ## Enabling affordances and bindings
 
@@ -311,39 +298,39 @@ effects     what becomes true
 outputs     what information was learned
 ```
 
-## Application state and GRAIL world state
+## Shared application state
 
-The customer-onboarding HTTP service maintains its own application state.
+The Node and HTTP bindings ultimately invoke the same application capability modules.
 
-GRAIL maintains its declared world state.
+Those modules read and write the same local file store.
 
-These are related, but they are not the same thing.
+This is important because mixed binding support does not imply that GRAIL provides shared application state. GRAIL composes affordances and invokes their bindings. The capabilities themselves must participate in a coherent application environment.
 
-Repeated runs exposed an important interaction between the coarse-grained `setCustomerDetails` capability and the fine-grained verification capabilities.
+For this experiment, the shared local file store provides that environment.
 
-A valid traversal could verify a phone number first and later invoke `setCustomerDetails` to establish another missing condition. The original HTTP implementation unconditionally reset both email and phone verification state whenever `setCustomerDetails` executed. GRAIL still correctly knew that `customerPhoneNumberVerified` had already been established, but the application had silently invalidated that fact.
+The arrangement allows an HTTP-bound capability to observe application state established by a Node-bound capability, and vice versa, without GRAIL knowing how that state is maintained.
 
-The final onboarding capability detected the discrepancy and returned an HTTP `409`.
-
-The capability was corrected so that an established verification is invalidated only when the underlying email or phone value actually changes. Existing verification identifiers are also reused when the value remains unchanged.
-
-This illustrates an important capability-design rule:
-
-> A capability should not invalidate an already-established condition unless it actually changes the underlying state on which that condition depends.
-
-It also reinforces the boundary established in Demo 18:
-
-> A successful capability invocation must actually establish and preserve the effects that the GRAIL environment associates with that success.
-
-After the correction, 50 repeated runs completed successfully across varying emergent traversals.
+This is not intended as a general solution for distributed state management. It is a concrete demonstration that binding protocol and application state are separate concerns.
 
 ## Result
 
-With the HTTP registry and capability service in place, GRAIL can autonomously discover and execute the capabilities required to onboard the customer over HTTP.
+The mixed registry was exercised across 25 repeated runs.
+
+All 25 pursuits completed successfully despite randomized traversal and repeated transitions between Node and HTTP bindings.
+
+The tests demonstrated that:
+
+```text
+Node output → HTTP consumer    PASS
+HTTP output → Node consumer    PASS
+Node effect → shared world     PASS
+HTTP effect → shared world     PASS
+mixed traversal                PASS
+```
 
 The client supplies the goal.
 
-It does not supply the workflow.
+It does not supply the workflow or manage binding transitions.
 
 ```text
 Define the environment, not the path.
@@ -352,9 +339,9 @@ Define the environment, not the path.
 ## Status
 
 ```text
-Demo 19: PASS
+Demo 20 Test 1: PASS
 ```
 
-This establishes the all-HTTP counterpart to the Demo 18 Node baseline.
+This establishes the first mixed-binding baseline: a single GRAIL scenario can compose capabilities reached through different binding protocols while preserving the same world model and application semantics.
 
-Together, the two demos show that the same GRAIL environment can be executed through different binding protocols without changing its world model.
+A subsequent Demo 20 experiment can expose equivalent Node-bound and HTTP-bound affordances simultaneously, allowing affordance selection to determine which implementation is used during each pursuit.

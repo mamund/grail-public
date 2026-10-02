@@ -1,0 +1,238 @@
+[
+  {
+    "invocation": {
+      "id": "inv-001",
+      "affordance": "startOnboardingHttp",
+      "timestamp": "2026-10-02T19:46:06.286Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/onboarding",
+        "headers": {},
+        "body": null
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:46:06 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "onboardingId": "ONB-059"
+      }
+    },
+    "outputs": {
+      "onboardingId": "ONB-059"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-002",
+      "affordance": "createCustomerProfileNode",
+      "timestamp": "2026-10-02T19:46:06.294Z",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "createCustomerProfile",
+      "inputs": {
+        "onboardingId": "ONB-059",
+        "name": "Jordan"
+      }
+    },
+    "response": {
+      "result": {
+        "customerId": "CUS-058"
+      }
+    },
+    "outputs": {
+      "customerId": "CUS-058"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-003",
+      "affordance": "setCustomerPhoneHttp",
+      "timestamp": "2026-10-02T19:46:06.305Z",
+      "request": {
+        "method": "PUT",
+        "url": "http://localhost:3001/customers/CUS-058/phone",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "phone": "555-0100"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:46:06 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "phoneVerificationId": "VER-115"
+      }
+    },
+    "outputs": {
+      "phoneVerificationId": "VER-115"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-004",
+      "affordance": "verifyCustomerPhoneHttp",
+      "timestamp": "2026-10-02T19:46:06.311Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-058/phone/verification",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "phoneVerificationId": "VER-115"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:46:06 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "verifiedPhone": "555-0100"
+      }
+    },
+    "outputs": {
+      "verifiedPhone": "555-0100"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-005",
+      "affordance": "setCustomerDetailsHttp",
+      "timestamp": "2026-10-02T19:46:06.318Z",
+      "request": {
+        "method": "PUT",
+        "url": "http://localhost:3001/customers/CUS-058/details",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "jordan@example.com",
+          "phone": "555-0100",
+          "street": "100 Main Street",
+          "city": "Cincinnati",
+          "state": "OH",
+          "postalCode": "45202"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:46:06 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "emailVerificationId": "VER-116",
+        "phoneVerificationId": "VER-115"
+      }
+    },
+    "outputs": {
+      "emailVerificationId": "VER-116",
+      "phoneVerificationId": "VER-115"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-006",
+      "affordance": "verifyCustomerEmailNode",
+      "timestamp": "2026-10-02T19:46:06.330Z",
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "verifyCustomerEmail",
+      "inputs": {
+        "customerId": "CUS-058",
+        "emailVerificationId": "VER-116"
+      }
+    },
+    "response": {
+      "result": {
+        "verifiedEmail": "jordan@example.com"
+      }
+    },
+    "outputs": {
+      "verifiedEmail": "jordan@example.com"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-007",
+      "affordance": "acceptTermsHttp",
+      "timestamp": "2026-10-02T19:46:06.336Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-058/terms",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "termsVersion": "2026-09"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:46:06 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-008",
+      "affordance": "onboardCustomer",
+      "timestamp": "2026-10-02T19:46:06.343Z",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "onboardCustomer",
+      "inputs": {
+        "customerId": "CUS-058"
+      }
+    },
+    "response": {
+      "result": {
+        "accountId": "ACC-058"
+      }
+    },
+    "outputs": {
+      "accountId": "ACC-058"
+    },
+    "result": "SUCCESS"
+  }
+]

@@ -1,0 +1,225 @@
+Run 001: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileNode
+  setCustomerEmailHttp
+  verifyCustomerEmailNode
+  setCustomerAddressNode
+  setCustomerPhoneNode
+  verifyCustomerPhoneNode
+  acceptTermsNode
+
+Run 002: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerDetailsNode
+  verifyCustomerEmailHttp
+  verifyCustomerPhoneHttp
+  acceptTermsHttp
+
+Run 003: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileNode
+  acceptTermsNode
+  setCustomerPhoneHttp
+  verifyCustomerPhoneHttp
+  setCustomerAddressNode
+  setCustomerEmailNode
+  verifyCustomerEmailNode
+
+Run 004: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileNode
+  setCustomerDetailsNode
+  verifyCustomerPhoneHttp
+  verifyCustomerEmailNode
+  acceptTermsHttp
+
+Run 005: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerPhoneHttp
+  verifyCustomerPhoneHttp
+  acceptTermsHttp
+  setCustomerEmailHttp
+  verifyCustomerEmailHttp
+  setCustomerAddressHttp
+
+Run 006: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerPhoneNode
+  verifyCustomerPhoneNode
+  setCustomerDetailsHttp
+  verifyCustomerEmailNode
+  acceptTermsNode
+
+Run 007: SUCCESS
+  startOnboardingNode
+  createCustomerProfileNode
+  setCustomerDetailsHttp
+  verifyCustomerEmailHttp
+  acceptTermsNode
+  verifyCustomerPhoneHttp
+
+Run 008: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerPhoneHttp
+  verifyCustomerPhoneHttp
+  acceptTermsHttp
+  setCustomerDetailsNode
+  verifyCustomerEmailHttp
+
+Run 009: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  acceptTermsNode
+  setCustomerDetailsHttp
+  verifyCustomerEmailNode
+  verifyCustomerPhoneHttp
+
+Run 010: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerAddressNode
+  acceptTermsHttp
+  setCustomerEmailHttp
+  verifyCustomerEmailHttp
+  setCustomerPhoneNode
+  verifyCustomerPhoneHttp
+
+Run 011: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerDetailsHttp
+  verifyCustomerPhoneHttp
+  verifyCustomerEmailNode
+  acceptTermsNode
+
+Run 012: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerAddressHttp
+  acceptTermsNode
+  setCustomerDetailsHttp
+  verifyCustomerPhoneHttp
+  verifyCustomerEmailHttp
+
+Run 013: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerEmailHttp
+  verifyCustomerEmailHttp
+  setCustomerDetailsHttp
+  verifyCustomerPhoneNode
+  acceptTermsNode
+
+Run 014: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerPhoneHttp
+  verifyCustomerPhoneNode
+  setCustomerEmailNode
+  verifyCustomerEmailHttp
+  setCustomerAddressHttp
+  acceptTermsHttp
+
+Run 015: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerAddressHttp
+  setCustomerEmailHttp
+  verifyCustomerEmailNode
+  setCustomerPhoneNode
+  verifyCustomerPhoneNode
+  acceptTermsNode
+
+Run 016: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerAddressNode
+  acceptTermsHttp
+  setCustomerDetailsNode
+  verifyCustomerEmailNode
+  verifyCustomerPhoneHttp
+
+Run 017: SUCCESS
+  startOnboardingNode
+  createCustomerProfileNode
+  acceptTermsNode
+  setCustomerAddressHttp
+  setCustomerEmailHttp
+  verifyCustomerEmailNode
+  setCustomerDetailsNode
+  verifyCustomerPhoneNode
+
+Run 018: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerAddressHttp
+  setCustomerDetailsNode
+  verifyCustomerEmailHttp
+  verifyCustomerPhoneHttp
+  acceptTermsNode
+
+Run 019: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerDetailsNode
+  verifyCustomerEmailNode
+  verifyCustomerPhoneHttp
+  acceptTermsHttp
+
+Run 020: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerPhoneNode
+  verifyCustomerPhoneHttp
+  setCustomerAddressHttp
+  acceptTermsHttp
+  setCustomerEmailNode
+  verifyCustomerEmailHttp
+
+Run 021: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerPhoneHttp
+  verifyCustomerPhoneNode
+  setCustomerDetailsHttp
+  acceptTermsNode
+  verifyCustomerEmailHttp
+
+Run 022: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileHttp
+  setCustomerAddressHttp
+  setCustomerDetailsNode
+  verifyCustomerPhoneNode
+  verifyCustomerEmailHttp
+  acceptTermsNode
+
+Run 023: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileNode
+  setCustomerDetailsNode
+  verifyCustomerPhoneNode
+  verifyCustomerEmailNode
+  acceptTermsNode
+
+Run 024: SUCCESS
+  startOnboardingNode
+  createCustomerProfileHttp
+  setCustomerDetailsNode
+  verifyCustomerPhoneNode
+  verifyCustomerEmailNode
+  acceptTermsNode
+
+Run 025: SUCCESS
+  startOnboardingHttp
+  createCustomerProfileNode
+  setCustomerPhoneHttp
+  verifyCustomerPhoneHttp
+  setCustomerDetailsHttp
+  verifyCustomerEmailNode
+  acceptTermsHttp
+

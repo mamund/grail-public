@@ -590,6 +590,54 @@ changes to the generic GRAIL traversal mechanics.
 
 During development of Demo 18, optional `enabled` properties were added for affordances and bindings. These allow an affordance to be removed from discovery or a binding to be bypassed without changing existing registry behavior when the property is omitted.
 
+### Customer onboarding with HTTP bindings
+
+`grail-demo-19-http-customer-onboarding`
+
+Ports the Demo 18 customer-onboarding environment from Node bindings to HTTP while preserving the same goal, conditions, preconditions, effects, inputs, outputs, and application semantics.
+
+The HTTP layer is a thin adapter over the same application capability modules used by the Node version. Both invocation mechanisms therefore operate against the same application implementation and shared application state.
+
+Repeated randomized runs exposed an important capability-design requirement: a capability must behave correctly for the state it encounters rather than for an assumed execution sequence. In particular, `setCustomerDetails` was corrected to preserve existing email and phone verification when the underlying values had not changed.
+
+Demo 19 demonstrates that the same GRAIL environment can be realized through HTTP without changing the generic traversal mechanics, while also showing how varying traversal can expose hidden sequencing assumptions inside capability implementations.
+
+### Customer onboarding with mixed bindings
+
+`grail-demo-20-mixed-customer-onboarding`
+
+Combines Node-bound and HTTP-bound capabilities within the same customer-onboarding pursuit.
+
+The registry deliberately assigns different capabilities to different binding protocols. Outputs produced through Node are consumed through HTTP and vice versa, while both invocation mechanisms operate against the same application state.
+
+Across repeated randomized runs, GRAIL crosses binding boundaries without the client, server, or scenario encoding those transitions.
+
+Demo 20 establishes that capabilities participating in one GRAIL environment do not need to share an invocation protocol.
+
+The binding determines how an affordance reaches its implementation. It does not determine how that affordance participates in the environment.
+
+### Alternative affordances across Node and HTTP bindings
+
+`grail-demo-21-alternative-bindings`
+
+Extends Demo 20 by making equivalent Node-bound and HTTP-bound affordances available simultaneously.
+
+The supporting capabilities are represented as nine semantic pairs. Each pair contains a Node-bound affordance and an HTTP-bound affordance with equivalent preconditions and effects. GRAIL continues to select affordances according to the conditions they can establish; the selected affordance then executes through its declared binding.
+
+Demo 21 does not introduce a binding-selection mechanism. Binding diversity emerges from ordinary affordance selection.
+
+Scenario-scoped output resolution allows downstream capabilities to consume learned values without knowing which alternative affordance produced them or which binding protocol was used.
+
+The registry was exercised across 25 repeated pursuits. All 25 completed successfully, all 18 supporting alternatives were selected at least once, and the 25 runs produced 25 distinct executed-affordance traversals.
+
+The experiment demonstrates that:
+
+**GRAIL selects capabilities based on what they can accomplish, independent of how they are bound.**
+
+It also reinforces a broader capability-design principle:
+
+**Depend on state, not traversal history.**
+
 Each experiment builds on the same small GRAIL goal-resolution model.
 
 ## Current architecture
@@ -681,6 +729,9 @@ For the most recent binding experiments, see:
     grail-demo-16-http-output-sources
     grail-demo-17-node-module-bindings
     grail-demo-18-node-customer-onboarding
+    grail-demo-19-http-customer-onboarding
+    grail-demo-20-mixed-customer-onboarding
+    grail-demo-21-alternative-bindings
 
 ## Key principles
 
@@ -697,6 +748,10 @@ the direction of GRAIL:
 
 **An affordance describes what the environment makes possible. A binding
 describes how that possibility is realized.**
+
+**Binding is an execution property of an affordance, not a property of the traversal.**
+
+**Depend on state, not traversal history.**
 
 **Keep the physics fixed. Make judgment configurable.**
 
