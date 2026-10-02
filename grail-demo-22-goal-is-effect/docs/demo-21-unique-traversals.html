@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Demo 21 — Unique Traversals</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 28px; line-height: 1.35; }
+h1 { margin-bottom: 4px; }
+.sub { margin: 0 0 18px; }
+.legend { margin: 12px 0 24px; font-size: 14px; }
+.legend span { display:inline-block; margin-right:18px; }
+.run { border-top: 1px solid #aaa; padding: 13px 0; page-break-inside: avoid; }
+.runhead { font-weight:700; margin-bottom:8px; min-width:75px; }
+.flow { display:flex; flex-wrap:wrap; align-items:center; gap:7px; }
+.step { border:1px solid #777; border-radius:8px; padding:6px 8px; display:inline-flex; align-items:center; gap:7px; }
+.step em { font-style:normal; font-weight:700; border:1px solid #777; border-radius:50%; width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; }
+.http { border-style:dashed; }
+.arrow { font-weight:700; }
+.dup { font-weight:normal; font-size:12px; }
+@media print { body { margin: 14mm; } }
+</style>
+</head>
+<body>
+<h1>Demo 21 — Unique Traversals</h1>
+<p class="sub">25 successful runs; 25 unique executed-affordance traversals.</p>
+<div class="legend"><span><b>N</b> = Node binding</span><span><b>H</b> = HTTP binding</span><span>Dashed box = HTTP</span></div>
+
+      <section class="run">
+        <div class="runhead">Run 001</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerAddress</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 002</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 003</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerAddress</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 004</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 005</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 006</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 007</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 008</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 009</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 010</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerAddress</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 011</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 012</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 013</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 014</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 015</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 016</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerAddress</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 017</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 018</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 019</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 020</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 021</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 022</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerAddress</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerEmail</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 023</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 024</div>
+        <div class="flow"><span class="step node"><b>startOnboarding</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>createCustomerProfile</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>setCustomerDetails</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerPhone</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step node"><b>acceptTerms</b><em>N</em></span></div>
+      </section>
+      <section class="run">
+        <div class="runhead">Run 025</div>
+        <div class="flow"><span class="step http"><b>startOnboarding</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>createCustomerProfile</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>verifyCustomerPhone</b><em>H</em></span><span class='arrow'>→</span><span class="step http"><b>setCustomerDetails</b><em>H</em></span><span class='arrow'>→</span><span class="step node"><b>verifyCustomerEmail</b><em>N</em></span><span class='arrow'>→</span><span class="step http"><b>acceptTerms</b><em>H</em></span></div>
+      </section>
+</body>
+</html>

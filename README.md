@@ -15,15 +15,20 @@ The basic GRAIL algorithm is small.
 
 An agent pursues a goal by:
 
-1. Attempting the capability associated with the goal.
-2. Identifying unmet conditions when the capability is blocked.
-3. Finding capabilities that can establish those conditions.
-4. Pursuing those capabilities.
-5. Retrying the original capability as conditions are satisfied.
+1. Resolving the desired goal condition to a capability that can establish it.
+2. Attempting that capability.
+3. Identifying unmet conditions when the capability is blocked.
+4. Finding capabilities that can establish those conditions.
+5. Pursuing those capabilities.
+6. Retrying the original capability as conditions are satisfied.
 
 Conceptually:
 
-    goal
+    goal condition
+      |
+      v
+    find a capability
+    that can establish it
       |
       v
     attempt capability
@@ -638,6 +643,42 @@ It also reinforces a broader capability-design principle:
 
 **Depend on state, not traversal history.**
 
+### Condition-based goals
+
+`grail-demo-22-condition-based-goals`
+
+Demo 22 changes how a pursuit begins. Earlier demos use `goal.json` to name the affordance that should ultimately execute. Demo 22 instead uses `goal.json` to name the world-state condition that should become true.
+
+This is an intentional breaking semantic change to the goal declaration.
+
+Earlier demos declare:
+
+```json
+{
+  "goal": "onboardCustomer"
+}
+```
+
+Demo 22 declares:
+
+```json
+{
+  "goal": "customerOnboarded"
+}
+```
+
+The runtime resolves `customerOnboarded` by finding enabled affordances whose effects can establish that condition and selecting one before handing the selected affordance to the existing pursuit machinery.
+
+The registry exposes both `onboardCustomerNode` and `onboardCustomerHttp` as producers of `customerOnboarded`. Across 25 repeated pursuits, all 25 completed successfully; the Node goal producer was selected 12 times and the HTTP goal producer 13 times.
+
+No change was required to the existing `client.pursue()` traversal mechanics. The same producer-selection idea already used for unmet preconditions is now also used to resolve the initial goal.
+
+The experiment demonstrates a potentially more uniform goal model:
+
+**The goal specifies what should become true. GRAIL selects an affordance capable of making it true.**
+
+Demo 22 remains an experiment. Whether condition-based goals become the standard GRAIL goal semantics is an architectural decision to be made before beta.
+
 Each experiment builds on the same small GRAIL goal-resolution model.
 
 ## Current architecture
@@ -732,6 +773,7 @@ For the most recent binding experiments, see:
     grail-demo-19-http-customer-onboarding
     grail-demo-20-mixed-customer-onboarding
     grail-demo-21-alternative-bindings
+    grail-demo-22-condition-based-goals
 
 ## Key principles
 
@@ -759,4 +801,4 @@ GRAIL remains intentionally small. The complexity belongs primarily in
 the environment: the capabilities available, the conditions they
 require, and the effects they can establish.
 
-The agent's job is to traverse that environment in pursuit of a goal.
+The agent's job is to traverse that environment in pursuit of a desired goal condition.

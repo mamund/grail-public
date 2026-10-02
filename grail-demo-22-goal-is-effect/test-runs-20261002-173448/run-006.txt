@@ -1,0 +1,68 @@
+
+[CLIENT] Starting pursuit: onboardCustomerNode
+
+[SERVER] Attempting affordance: onboardCustomerNode
+[SERVER] Blocked: selected unmet precondition: customerTermsAccepted
+[CLIENT] Pushing next affordance: acceptTermsHttp
+
+[SERVER] Attempting affordance: acceptTermsHttp
+[SERVER] Blocked: selected unmet precondition: customerProfileCollected
+[CLIENT] Pushing next affordance: createCustomerProfileNode
+
+[SERVER] Attempting affordance: createCustomerProfileNode
+[SERVER] Blocked: selected unmet precondition: onboardingStarted
+[CLIENT] Pushing next affordance: startOnboardingHttp
+
+[SERVER] Attempting affordance: startOnboardingHttp
+[SERVER] Executing binding: POST http://localhost:3001/onboarding
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - onboardingStarted
+[CLIENT] Affordance succeeded: startOnboardingHttp
+
+[SERVER] Attempting affordance: createCustomerProfileNode
+[SERVER] Executing binding: ../customer-onboarding/capabilities/customer.js :: createCustomerProfile
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/customer.js :: createCustomerProfile
+[SERVER] Success: applying effects - customerProfileCollected
+[CLIENT] Affordance succeeded: createCustomerProfileNode
+
+[SERVER] Attempting affordance: acceptTermsHttp
+[SERVER] Executing binding: POST http://localhost:3001/customers/{customerId}/terms
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerTermsAccepted
+[CLIENT] Affordance succeeded: acceptTermsHttp
+
+[SERVER] Attempting affordance: onboardCustomerNode
+[SERVER] Blocked: selected unmet precondition: customerEmailVerified
+[CLIENT] Pushing next affordance: verifyCustomerEmailNode
+
+[SERVER] Attempting affordance: verifyCustomerEmailNode
+[SERVER] Blocked: selected unmet precondition: customerEmailSet
+[CLIENT] Pushing next affordance: setCustomerDetailsNode
+
+[SERVER] Attempting affordance: setCustomerDetailsNode
+[SERVER] Executing binding: ../customer-onboarding/capabilities/customer.js :: setCustomerDetails
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/customer.js :: setCustomerDetails
+[SERVER] Success: applying effects - customerEmailSet,customerPhoneNumberSet,customerAddressSet
+[CLIENT] Affordance succeeded: setCustomerDetailsNode
+
+[SERVER] Attempting affordance: verifyCustomerEmailNode
+[SERVER] Executing binding: ../customer-onboarding/capabilities/email.js :: verifyCustomerEmail
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/email.js :: verifyCustomerEmail
+[SERVER] Success: applying effects - customerEmailVerified
+[CLIENT] Affordance succeeded: verifyCustomerEmailNode
+
+[SERVER] Attempting affordance: onboardCustomerNode
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberVerified
+[CLIENT] Pushing next affordance: verifyCustomerPhoneHttp
+
+[SERVER] Attempting affordance: verifyCustomerPhoneHttp
+[SERVER] Executing binding: POST http://localhost:3001/customers/{customerId}/phone/verification
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerPhoneNumberVerified
+[CLIENT] Affordance succeeded: verifyCustomerPhoneHttp
+
+[SERVER] Attempting affordance: onboardCustomerNode
+[SERVER] Executing binding: ../customer-onboarding/capabilities/onboarding.js :: onboardCustomer
+[SERVER] Binding succeeded: ../customer-onboarding/capabilities/onboarding.js :: onboardCustomer
+[SERVER] Success: applying effects - customerOnboarded
+[CLIENT] Affordance succeeded: onboardCustomerNode
