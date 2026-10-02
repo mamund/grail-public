@@ -3,7 +3,7 @@
     "invocation": {
       "id": "inv-001",
       "affordance": "startOnboarding",
-      "timestamp": "2026-10-02T18:52:19.522Z",
+      "timestamp": "2026-10-02T19:28:30.070Z",
       "request": {
         "method": "POST",
         "url": "http://localhost:3001/onboarding",
@@ -16,16 +16,16 @@
       "headers": {
         "connection": "keep-alive",
         "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
         "keep-alive": "timeout=5",
         "transfer-encoding": "chunked"
       },
       "body": {
-        "onboardingId": "ONB-d98d76a1"
+        "onboardingId": "ONB-7cc77b5c"
       }
     },
     "outputs": {
-      "onboardingId": "ONB-d98d76a1"
+      "onboardingId": "ONB-7cc77b5c"
     },
     "result": "SUCCESS"
   },
@@ -33,7 +33,7 @@
     "invocation": {
       "id": "inv-002",
       "affordance": "createCustomerProfile",
-      "timestamp": "2026-10-02T18:52:19.533Z",
+      "timestamp": "2026-10-02T19:28:30.086Z",
       "request": {
         "method": "POST",
         "url": "http://localhost:3001/customers",
@@ -41,7 +41,7 @@
           "Content-Type": "application/json"
         },
         "body": {
-          "onboardingId": "ONB-d98d76a1",
+          "onboardingId": "ONB-7cc77b5c",
           "name": "Jordan"
         }
       }
@@ -51,27 +51,94 @@
       "headers": {
         "connection": "keep-alive",
         "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
         "keep-alive": "timeout=5",
         "transfer-encoding": "chunked"
       },
       "body": {
-        "customerId": "CUS-184585a0"
+        "customerId": "CUS-3d786679"
       }
     },
     "outputs": {
-      "customerId": "CUS-184585a0"
+      "customerId": "CUS-3d786679"
     },
     "result": "SUCCESS"
   },
   {
     "invocation": {
       "id": "inv-003",
-      "affordance": "setCustomerDetails",
-      "timestamp": "2026-10-02T18:52:19.537Z",
+      "affordance": "setCustomerAddress",
+      "timestamp": "2026-10-02T19:28:30.091Z",
       "request": {
         "method": "PUT",
-        "url": "http://localhost:3001/customers/CUS-184585a0/details",
+        "url": "http://localhost:3001/customers/CUS-3d786679/address",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "street": "100 Main Street",
+          "city": "Cincinnati",
+          "state": "OH",
+          "postalCode": "45202"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-004",
+      "affordance": "acceptTerms",
+      "timestamp": "2026-10-02T19:28:30.109Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-3d786679/terms",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "termsVersion": "2026-09"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-005",
+      "affordance": "setCustomerDetails",
+      "timestamp": "2026-10-02T19:28:30.114Z",
+      "request": {
+        "method": "PUT",
+        "url": "http://localhost:3001/customers/CUS-3d786679/details",
         "headers": {
           "Content-Type": "application/json"
         },
@@ -90,68 +157,34 @@
       "headers": {
         "connection": "keep-alive",
         "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
         "keep-alive": "timeout=5",
         "transfer-encoding": "chunked"
       },
       "body": {
-        "emailVerificationId": "EMV-9f263e5c",
-        "phoneVerificationId": "PHV-382db17b"
+        "emailVerificationId": "EMV-5a8212b3",
+        "phoneVerificationId": "PHV-78de6f04"
       }
     },
     "outputs": {
-      "emailVerificationId": "EMV-9f263e5c",
-      "phoneVerificationId": "PHV-382db17b"
+      "emailVerificationId": "EMV-5a8212b3",
+      "phoneVerificationId": "PHV-78de6f04"
     },
     "result": "SUCCESS"
   },
   {
     "invocation": {
-      "id": "inv-004",
-      "affordance": "verifyCustomerEmail",
-      "timestamp": "2026-10-02T18:52:19.541Z",
-      "request": {
-        "method": "POST",
-        "url": "http://localhost:3001/customers/CUS-184585a0/email/verification",
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "body": {
-          "emailVerificationId": "EMV-9f263e5c"
-        }
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "connection": "keep-alive",
-        "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked"
-      },
-      "body": {
-        "verifiedEmail": "jordan@example.com"
-      }
-    },
-    "outputs": {
-      "verifiedEmail": "jordan@example.com"
-    },
-    "result": "SUCCESS"
-  },
-  {
-    "invocation": {
-      "id": "inv-005",
+      "id": "inv-006",
       "affordance": "verifyCustomerPhone",
-      "timestamp": "2026-10-02T18:52:19.545Z",
+      "timestamp": "2026-10-02T19:28:30.120Z",
       "request": {
         "method": "POST",
-        "url": "http://localhost:3001/customers/CUS-184585a0/phone/verification",
+        "url": "http://localhost:3001/customers/CUS-3d786679/phone/verification",
         "headers": {
           "Content-Type": "application/json"
         },
         "body": {
-          "phoneVerificationId": "PHV-382db17b"
+          "phoneVerificationId": "PHV-78de6f04"
         }
       }
     },
@@ -160,7 +193,7 @@
       "headers": {
         "connection": "keep-alive",
         "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
         "keep-alive": "timeout=5",
         "transfer-encoding": "chunked"
       },
@@ -175,17 +208,17 @@
   },
   {
     "invocation": {
-      "id": "inv-006",
-      "affordance": "acceptTerms",
-      "timestamp": "2026-10-02T18:52:19.549Z",
+      "id": "inv-007",
+      "affordance": "verifyCustomerEmail",
+      "timestamp": "2026-10-02T19:28:30.126Z",
       "request": {
         "method": "POST",
-        "url": "http://localhost:3001/customers/CUS-184585a0/terms",
+        "url": "http://localhost:3001/customers/CUS-3d786679/email/verification",
         "headers": {
           "Content-Type": "application/json"
         },
         "body": {
-          "termsVersion": "2026-09"
+          "emailVerificationId": "EMV-5a8212b3"
         }
       }
     },
@@ -194,25 +227,27 @@
       "headers": {
         "connection": "keep-alive",
         "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
         "keep-alive": "timeout=5",
         "transfer-encoding": "chunked"
       },
       "body": {
-        "status": "SUCCESS"
+        "verifiedEmail": "jordan@example.com"
       }
     },
-    "outputs": {},
+    "outputs": {
+      "verifiedEmail": "jordan@example.com"
+    },
     "result": "SUCCESS"
   },
   {
     "invocation": {
-      "id": "inv-007",
+      "id": "inv-008",
       "affordance": "onboardCustomer",
-      "timestamp": "2026-10-02T18:52:19.552Z",
+      "timestamp": "2026-10-02T19:28:30.134Z",
       "request": {
         "method": "POST",
-        "url": "http://localhost:3001/customers/CUS-184585a0/onboarding",
+        "url": "http://localhost:3001/customers/CUS-3d786679/onboarding",
         "headers": {},
         "body": null
       }
@@ -222,16 +257,16 @@
       "headers": {
         "connection": "keep-alive",
         "content-type": "application/json",
-        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "date": "Fri, 02 Oct 2026 19:28:30 GMT",
         "keep-alive": "timeout=5",
         "transfer-encoding": "chunked"
       },
       "body": {
-        "accountId": "ACC-837810af"
+        "accountId": "ACC-f8887c4e"
       }
     },
     "outputs": {
-      "accountId": "ACC-837810af"
+      "accountId": "ACC-f8887c4e"
     },
     "result": "SUCCESS"
   }

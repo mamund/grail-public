@@ -1,0 +1,68 @@
+
+[CLIENT] Starting pursuit: onboardCustomer
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerTermsAccepted
+[CLIENT] Pushing next affordance: acceptTerms
+
+[SERVER] Attempting affordance: acceptTerms
+[SERVER] Blocked: selected unmet precondition: customerProfileCollected
+[CLIENT] Pushing next affordance: createCustomerProfile
+
+[SERVER] Attempting affordance: createCustomerProfile
+[SERVER] Blocked: selected unmet precondition: onboardingStarted
+[CLIENT] Pushing next affordance: startOnboarding
+
+[SERVER] Attempting affordance: startOnboarding
+[SERVER] Executing binding: POST http://localhost:3001/onboarding
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - onboardingStarted
+[CLIENT] Affordance succeeded: startOnboarding
+
+[SERVER] Attempting affordance: createCustomerProfile
+[SERVER] Executing binding: POST http://localhost:3001/customers
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerProfileCollected
+[CLIENT] Affordance succeeded: createCustomerProfile
+
+[SERVER] Attempting affordance: acceptTerms
+[SERVER] Executing binding: POST http://localhost:3001/customers/{customerId}/terms
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerTermsAccepted
+[CLIENT] Affordance succeeded: acceptTerms
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerAddressSet
+[CLIENT] Pushing next affordance: setCustomerDetails
+
+[SERVER] Attempting affordance: setCustomerDetails
+[SERVER] Executing binding: PUT http://localhost:3001/customers/{customerId}/details
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerEmailSet,customerPhoneNumberSet,customerAddressSet
+[CLIENT] Affordance succeeded: setCustomerDetails
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerPhoneNumberVerified
+[CLIENT] Pushing next affordance: verifyCustomerPhone
+
+[SERVER] Attempting affordance: verifyCustomerPhone
+[SERVER] Executing binding: POST http://localhost:3001/customers/{customerId}/phone/verification
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerPhoneNumberVerified
+[CLIENT] Affordance succeeded: verifyCustomerPhone
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Blocked: selected unmet precondition: customerEmailVerified
+[CLIENT] Pushing next affordance: verifyCustomerEmail
+
+[SERVER] Attempting affordance: verifyCustomerEmail
+[SERVER] Executing binding: POST http://localhost:3001/customers/{customerId}/email/verification
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerEmailVerified
+[CLIENT] Affordance succeeded: verifyCustomerEmail
+
+[SERVER] Attempting affordance: onboardCustomer
+[SERVER] Executing binding: POST http://localhost:3001/customers/{customerId}/onboarding
+[SERVER] Binding succeeded: HTTP 200
+[SERVER] Success: applying effects - customerOnboarded
+[CLIENT] Affordance succeeded: onboardCustomer
