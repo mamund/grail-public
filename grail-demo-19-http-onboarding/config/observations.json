@@ -1,0 +1,238 @@
+[
+  {
+    "invocation": {
+      "id": "inv-001",
+      "affordance": "startOnboarding",
+      "timestamp": "2026-10-02T18:52:19.522Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/onboarding",
+        "headers": {},
+        "body": null
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "onboardingId": "ONB-d98d76a1"
+      }
+    },
+    "outputs": {
+      "onboardingId": "ONB-d98d76a1"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-002",
+      "affordance": "createCustomerProfile",
+      "timestamp": "2026-10-02T18:52:19.533Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "onboardingId": "ONB-d98d76a1",
+          "name": "Jordan"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "customerId": "CUS-184585a0"
+      }
+    },
+    "outputs": {
+      "customerId": "CUS-184585a0"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-003",
+      "affordance": "setCustomerDetails",
+      "timestamp": "2026-10-02T18:52:19.537Z",
+      "request": {
+        "method": "PUT",
+        "url": "http://localhost:3001/customers/CUS-184585a0/details",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "jordan@example.com",
+          "phone": "555-0100",
+          "street": "100 Main Street",
+          "city": "Cincinnati",
+          "state": "OH",
+          "postalCode": "45202"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "emailVerificationId": "EMV-9f263e5c",
+        "phoneVerificationId": "PHV-382db17b"
+      }
+    },
+    "outputs": {
+      "emailVerificationId": "EMV-9f263e5c",
+      "phoneVerificationId": "PHV-382db17b"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-004",
+      "affordance": "verifyCustomerEmail",
+      "timestamp": "2026-10-02T18:52:19.541Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-184585a0/email/verification",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "emailVerificationId": "EMV-9f263e5c"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "verifiedEmail": "jordan@example.com"
+      }
+    },
+    "outputs": {
+      "verifiedEmail": "jordan@example.com"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-005",
+      "affordance": "verifyCustomerPhone",
+      "timestamp": "2026-10-02T18:52:19.545Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-184585a0/phone/verification",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "phoneVerificationId": "PHV-382db17b"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "verifiedPhone": "555-0100"
+      }
+    },
+    "outputs": {
+      "verifiedPhone": "555-0100"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-006",
+      "affordance": "acceptTerms",
+      "timestamp": "2026-10-02T18:52:19.549Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-184585a0/terms",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "termsVersion": "2026-09"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "status": "SUCCESS"
+      }
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-007",
+      "affordance": "onboardCustomer",
+      "timestamp": "2026-10-02T18:52:19.552Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-184585a0/onboarding",
+        "headers": {},
+        "body": null
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Fri, 02 Oct 2026 18:52:19 GMT",
+        "keep-alive": "timeout=5",
+        "transfer-encoding": "chunked"
+      },
+      "body": {
+        "accountId": "ACC-837810af"
+      }
+    },
+    "outputs": {
+      "accountId": "ACC-837810af"
+    },
+    "result": "SUCCESS"
+  }
+]
