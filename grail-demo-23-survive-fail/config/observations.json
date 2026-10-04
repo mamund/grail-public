@@ -1,0 +1,250 @@
+[
+  {
+    "invocation": {
+      "id": "inv-001",
+      "affordance": "startOnboardingHttp",
+      "timestamp": "2026-10-04T02:48:25.440Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/onboarding",
+        "headers": {},
+        "body": null
+      }
+    },
+    "response": {
+      "status": null,
+      "headers": {},
+      "body": null
+    },
+    "outputs": {},
+    "result": "FAIL"
+  },
+  {
+    "invocation": {
+      "id": "inv-002",
+      "affordance": "startOnboardingNode",
+      "timestamp": "2026-10-04T02:48:25.476Z",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "startOnboarding",
+      "inputs": {}
+    },
+    "response": {
+      "result": {
+        "onboardingId": "ONB-211"
+      }
+    },
+    "outputs": {
+      "onboardingId": "ONB-211"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-003",
+      "affordance": "createCustomerProfileNode",
+      "timestamp": "2026-10-04T02:48:25.483Z",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "createCustomerProfile",
+      "inputs": {
+        "onboardingId": "ONB-211",
+        "name": "Jordan"
+      }
+    },
+    "response": {
+      "result": {
+        "customerId": "CUS-210"
+      }
+    },
+    "outputs": {
+      "customerId": "CUS-210"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-004",
+      "affordance": "setCustomerAddressHttp",
+      "timestamp": "2026-10-04T02:48:25.488Z",
+      "request": {
+        "method": "PUT",
+        "url": "http://localhost:3001/customers/CUS-210/address",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "street": "100 Main Street",
+          "city": "Cincinnati",
+          "state": "OH",
+          "postalCode": "45202"
+        }
+      }
+    },
+    "response": {
+      "status": null,
+      "headers": {},
+      "body": null
+    },
+    "outputs": {},
+    "result": "FAIL"
+  },
+  {
+    "invocation": {
+      "id": "inv-005",
+      "affordance": "setCustomerDetailsNode",
+      "timestamp": "2026-10-04T02:48:25.495Z",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "setCustomerDetails",
+      "inputs": {
+        "customerId": "CUS-210",
+        "email": "jordan@example.com",
+        "phone": "555-0100",
+        "street": "100 Main Street",
+        "city": "Cincinnati",
+        "state": "OH",
+        "postalCode": "45202"
+      }
+    },
+    "response": {
+      "result": {
+        "emailVerificationId": "VER-419",
+        "phoneVerificationId": "VER-420"
+      }
+    },
+    "outputs": {
+      "emailVerificationId": "VER-419",
+      "phoneVerificationId": "VER-420"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-006",
+      "affordance": "verifyCustomerPhoneHttp",
+      "timestamp": "2026-10-04T02:48:25.498Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-210/phone/verification",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "phoneVerificationId": "VER-420"
+        }
+      }
+    },
+    "response": {
+      "status": null,
+      "headers": {},
+      "body": null
+    },
+    "outputs": {},
+    "result": "FAIL"
+  },
+  {
+    "invocation": {
+      "id": "inv-007",
+      "affordance": "acceptTermsHttp",
+      "timestamp": "2026-10-04T02:48:25.502Z",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/customers/CUS-210/terms",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "termsVersion": "2026-09"
+        }
+      }
+    },
+    "response": {
+      "status": null,
+      "headers": {},
+      "body": null
+    },
+    "outputs": {},
+    "result": "FAIL"
+  },
+  {
+    "invocation": {
+      "id": "inv-008",
+      "affordance": "acceptTermsNode",
+      "timestamp": "2026-10-04T02:48:25.517Z",
+      "module": "../customer-onboarding/capabilities/terms.js",
+      "function": "acceptTerms",
+      "inputs": {
+        "customerId": "CUS-210",
+        "termsVersion": "2026-09"
+      }
+    },
+    "response": {
+      "result": {}
+    },
+    "outputs": {},
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-009",
+      "affordance": "verifyCustomerEmailNode",
+      "timestamp": "2026-10-04T02:48:25.532Z",
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "verifyCustomerEmail",
+      "inputs": {
+        "customerId": "CUS-210",
+        "emailVerificationId": "VER-419"
+      }
+    },
+    "response": {
+      "result": {
+        "verifiedEmail": "jordan@example.com"
+      }
+    },
+    "outputs": {
+      "verifiedEmail": "jordan@example.com"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-010",
+      "affordance": "verifyCustomerPhoneNode",
+      "timestamp": "2026-10-04T02:48:25.555Z",
+      "module": "../customer-onboarding/capabilities/phone.js",
+      "function": "verifyCustomerPhone",
+      "inputs": {
+        "customerId": "CUS-210",
+        "phoneVerificationId": "VER-420"
+      }
+    },
+    "response": {
+      "result": {
+        "verifiedPhone": "555-0100"
+      }
+    },
+    "outputs": {
+      "verifiedPhone": "555-0100"
+    },
+    "result": "SUCCESS"
+  },
+  {
+    "invocation": {
+      "id": "inv-011",
+      "affordance": "onboardCustomerNode",
+      "timestamp": "2026-10-04T02:48:25.575Z",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "onboardCustomer",
+      "inputs": {
+        "customerId": "CUS-210"
+      }
+    },
+    "response": {
+      "result": {
+        "accountId": "ACC-167"
+      }
+    },
+    "outputs": {
+      "accountId": "ACC-167"
+    },
+    "result": "SUCCESS"
+  }
+]

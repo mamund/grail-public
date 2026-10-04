@@ -1,0 +1,618 @@
+{
+  "onboardCustomerNode": {
+    "id": "aff-onboard-customer-node",
+    "action": "onboardCustomerNode",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected",
+      "customerEmailVerified",
+      "customerPhoneNumberVerified",
+      "customerAddressSet",
+      "customerTermsAccepted"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId"
+    },
+    "effects": [
+      "customerOnboarded"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "onboardCustomer",
+      "outputs": {
+        "accountId": {
+          "from": "result",
+          "path": "accountId"
+        }
+      }
+    }
+  },
+  "onboardCustomerHttp": {
+    "id": "aff-onboard-customer-http",
+    "action": "onboardCustomerHttp",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected",
+      "customerEmailVerified",
+      "customerPhoneNumberVerified",
+      "customerAddressSet",
+      "customerTermsAccepted"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId"
+    },
+    "effects": [
+      "customerOnboarded"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/customers/{customerId}/onboarding",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        }
+      },
+      "outputs": {
+        "accountId": {
+          "from": "body",
+          "path": "accountId"
+        }
+      }
+    }
+  },  
+  "verifyCustomerEmailNode": {
+    "id": "aff-verify-customer-email-node",
+    "action": "verifyCustomerEmailNode",
+    "type": "task",
+    "preconditions": [
+      "customerEmailSet"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "emailVerificationId": "$outputs.latest.emailVerificationId"
+    },
+    "effects": [
+      "customerEmailVerified"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "verifyCustomerEmail",
+      "outputs": {
+        "verifiedEmail": {
+          "from": "result",
+          "path": "verifiedEmail"
+        }
+      }
+    }
+  },
+  "verifyCustomerEmailHttp": {
+    "id": "aff-verify-customer-email-http",
+    "action": "verifyCustomerEmailHttp",
+    "type": "task",
+    "preconditions": [
+      "customerEmailSet"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "emailVerificationId": "$outputs.latest.emailVerificationId"
+    },
+    "effects": [
+      "customerEmailVerified"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/customers/{customerId}/email/verification",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "emailVerificationId": {
+          "in": "body"
+        }
+      },
+      "outputs": {
+        "verifiedEmail": {
+          "from": "body",
+          "path": "verifiedEmail"
+        }
+      }
+    }
+  },
+  "setCustomerEmailNode": {
+    "id": "aff-set-customer-email-node",
+    "action": "setCustomerEmailNode",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "email": "$inputs.email"
+    },
+    "effects": [
+      "customerEmailSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/email.js",
+      "function": "setCustomerEmail",
+      "outputs": {
+        "emailVerificationId": {
+          "from": "result",
+          "path": "emailVerificationId"
+        }
+      }
+    }
+  },
+  "setCustomerEmailHttp": {
+    "id": "aff-set-customer-email-http",
+    "action": "setCustomerEmailHttp",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "email": "$inputs.email"
+    },
+    "effects": [
+      "customerEmailSet"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "PUT",
+      "url": "http://localhost:3001/customers/{customerId}/email",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "email": {
+          "in": "body"
+        }
+      },
+      "outputs": {
+        "emailVerificationId": {
+          "from": "body",
+          "path": "emailVerificationId"
+        }
+      }
+    }
+  },
+  "createCustomerProfileNode": {
+    "id": "aff-create-customer-profile-node",
+    "action": "createCustomerProfileNode",
+    "type": "task",
+    "preconditions": [
+      "onboardingStarted"
+    ],
+    "inputs": {
+      "onboardingId": "$outputs.latest.onboardingId",
+      "name": "$inputs.name"
+    },
+    "effects": [
+      "customerProfileCollected"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "createCustomerProfile",
+      "outputs": {
+        "customerId": {
+          "from": "result",
+          "path": "customerId"
+        }
+      }
+    }
+  },
+  "createCustomerProfileHttp": {
+    "id": "aff-create-customer-profile-http",
+    "action": "createCustomerProfileHttp",
+    "type": "task",
+    "preconditions": [
+      "onboardingStarted"
+    ],
+    "inputs": {
+      "onboardingId": "$outputs.latest.onboardingId",
+      "name": "$inputs.name"
+    },
+    "effects": [
+      "customerProfileCollected"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/customers",
+      "parameters": {
+        "onboardingId": {
+          "in": "body"
+        },
+        "name": {
+          "in": "body"
+        }
+      },
+      "outputs": {
+        "customerId": {
+          "from": "body",
+          "path": "customerId"
+        }
+      }
+    }
+  },
+  "setCustomerDetailsNode": {
+    "enabled": true,
+    "id": "aff-set-customer-details-node",
+    "action": "setCustomerDetailsNode",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "email": "$inputs.email",
+      "phone": "$inputs.phone",
+      "street": "$inputs.street",
+      "city": "$inputs.city",
+      "state": "$inputs.state",
+      "postalCode": "$inputs.postalCode"
+    },
+    "effects": [
+      "customerEmailSet",
+      "customerPhoneNumberSet",
+      "customerAddressSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/customer.js",
+      "function": "setCustomerDetails",
+      "outputs": {
+        "emailVerificationId": {
+          "from": "result",
+          "path": "emailVerificationId"
+        },
+        "phoneVerificationId": {
+          "from": "result",
+          "path": "phoneVerificationId"
+        }
+      }
+    }
+  },
+  "setCustomerDetailsHttp": {
+    "enabled": true,
+    "id": "aff-set-customer-details-http",
+    "action": "setCustomerDetailsHttp",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "email": "$inputs.email",
+      "phone": "$inputs.phone",
+      "street": "$inputs.street",
+      "city": "$inputs.city",
+      "state": "$inputs.state",
+      "postalCode": "$inputs.postalCode"
+    },
+    "effects": [
+      "customerEmailSet",
+      "customerPhoneNumberSet",
+      "customerAddressSet"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "PUT",
+      "url": "http://localhost:3001/customers/{customerId}/details",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "email": {
+          "in": "body"
+        },
+        "phone": {
+          "in": "body"
+        },
+        "street": {
+          "in": "body"
+        },
+        "city": {
+          "in": "body"
+        },
+        "state": {
+          "in": "body"
+        },
+        "postalCode": {
+          "in": "body"
+        }
+      },
+      "outputs": {
+        "emailVerificationId": {
+          "from": "body",
+          "path": "emailVerificationId"
+        },
+        "phoneVerificationId": {
+          "from": "body",
+          "path": "phoneVerificationId"
+        }
+      }
+    }
+  },
+  "startOnboardingNode": {
+    "id": "aff-start-onboarding-node",
+    "action": "startOnboardingNode",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {},
+    "effects": [
+      "onboardingStarted"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/onboarding.js",
+      "function": "startOnboarding",
+      "outputs": {
+        "onboardingId": {
+          "from": "result",
+          "path": "onboardingId"
+        }
+      }
+    }
+  },
+  "startOnboardingHttp": {
+    "id": "aff-start-onboarding-http",
+    "action": "startOnboardingHttp",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {},
+    "effects": [
+      "onboardingStarted"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/onboarding",
+      "parameters": {},
+      "outputs": {
+        "onboardingId": {
+          "from": "body",
+          "path": "onboardingId"
+        }
+      }
+    }
+  },
+  "acceptTermsNode": {
+    "id": "aff-accept-terms-node",
+    "action": "acceptTermsNode",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "termsVersion": "$inputs.termsVersion"
+    },
+    "effects": [
+      "customerTermsAccepted"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/terms.js",
+      "function": "acceptTerms"
+    }
+  },
+  "acceptTermsHttp": {
+    "id": "aff-accept-terms-http",
+    "action": "acceptTermsHttp",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "termsVersion": "$inputs.termsVersion"
+    },
+    "effects": [
+      "customerTermsAccepted"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/customers/{customerId}/terms",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "termsVersion": {
+          "in": "body"
+        }
+      }
+    }
+  },
+  "setCustomerAddressNode": {
+    "id": "aff-set-customer-address-node",
+    "action": "setCustomerAddressNode",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "street": "$inputs.street",
+      "city": "$inputs.city",
+      "state": "$inputs.state",
+      "postalCode": "$inputs.postalCode"
+    },
+    "effects": [
+      "customerAddressSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/address.js",
+      "function": "setCustomerAddress"
+    }
+  },
+  "setCustomerAddressHttp": {
+    "id": "aff-set-customer-address-http",
+    "action": "setCustomerAddressHttp",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "street": "$inputs.street",
+      "city": "$inputs.city",
+      "state": "$inputs.state",
+      "postalCode": "$inputs.postalCode"
+    },
+    "effects": [
+      "customerAddressSet"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "PUT",
+      "url": "http://localhost:3001/customers/{customerId}/address",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "street": {
+          "in": "body"
+        },
+        "city": {
+          "in": "body"
+        },
+        "state": {
+          "in": "body"
+        },
+        "postalCode": {
+          "in": "body"
+        }
+      }
+    }
+  },
+  "verifyCustomerPhoneNode": {
+    "id": "aff-verify-customer-phone-node",
+    "action": "verifyCustomerPhoneNode",
+    "type": "task",
+    "preconditions": [
+      "customerPhoneNumberSet"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "phoneVerificationId": "$outputs.latest.phoneVerificationId"
+    },
+    "effects": [
+      "customerPhoneNumberVerified"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/phone.js",
+      "function": "verifyCustomerPhone",
+      "outputs": {
+        "verifiedPhone": {
+          "from": "result",
+          "path": "verifiedPhone"
+        }
+      }
+    }
+  },
+  "verifyCustomerPhoneHttp": {
+    "id": "aff-verify-customer-phone-http",
+    "action": "verifyCustomerPhoneHttp",
+    "type": "task",
+    "preconditions": [
+      "customerPhoneNumberSet"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "phoneVerificationId": "$outputs.latest.phoneVerificationId"
+    },
+    "effects": [
+      "customerPhoneNumberVerified"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "POST",
+      "url": "http://localhost:3001/customers/{customerId}/phone/verification",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "phoneVerificationId": {
+          "in": "body"
+        }
+      },
+      "outputs": {
+        "verifiedPhone": {
+          "from": "body",
+          "path": "verifiedPhone"
+        }
+      }
+    }
+  },
+  "setCustomerPhoneNode": {
+    "id": "aff-set-customer-phone-node",
+    "action": "setCustomerPhoneNode",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "phone": "$inputs.phone"
+    },
+    "effects": [
+      "customerPhoneNumberSet"
+    ],
+    "binding": {
+      "protocol": "node",
+      "module": "../customer-onboarding/capabilities/phone.js",
+      "function": "setCustomerPhone",
+      "outputs": {
+        "phoneVerificationId": {
+          "from": "result",
+          "path": "phoneVerificationId"
+        }
+      }
+    }
+  },
+  "setCustomerPhoneHttp": {
+    "id": "aff-set-customer-phone-http",
+    "action": "setCustomerPhoneHttp",
+    "type": "task",
+    "preconditions": [
+      "customerProfileCollected"
+    ],
+    "inputs": {
+      "customerId": "$outputs.latest.customerId",
+      "phone": "$inputs.phone"
+    },
+    "effects": [
+      "customerPhoneNumberSet"
+    ],
+    "binding": {
+      "protocol": "http",
+      "method": "PUT",
+      "url": "http://localhost:3001/customers/{customerId}/phone",
+      "parameters": {
+        "customerId": {
+          "in": "path"
+        },
+        "phone": {
+          "in": "body"
+        }
+      },
+      "outputs": {
+        "phoneVerificationId": {
+          "from": "body",
+          "path": "phoneVerificationId"
+        }
+      }
+    }
+  }
+}
