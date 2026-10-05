@@ -1,0 +1,27 @@
+[
+  {
+    "invocation": {
+      "id": "inv-001",
+      "affordance": "greet",
+      "timestamp": "2026-10-05T16:32:11.706Z",
+      "command": "python3",
+      "args": [
+        "../stdio-greet/capabilities/greet.py"
+      ],
+      "inputs": {
+        "name": "Mike"
+      }
+    },
+    "response": {
+      "exitCode": 0,
+      "stdout": {
+        "message": "Hello, Mike!"
+      },
+      "stderr": ""
+    },
+    "outputs": {
+      "message": "Hello, Mike!"
+    },
+    "result": "SUCCESS"
+  }
+]

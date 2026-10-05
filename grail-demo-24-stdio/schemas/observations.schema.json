@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GRAIL Observations",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "invocation",
+      "response",
+      "outputs",
+      "result"
+    ],
+    "properties": {
+      "invocation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "affordance",
+          "timestamp",
+          "request"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affordance": {
+            "type": "string",
+            "minLength": 1
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "request": {
+            "type": "object"
+          }
+        }
+      },
+      "response": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "headers",
+          "body"
+        ],
+        "properties": {
+          "status": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 599
+          },
+          "headers": {
+            "type": "object"
+          },
+          "body": {}
+        }
+      },
+      "outputs": {
+        "type": "object"
+      },
+      "result": {
+        "type": "string",
+        "enum": [
+          "SUCCESS",
+          "BLOCKED",
+          "FAIL"
+        ]
+      }
+    }
+  }
+}

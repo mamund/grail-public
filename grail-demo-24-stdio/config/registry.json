@@ -1,0 +1,27 @@
+{
+  "greet": {
+    "id": "aff-greet",
+    "action": "greet",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {
+      "name": "$inputs.name"
+    },
+    "effects": [
+      "greetingCreated"
+    ],
+    "binding": {
+      "protocol": "stdio",
+      "command": "python3",
+      "args": [
+        "../stdio-greet/capabilities/greet.py"
+      ],
+      "outputs": {
+        "message": {
+          "from": "stdout",
+          "path": "message"
+        }
+      }
+    }
+  }
+}

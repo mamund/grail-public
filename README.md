@@ -196,11 +196,13 @@ A capability may include a binding:
         v
     external service
 
-The first implemented external binding uses HTTP. More recent
-experiments also support dynamically loaded Node.js modules.
+The first implemented external binding uses HTTP. Later experiments
+added dynamically loaded Node.js modules. Demo 24 adds stdio bindings
+for local processes.
 
 This allows GRAIL to retain the behavioral model while capability work
-is performed either by an independent service or by a local module.
+is performed by an independent service, a local JavaScript module, or
+a language-independent local process.
 
 **Capabilities define behavior. Bindings define execution.**
 
@@ -312,14 +314,60 @@ implementations and the GRAIL environment. A capability may use its own
 result structure and vocabulary while the binding maps those values to
 stable output names used by the GRAIL scenario.
 
-HTTP and Node execution are routed through a common binding layer:
+## stdio bindings
+
+Demo 24 adds stdio as a third binding protocol.
+
+A stdio binding identifies a local command and optional arguments:
+
+    {
+      "protocol": "stdio",
+      "command": "python3",
+      "args": [
+        "../stdio-greet/capabilities/greet.py"
+      ],
+      "outputs": {
+        "message": {
+          "from": "stdout",
+          "path": "message"
+        }
+      }
+    }
+
+GRAIL serializes the resolved affordance inputs as a JSON object and
+writes them to the process on stdin.
+
+A successful stdio interaction requires the process to exit with code
+`0` and return valid JSON on stdout. A non-zero exit code or malformed
+stdout results in FAIL.
+
+stderr is retained as diagnostic information. Observations also retain
+the process exit code, stdout, and any binding error so that detailed
+execution evidence remains available without expanding the GRAIL
+SUCCESS/FAIL contract.
+
+Declared outputs are extracted from parsed stdout using simple
+dot-separated paths. If the process succeeds and returns valid JSON but
+a declared output is absent, the affordance still succeeds and that
+output is simply not captured.
+
+This is intentional. Outputs are captured data, not postconditions.
+The capability remains responsible for determining whether its domain
+work succeeded.
+
+The stdio contract provides a language-independent local capability
+boundary. Any implementation that can read JSON from stdin, write JSON
+to stdout, and communicate success or failure through its process exit
+code can participate in a GRAIL environment.
+
+HTTP, Node, and stdio execution are routed through a common binding layer:
 
     GRAIL mechanics
           |
           v
        binding
-       /     \
-     HTTP    Node
+      /   |   \
+   HTTP  Node  stdio
 
 This keeps protocol-specific execution outside the generic GRAIL
 mechanics.
@@ -404,6 +452,9 @@ For HTTP:
 Node bindings use `from: "result"` to extract values from the value
 returned by a module.
 
+stdio bindings use `from: "stdout"` to extract values from the parsed
+JSON object returned by a local process.
+
 Extracted values remain part of the observation that produced them.
 `$outputs` is a resolver over observations, not a separate mutable
 output store.
@@ -444,7 +495,12 @@ environmental requirements have been satisfied.
 For the current HTTP binding, HTTP 2xx responses result in SUCCESS and
 other HTTP responses result in FAIL.
 
-A failed interaction may still produce an observation and extracted
+For stdio, exit code `0` plus valid JSON stdout results in SUCCESS.
+A non-zero exit code or invalid JSON stdout results in FAIL. Missing
+declared outputs do not by themselves change a successful execution
+into FAIL.
+
+A failed interaction may still produce an observation and diagnostic
 information.
 
 A capability-level FAIL does not necessarily end the pursuit. During the
@@ -812,6 +868,60 @@ work:
 **The goal controls the lifetime of the pursuit. The stack controls the
 work currently being attempted.**
 
+### Local process bindings with stdio
+
+`grail-demo-24-stdio-binding`
+
+Demo 24 adds stdio as a third capability execution mechanism alongside
+HTTP and Node.
+
+The binding launches a local process, serializes resolved affordance
+inputs as JSON on stdin, and expects JSON on stdout. Declared outputs
+may be extracted from the returned object using `from: "stdout"`.
+
+The experiment exercises successful execution, non-zero process exits,
+a missing capability file, malformed stdout with exit code `0`, and a
+successful capability that omits a declared output.
+
+The failure experiments also improve stdio observations. When a process
+runs, GRAIL retains the exit code, stdout, stderr, and any binding error
+rather than reducing the interaction to an error message before the
+observation is created.
+
+The experiment establishes a deliberately small execution contract:
+
+    exit 0 + valid JSON
+        |
+        v
+      SUCCESS
+
+    non-zero exit
+        |
+        v
+       FAIL
+
+    exit 0 + invalid JSON
+        |
+        v
+       FAIL
+
+A successful process that returns valid JSON but omits a declared output
+remains SUCCESS. The unavailable output is simply not captured.
+
+This reinforces the boundary between execution mechanics and domain
+semantics:
+
+**Outputs are captured data, not postconditions.**
+
+The capability owns the judgment about whether its domain work
+succeeded. GRAIL records what happened, extracts available data, and
+retains the simple SUCCESS/FAIL execution contract.
+
+Demo 24 required no changes to the pursuit machinery.
+
+It demonstrates that GRAIL can now invoke language-independent local
+capabilities through a small process boundary.
+
 Each experiment builds on the same small GRAIL goal-resolution model.
 
 ## Current architecture
@@ -838,8 +948,8 @@ The environment describes what capabilities mean and how they relate to
 world state.
 
 Bindings describe how capability implementations are reached. The
-current runtime supports HTTP services and dynamically loaded Node.js
-modules behind a common binding layer.
+current runtime supports HTTP services, dynamically loaded Node.js
+modules, and local stdio processes behind a common binding layer.
 
 Implementations perform the work.
 
@@ -854,12 +964,15 @@ GRAIL is still experimental.
 The current HTTP binding treats HTTP 2xx responses as SUCCESS and other
 HTTP responses as FAIL. Node module execution succeeds when the selected
 function completes normally and fails when module loading or execution
-fails.
+fails. stdio execution succeeds when the process exits with code `0` and
+returns valid JSON on stdout. Non-zero exits or invalid JSON result in
+FAIL.
 
 HTTP output extraction currently supports response body, header, and
 status sources. Node output extraction supports returned results using
-simple dot-separated paths. `$outputs` currently supports only the
-`latest` observation selector.
+simple dot-separated paths. stdio output extraction supports parsed
+stdout using simple dot-separated paths. `$outputs` currently supports
+only the `latest` observation selector.
 
 The current observation structure was originally shaped around HTTP
 request/response interactions. Node bindings expose the need for more
@@ -882,6 +995,8 @@ Other areas for future experiments include:
 -   generalized selection among capabilities that can satisfy a missing
     requirement;
 -   observation timing, retention, and redaction policies;
+-   diagnostic provenance for unresolved inputs and missing learned
+    outputs;
 -   additional binding protocols as concrete needs emerge.
 
 These are intentionally being introduced through small experiments
@@ -912,6 +1027,7 @@ For the most recent binding experiments, see:
     grail-demo-21-alternative-bindings
     grail-demo-22-condition-based-goals
     grail-demo-23-survive-fail
+    grail-demo-24-stdio-binding
 
 ## Key principles
 
