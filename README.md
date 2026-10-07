@@ -1,3 +1,7 @@
+<a href="https://github.com/mamund/grail-release">
+  <img src="./images/grail-public-banner.png"/>
+</a>
+
 # GRAIL: Goal Resolution through Affordance Informed Logic
 
 GRAIL is an experimental model for goal-directed autonomous systems.
