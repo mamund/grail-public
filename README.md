@@ -4,6 +4,10 @@
 
 # GRAIL: Goal Resolution through Affordance Informed Logic
 
+**GRAIL Website:** [A different approach to automation](https://mamund.github.io/grail-site/)
+
+Learn how GRAIL enables bounded autonomy by defining outcomes, conditions, and capabilities instead of prescribing workflows.
+
 GRAIL is an experimental model for goal-directed autonomous systems.
 
 Instead of giving an agent a predefined workflow, GRAIL describes an
