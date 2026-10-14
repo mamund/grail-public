@@ -1,0 +1,53 @@
+{
+  "classifyCustomerMessage": {
+    "id": "aff-classify-customer-message",
+    "action": "classifyCustomerMessage",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {
+      "message": "$inputs.message"
+    },
+    "effects": [
+      "customerMessageClassified"
+    ],
+    "binding": {
+      "protocol": "stdio",
+      "command": "node",
+      "args": [
+        "./capabilities/classify-message.mjs"
+      ],
+      "outputs": {
+        "category": {
+          "from": "stdout",
+          "path": "category"
+        }
+      }
+    }
+  },
+  "classifyWithRules": {
+    "id": "aff-classify-with-rules",
+    "action": "classifyWithRules",
+    "type": "task",
+    "preconditions": [],
+    "inputs": {
+      "message": "$inputs.message"
+    },
+    "effects": [
+      "customerMessageClassified"
+    ],
+    "binding": {
+      "protocol": "stdio",
+      "command": "node",
+      "args": [
+        "./capabilities/classify-rules.mjs"
+      ],
+      "outputs": {
+        "category": {
+          "from": "stdout",
+          "path": "category"
+        }
+      }
+    }
+  }
+}
+

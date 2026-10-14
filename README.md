@@ -562,319 +562,27 @@ multiple goals and randomized traversal.
 
 Recent experiments focus on several areas:
 
-### Random conditions
-
-`grail-demo-09-random-conditions`
-
-Explores traversal when the engine can select among unmet conditions
-rather than following a fixed ordering.
-
-### Multiple effects
-
-`grail-demo-10-multi-effects`
-
-Explores capabilities that establish multiple effects and environments
-where more than one capability can satisfy a condition.
-
-### External HTTP bindings
-
-`grail-demo-11-initial-http-bindings`
-
-Moves capability execution outside the GRAIL process through HTTP while
-retaining GRAIL's declared preconditions and effects.
-
-### HTTP binding inputs
-
-`grail-demo-12-http-bindings-inputs`
-
-Adds transmission of capability inputs to external HTTP services using
-JSON and FORM representations.
-
-### HTTP binding locations
-
-`grail-demo-13-http-binding-locations`
-
-Extends HTTP bindings by allowing capability inputs to be mapped to
-path, query, header, or body locations. Bindings may also assign
-HTTP-side names to inputs, allowing the GRAIL environment and external
-service to use different vocabularies.
-
-### HTTP response observations and outputs
-
-`grail-demo-14-http-response-observations`
-
-Introduces source-aware capability inputs, records HTTP interactions as
-observations, extracts declared values from responses, and allows later
-capabilities to consume learned values through `$outputs`.
-
-This demo introduces a breaking change from input arrays to mappings
-between local input names and source expressions.
-
-### HTTP binding migration
-
-`grail-demo-15-http-bindings-location-bc`
-
-Ports the Demo 13 HTTP binding-location environment to the Demo 14
-declaration model and runs it using the Demo 14 runtime.
-
-This verifies that path, query, header, body, and HTTP-side naming
-behavior survive the migration without adding a backward-compatibility
-layer to the runtime.
-
-### HTTP output sources
-
-`grail-demo-16-http-output-sources`
-
-Extends HTTP output extraction beyond response bodies. Declared outputs
-may be captured from the response body, a response header, or the HTTP
-status code.
-
-Body outputs use `from: "body"` and a dot-separated `path`. Header
-outputs use `from: "header"` and a case-insensitive header `name`.
-Status outputs use `from: "status"`.
-
-This demo also reinforces the separation between capture and
-consumption: GRAIL may observe and preserve information even when no
-later capability currently consumes it.
-
-### Node module bindings
-
-`grail-demo-17-node-module-bindings`
-
-Adds dynamically loaded Node.js modules as a second capability
-realization mechanism alongside HTTP.
-
-A Node binding declares a module and exported function. Resolved GRAIL
-inputs are passed to that function, and declared outputs may be
-extracted from the returned result using `from: "result"`.
-
-Demo 17 introduces a common binding layer so the generic GRAIL mechanics
-do not need to know whether a capability is realized through HTTP or a
-local Node module.
-
-The experiment demonstrates that the same precondition,
-input-resolution, observation, output, effect, and goal-pursuit
-mechanics work across both binding types.
-
-### Customer onboarding with Node bindings
-
-`grail-demo-18-node-customer-onboarding`
-
-Extends the Node binding model to a complete customer-onboarding
-application composed of multiple independent capabilities sharing
-application state.
-
-The demo begins with the single goal `onboardCustomer`. GRAIL discovers
-the capabilities needed to satisfy its unmet conditions at runtime
-rather than following a predefined onboarding workflow.
-
-Initial values such as customer name, email, phone, address, and terms
-version are supplied through `$inputs`. Values learned during execution,
-including `onboardingId`, `customerId`, and verification identifiers,
-are captured from Node capability results and consumed by later
-capabilities through `$outputs`.
-
-The experiment demonstrates multi-step information flow across Node
-bindings, capabilities that establish effects without producing output
-values, multiple effects from a single affordance, scenario-scoped
-output resolution, and repeated goal re-evaluation as the environment
-changes.
-
-The scenario includes both fine-grained setters and a coarse-grained
-`setCustomerDetails` affordance. Either can produce the verification
-identifiers needed by later verification affordances. Those consumers
-use `$outputs.latest.<output>` so they depend on the learned value
-rather than on a specific producer.
-
-The customer-onboarding application maintains its own application state
-independently of GRAIL's world state. The experiment also exposed an
-important contract boundary: a capability that reports SUCCESS must
-actually establish the effects associated with that success in the GRAIL
-environment.
-
-Demo 18 demonstrates that the richer customer-onboarding scenario
-requires no changes to the generic GRAIL traversal mechanics.
-
-During development of Demo 18, optional `enabled` properties were added
-for affordances and bindings. These allow an affordance to be removed
-from discovery or a binding to be bypassed without changing existing
-registry behavior when the property is omitted.
-
-### Customer onboarding with HTTP bindings
-
-`grail-demo-19-http-customer-onboarding`
-
-Ports the Demo 18 customer-onboarding environment from Node bindings to
-HTTP while preserving the same goal, conditions, preconditions, effects,
-inputs, outputs, and application semantics.
-
-The HTTP layer is a thin adapter over the same application capability
-modules used by the Node version. Both invocation mechanisms therefore
-operate against the same application implementation and shared
-application state.
-
-Repeated randomized runs exposed an important capability-design
-requirement: a capability must behave correctly for the state it
-encounters rather than for an assumed execution sequence. In particular,
-`setCustomerDetails` was corrected to preserve existing email and phone
-verification when the underlying values had not changed.
-
-Demo 19 demonstrates that the same GRAIL environment can be realized
-through HTTP without changing the generic traversal mechanics, while
-also showing how varying traversal can expose hidden sequencing
-assumptions inside capability implementations.
-
-### Customer onboarding with mixed bindings
-
-`grail-demo-20-mixed-customer-onboarding`
-
-Combines Node-bound and HTTP-bound capabilities within the same
-customer-onboarding pursuit.
-
-The registry deliberately assigns different capabilities to different
-binding protocols. Outputs produced through Node are consumed through
-HTTP and vice versa, while both invocation mechanisms operate against
-the same application state.
-
-Across repeated randomized runs, GRAIL crosses binding boundaries
-without the client, server, or scenario encoding those transitions.
-
-Demo 20 establishes that capabilities participating in one GRAIL
-environment do not need to share an invocation protocol.
-
-The binding determines how an affordance reaches its implementation. It
-does not determine how that affordance participates in the environment.
-
-### Alternative affordances across Node and HTTP bindings
-
-`grail-demo-21-alternative-bindings`
-
-Extends Demo 20 by making equivalent Node-bound and HTTP-bound
-affordances available simultaneously.
-
-The supporting capabilities are represented as nine semantic pairs. Each
-pair contains a Node-bound affordance and an HTTP-bound affordance with
-equivalent preconditions and effects. GRAIL continues to select
-affordances according to the conditions they can establish; the selected
-affordance then executes through its declared binding.
-
-Demo 21 does not introduce a binding-selection mechanism. Binding
-diversity emerges from ordinary affordance selection.
-
-Scenario-scoped output resolution allows downstream capabilities to
-consume learned values without knowing which alternative affordance
-produced them or which binding protocol was used.
-
-The registry was exercised across 25 repeated pursuits. All 25 completed
-successfully, all 18 supporting alternatives were selected at least
-once, and the 25 runs produced 25 distinct executed-affordance
-traversals.
-
-The experiment demonstrates that:
-
-**GRAIL selects capabilities based on what they can accomplish,
-independent of how they are bound.**
-
-It also reinforces a broader capability-design principle:
-
-**Depend on state, not traversal history.**
-
-**The goal persists independently of the affordance selected to achieve
-it.**
-
-**The goal controls the lifetime of the pursuit. The stack controls the
-work currently being attempted.**
-
-### Condition-based goals
-
-`grail-demo-22-condition-based-goals`
-
-Demo 22 changes how a pursuit begins. Earlier demos use `goal.json` to
-name the affordance that should ultimately execute. Demo 22 instead uses
-`goal.json` to name the world-state condition that should become true.
-
-This is an intentional breaking semantic change to the goal declaration.
-
-Earlier demos declare:
-
-``` json
-{
-  "goal": "onboardCustomer"
-}
-```
-
-Demo 22 declares:
-
-``` json
-{
-  "goal": "customerOnboarded"
-}
-```
-
-The runtime resolves `customerOnboarded` by finding enabled affordances
-whose effects can establish that condition and selecting one before
-handing the selected affordance to the existing pursuit machinery.
-
-The registry exposes both `onboardCustomerNode` and
-`onboardCustomerHttp` as producers of `customerOnboarded`. Across 25
-repeated pursuits, all 25 completed successfully; the Node goal producer
-was selected 12 times and the HTTP goal producer 13 times.
-
-No change was required to the existing `client.pursue()` traversal
-mechanics. The same producer-selection idea already used for unmet
-preconditions is now also used to resolve the initial goal.
-
-The experiment demonstrates a potentially more uniform goal model:
-
-**The goal specifies what should become true. GRAIL selects an
-affordance capable of making it true.**
-
-Demo 22 remains an experiment. Whether condition-based goals become the
-standard GRAIL goal semantics is an architectural decision to be made
-before beta.
-
-### Surviving affordance failure
-
-`grail-demo-23-survive-fail`
-
-Demo 23 extends condition-based goals by allowing a pursuit to continue
-when a selected affordance fails but another viable affordance can
-establish the same required condition.
-
-Failed affordances are recorded in the observation history and excluded
-from later selection during the current pursuit. The runtime then
-selects among the remaining producers of the unresolved condition. No
-fallback chains, retry routes, or protocol-specific recovery
-relationships are declared in the registry.
-
-The experiment also exposed an important consequence of condition-based
-goals. The goal must persist independently of the particular affordance
-selected to achieve it. Demo 23 therefore changes the client to pursue
-the goal condition itself. When the stack becomes empty, the goal is
-re-evaluated rather than treating an empty stack as completion.
-
-This allows recovery even when the selected goal producer fails. With
-the HTTP service unavailable, 25 randomized pursuits all reached
-`customerOnboarded`. Twelve initially selected `onboardCustomerHttp`;
-each recovered from that root failure by later selecting
-`onboardCustomerNode`.
-
-A second experiment disabled the remaining Node producer for
-`customerEmailVerified`. After the HTTP producer failed, no viable
-producer remained and GRAIL stopped with that condition identified as
-unresolvable.
-
-The experiment demonstrates:
-
-**An affordance can fail while the pursuit continues. The pursuit stops
-only when the goal is satisfied or a required condition can no longer be
-resolved.**
-
-It also establishes a stronger separation between pursuit and temporary
-work:
-
-**The goal controls the lifetime of the pursuit. The stack controls the
-work currently being attempted.**
+### LLM-backed capabilities with Ollama and Qwen
+
+`grail-demo-25-qwen`
+
+Demo 25 uses the stdio binding to invoke a Node capability that calls a
+local Qwen model through Ollama. The environment also contains a
+rules-based classifier. Both affordances accept the same customer-message
+input, return a classification category, and establish
+`customerMessageClassified` on successful execution.
+
+With Ollama unavailable, a Qwen invocation fails. GRAIL can then select
+the rules-based producer and complete the pursuit, using the existing
+failure-recovery mechanism without a predefined fallback sequence.
+
+The experiment demonstrates that LLM-backed and deterministic capabilities
+can coexist behind the same GRAIL execution contract. It also exposes a
+boundary: successful execution and valid JSON output do not independently
+establish semantic classification accuracy.
+
+See [`grail-demo-25-qwen/README.md`](grail-demo-25-qwen/README.md) for
+setup, execution, and recovery tests.
 
 ### Local process bindings with stdio
 
@@ -929,6 +637,320 @@ Demo 24 required no changes to the pursuit machinery.
 
 It demonstrates that GRAIL can now invoke language-independent local
 capabilities through a small process boundary.
+
+### Surviving affordance failure
+
+`grail-demo-23-survive-fail`
+
+Demo 23 extends condition-based goals by allowing a pursuit to continue
+when a selected affordance fails but another viable affordance can
+establish the same required condition.
+
+Failed affordances are recorded in the observation history and excluded
+from later selection during the current pursuit. The runtime then
+selects among the remaining producers of the unresolved condition. No
+fallback chains, retry routes, or protocol-specific recovery
+relationships are declared in the registry.
+
+The experiment also exposed an important consequence of condition-based
+goals. The goal must persist independently of the particular affordance
+selected to achieve it. Demo 23 therefore changes the client to pursue
+the goal condition itself. When the stack becomes empty, the goal is
+re-evaluated rather than treating an empty stack as completion.
+
+This allows recovery even when the selected goal producer fails. With
+the HTTP service unavailable, 25 randomized pursuits all reached
+`customerOnboarded`. Twelve initially selected `onboardCustomerHttp`;
+each recovered from that root failure by later selecting
+`onboardCustomerNode`.
+
+A second experiment disabled the remaining Node producer for
+`customerEmailVerified`. After the HTTP producer failed, no viable
+producer remained and GRAIL stopped with that condition identified as
+unresolvable.
+
+The experiment demonstrates:
+
+**An affordance can fail while the pursuit continues. The pursuit stops
+only when the goal is satisfied or a required condition can no longer be
+resolved.**
+
+It also establishes a stronger separation between pursuit and temporary
+work:
+
+**The goal controls the lifetime of the pursuit. The stack controls the
+work currently being attempted.**
+
+### Condition-based goals
+
+`grail-demo-22-condition-based-goals`
+
+Demo 22 changes how a pursuit begins. Earlier demos use `goal.json` to
+name the affordance that should ultimately execute. Demo 22 instead uses
+`goal.json` to name the world-state condition that should become true.
+
+This is an intentional breaking semantic change to the goal declaration.
+
+Earlier demos declare:
+
+``` json
+{
+  "goal": "onboardCustomer"
+}
+```
+
+Demo 22 declares:
+
+``` json
+{
+  "goal": "customerOnboarded"
+}
+```
+
+The runtime resolves `customerOnboarded` by finding enabled affordances
+whose effects can establish that condition and selecting one before
+handing the selected affordance to the existing pursuit machinery.
+
+The registry exposes both `onboardCustomerNode` and
+`onboardCustomerHttp` as producers of `customerOnboarded`. Across 25
+repeated pursuits, all 25 completed successfully; the Node goal producer
+was selected 12 times and the HTTP goal producer 13 times.
+
+No change was required to the existing `client.pursue()` traversal
+mechanics. The same producer-selection idea already used for unmet
+preconditions is now also used to resolve the initial goal.
+
+The experiment demonstrates a potentially more uniform goal model:
+
+**The goal specifies what should become true. GRAIL selects an
+affordance capable of making it true.**
+
+Demo 22 remains an experiment. Whether condition-based goals become the
+standard GRAIL goal semantics is an architectural decision to be made
+before beta.
+
+### Alternative affordances across Node and HTTP bindings
+
+`grail-demo-21-alternative-bindings`
+
+Extends Demo 20 by making equivalent Node-bound and HTTP-bound
+affordances available simultaneously.
+
+The supporting capabilities are represented as nine semantic pairs. Each
+pair contains a Node-bound affordance and an HTTP-bound affordance with
+equivalent preconditions and effects. GRAIL continues to select
+affordances according to the conditions they can establish; the selected
+affordance then executes through its declared binding.
+
+Demo 21 does not introduce a binding-selection mechanism. Binding
+diversity emerges from ordinary affordance selection.
+
+Scenario-scoped output resolution allows downstream capabilities to
+consume learned values without knowing which alternative affordance
+produced them or which binding protocol was used.
+
+The registry was exercised across 25 repeated pursuits. All 25 completed
+successfully, all 18 supporting alternatives were selected at least
+once, and the 25 runs produced 25 distinct executed-affordance
+traversals.
+
+The experiment demonstrates that:
+
+**GRAIL selects capabilities based on what they can accomplish,
+independent of how they are bound.**
+
+It also reinforces a broader capability-design principle:
+
+**Depend on state, not traversal history.**
+
+**The goal persists independently of the affordance selected to achieve
+it.**
+
+**The goal controls the lifetime of the pursuit. The stack controls the
+work currently being attempted.**
+
+### Customer onboarding with mixed bindings
+
+`grail-demo-20-mixed-customer-onboarding`
+
+Combines Node-bound and HTTP-bound capabilities within the same
+customer-onboarding pursuit.
+
+The registry deliberately assigns different capabilities to different
+binding protocols. Outputs produced through Node are consumed through
+HTTP and vice versa, while both invocation mechanisms operate against
+the same application state.
+
+Across repeated randomized runs, GRAIL crosses binding boundaries
+without the client, server, or scenario encoding those transitions.
+
+Demo 20 establishes that capabilities participating in one GRAIL
+environment do not need to share an invocation protocol.
+
+The binding determines how an affordance reaches its implementation. It
+does not determine how that affordance participates in the environment.
+
+### Customer onboarding with HTTP bindings
+
+`grail-demo-19-http-customer-onboarding`
+
+Ports the Demo 18 customer-onboarding environment from Node bindings to
+HTTP while preserving the same goal, conditions, preconditions, effects,
+inputs, outputs, and application semantics.
+
+The HTTP layer is a thin adapter over the same application capability
+modules used by the Node version. Both invocation mechanisms therefore
+operate against the same application implementation and shared
+application state.
+
+Repeated randomized runs exposed an important capability-design
+requirement: a capability must behave correctly for the state it
+encounters rather than for an assumed execution sequence. In particular,
+`setCustomerDetails` was corrected to preserve existing email and phone
+verification when the underlying values had not changed.
+
+Demo 19 demonstrates that the same GRAIL environment can be realized
+through HTTP without changing the generic traversal mechanics, while
+also showing how varying traversal can expose hidden sequencing
+assumptions inside capability implementations.
+
+### Customer onboarding with Node bindings
+
+`grail-demo-18-node-customer-onboarding`
+
+Extends the Node binding model to a complete customer-onboarding
+application composed of multiple independent capabilities sharing
+application state.
+
+The demo begins with the single goal `onboardCustomer`. GRAIL discovers
+the capabilities needed to satisfy its unmet conditions at runtime
+rather than following a predefined onboarding workflow.
+
+Initial values such as customer name, email, phone, address, and terms
+version are supplied through `$inputs`. Values learned during execution,
+including `onboardingId`, `customerId`, and verification identifiers,
+are captured from Node capability results and consumed by later
+capabilities through `$outputs`.
+
+The experiment demonstrates multi-step information flow across Node
+bindings, capabilities that establish effects without producing output
+values, multiple effects from a single affordance, scenario-scoped
+output resolution, and repeated goal re-evaluation as the environment
+changes.
+
+The scenario includes both fine-grained setters and a coarse-grained
+`setCustomerDetails` affordance. Either can produce the verification
+identifiers needed by later verification affordances. Those consumers
+use `$outputs.latest.<output>` so they depend on the learned value
+rather than on a specific producer.
+
+The customer-onboarding application maintains its own application state
+independently of GRAIL's world state. The experiment also exposed an
+important contract boundary: a capability that reports SUCCESS must
+actually establish the effects associated with that success in the GRAIL
+environment.
+
+Demo 18 demonstrates that the richer customer-onboarding scenario
+requires no changes to the generic GRAIL traversal mechanics.
+
+During development of Demo 18, optional `enabled` properties were added
+for affordances and bindings. These allow an affordance to be removed
+from discovery or a binding to be bypassed without changing existing
+registry behavior when the property is omitted.
+
+### Node module bindings
+
+`grail-demo-17-node-module-bindings`
+
+Adds dynamically loaded Node.js modules as a second capability
+realization mechanism alongside HTTP.
+
+A Node binding declares a module and exported function. Resolved GRAIL
+inputs are passed to that function, and declared outputs may be
+extracted from the returned result using `from: "result"`.
+
+Demo 17 introduces a common binding layer so the generic GRAIL mechanics
+do not need to know whether a capability is realized through HTTP or a
+local Node module.
+
+The experiment demonstrates that the same precondition,
+input-resolution, observation, output, effect, and goal-pursuit
+mechanics work across both binding types.
+
+### HTTP output sources
+
+`grail-demo-16-http-output-sources`
+
+Extends HTTP output extraction beyond response bodies. Declared outputs
+may be captured from the response body, a response header, or the HTTP
+status code.
+
+Body outputs use `from: "body"` and a dot-separated `path`. Header
+outputs use `from: "header"` and a case-insensitive header `name`.
+Status outputs use `from: "status"`.
+
+This demo also reinforces the separation between capture and
+consumption: GRAIL may observe and preserve information even when no
+later capability currently consumes it.
+
+### HTTP binding migration
+
+`grail-demo-15-http-bindings-location-bc`
+
+Ports the Demo 13 HTTP binding-location environment to the Demo 14
+declaration model and runs it using the Demo 14 runtime.
+
+This verifies that path, query, header, body, and HTTP-side naming
+behavior survive the migration without adding a backward-compatibility
+layer to the runtime.
+
+### HTTP response observations and outputs
+
+`grail-demo-14-http-response-observations`
+
+Introduces source-aware capability inputs, records HTTP interactions as
+observations, extracts declared values from responses, and allows later
+capabilities to consume learned values through `$outputs`.
+
+This demo introduces a breaking change from input arrays to mappings
+between local input names and source expressions.
+
+### HTTP binding locations
+
+`grail-demo-13-http-binding-locations`
+
+Extends HTTP bindings by allowing capability inputs to be mapped to
+path, query, header, or body locations. Bindings may also assign
+HTTP-side names to inputs, allowing the GRAIL environment and external
+service to use different vocabularies.
+
+### HTTP binding inputs
+
+`grail-demo-12-http-bindings-inputs`
+
+Adds transmission of capability inputs to external HTTP services using
+JSON and FORM representations.
+
+### External HTTP bindings
+
+`grail-demo-11-initial-http-bindings`
+
+Moves capability execution outside the GRAIL process through HTTP while
+retaining GRAIL's declared preconditions and effects.
+
+### Multiple effects
+
+`grail-demo-10-multi-effects`
+
+Explores capabilities that establish multiple effects and environments
+where more than one capability can satisfy a condition.
+
+### Random conditions
+
+`grail-demo-09-random-conditions`
+
+Explores traversal when the engine can select among unmet conditions
+rather than following a fixed ordering.
 
 Each experiment builds on the same small GRAIL goal-resolution model.
 
@@ -1021,21 +1043,22 @@ For the simplest introduction to the algorithm, begin with:
 
 For the most recent binding experiments, see:
 
-    grail-demo-10-multi-effects
-    grail-demo-11-initial-http-bindings
-    grail-demo-12-http-bindings-inputs
-    grail-demo-13-http-binding-locations
-    grail-demo-14-http-response-observations
-    grail-demo-15-http-bindings-location-bc
-    grail-demo-16-http-output-sources
-    grail-demo-17-node-module-bindings
-    grail-demo-18-node-customer-onboarding
-    grail-demo-19-http-customer-onboarding
-    grail-demo-20-mixed-customer-onboarding
-    grail-demo-21-alternative-bindings
-    grail-demo-22-condition-based-goals
-    grail-demo-23-survive-fail
+    grail-demo-25-qwen
     grail-demo-24-stdio-binding
+    grail-demo-23-survive-fail
+    grail-demo-22-condition-based-goals
+    grail-demo-21-alternative-bindings
+    grail-demo-20-mixed-customer-onboarding
+    grail-demo-19-http-customer-onboarding
+    grail-demo-18-node-customer-onboarding
+    grail-demo-17-node-module-bindings
+    grail-demo-16-http-output-sources
+    grail-demo-15-http-bindings-location-bc
+    grail-demo-14-http-response-observations
+    grail-demo-13-http-binding-locations
+    grail-demo-12-http-bindings-inputs
+    grail-demo-11-initial-http-bindings
+    grail-demo-10-multi-effects
 
 ## Key principles
 
